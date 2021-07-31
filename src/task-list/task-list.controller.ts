@@ -51,7 +51,7 @@ export class TaskListController {
 
   @Patch(':id')
   toggle(@Param('id') id: string) {
-    return this.taskListService.update(+id);
+    return this.taskListService.toggle(+id);
   }
 
   @Delete(':id')
