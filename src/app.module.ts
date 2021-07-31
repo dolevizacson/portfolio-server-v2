@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-
+import { TaskListModule } from './task-list/task-list.module';
 
 @Module({
-  imports: [],
+  imports: [TaskListModule],
   controllers: [],
   providers: [],
 })
