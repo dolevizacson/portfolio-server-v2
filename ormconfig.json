@@ -1,8 +1,0 @@
-{
-  "type": "mongodb",
-  "url": "mongodb+srv://dolev:nestdev@portfolio-db.ojzwx.mongodb.net/portfolio?retryWrites=true&w=majority",
-  "useUnifiedTopology": true,
-  "writeConcern": {
-        "j": true
-  }
-}
