@@ -4,7 +4,7 @@ import { Logger } from 'nestjs-pino';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    // bufferLogs: true,
+    bufferLogs: process.env.NODE_ENV !== 'production',
   });
   app.useLogger(app.get(Logger));
   await app.listen(process.env.PORT || 8000);
