@@ -7,7 +7,7 @@ async function bootstrap() {
     bufferLogs: true,
   });
   app.useLogger(app.get(Logger));
-  await app.listen(process.env.PORT || 8000);
+  await app.listen(process.env.PORT || 8000, '0.0.0.0');
   app.get(Logger).log(`app listen on port ${process.env.PORT || 8000}`, 'Main');
 }
 bootstrap();
