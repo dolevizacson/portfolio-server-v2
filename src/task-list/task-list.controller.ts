@@ -11,13 +11,14 @@ import {
 import { TaskListService } from './task-list.service';
 import { CreateTaskListDto } from './dto/create-task-list.dto';
 import { UpdateTaskListDto } from './dto/update-task-list.dto';
+import { TaskList } from './entities/task-list.entity';
 
 @Controller('task-list')
 export class TaskListController {
   constructor(private readonly taskListService: TaskListService) {}
 
   @Get()
-  findAll() {
+  findAll(): Promise<TaskList[]> {
     return this.taskListService.findAll();
   }
 
@@ -27,7 +28,7 @@ export class TaskListController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<TaskList> {
     return this.taskListService.findOne(+id);
   }
 
@@ -37,7 +38,7 @@ export class TaskListController {
   }
 
   @Post()
-  create(@Body() createTaskListDto: CreateTaskListDto) {
+  create(@Body() createTaskListDto: CreateTaskListDto): Promise<TaskList> {
     return this.taskListService.create(createTaskListDto);
   }
 
