@@ -1,27 +1,34 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { TaskList } from './entities/task-list.entity';
+import { Repository } from 'typeorm';
 import { CreateTaskListDto } from './dto/create-task-list.dto';
 import { UpdateTaskListDto } from './dto/update-task-list.dto';
-
 @Injectable()
 export class TaskListService {
-  findAll() {
-    return `This action returns all taskList`;
+  constructor(
+    @InjectRepository(TaskList)
+    private readonly taskListRepository: Repository<TaskList>,
+  ) {}
+
+  findAll(): Promise<TaskList[]> {
+    return this.taskListRepository.find();
   }
 
   findAllActive() {
     return `This action returns all taskList`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} taskList`;
+  findOne(id: number): Promise<TaskList> {
+    return this.taskListRepository.findOne(id);
   }
 
   findOneActive(id: number) {
     return `This action returns a #${id} taskList`;
   }
 
-  create(createTaskListDto: CreateTaskListDto) {
-    return 'This action adds a new taskList';
+  create(createTaskListDto: CreateTaskListDto): Promise<TaskList> {
+    return this.taskListRepository.save(createTaskListDto);
   }
 
   update(id: number, updateTaskListDto: UpdateTaskListDto) {
