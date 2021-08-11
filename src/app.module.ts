@@ -3,8 +3,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TaskListModule } from './task-list/task-list.module';
 import envVarValidationSchema from './config/envVar.schema';
-import { LoggerModule, Params } from 'nestjs-pino';
-import loggerConfig from './config/logger.config';
 import mongodbConfig from './config/mongodb.config';
 import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOptions';
 
@@ -13,13 +11,7 @@ import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOp
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: envVarValidationSchema,
-      load: [loggerConfig, mongodbConfig],
-    }),
-    LoggerModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
-        return configService.get<Params>('loggerConfiguration');
-      },
+      load: [mongodbConfig],
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
