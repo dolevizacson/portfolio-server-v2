@@ -1,14 +1,12 @@
-import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOptions';
+import { MongooseModuleOptions } from '@nestjs/mongoose';
+import mongooseLeanDefaults from 'mongoose-lean-defaults';
 
 export default () => ({
-  mongoConnectionSetting: <MongoConnectionOptions>{
-    type: 'mongodb',
-    url: process.env.MONGODB_URL,
-    useUnifiedTopology: true,
-    autoLoadEntities: true,
-    // TODO: remove after typeOrm fixes compatibility with mongodb driver v4
-    writeConcern: {
-      j: true,
+  mongoConnectionSetting: <MongooseModuleOptions>{
+    uri: process.env.MONGODB_URL,
+    connectionFactory: (connection) => {
+      connection.plugin(mongooseLeanDefaults);
+      return connection;
     },
   },
 });
