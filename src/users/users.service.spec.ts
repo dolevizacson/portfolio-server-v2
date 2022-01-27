@@ -6,7 +6,7 @@ import { UserCredentialsDto } from './dto/user-credentials.dto';
 import { User, UserDocument } from './schemas/user.schema';
 import { UsersService } from './users.service';
 
-let userService: UsersService;
+let usersService: UsersService;
 const mockSearchFilter: FilterQuery<UserDocument> = {};
 const mockUserCredentialsDto = new UserCredentialsDto();
 
@@ -29,36 +29,40 @@ describe('UsersService', () => {
       ],
     }).compile();
 
-    userService = module.get<UsersService>(UsersService);
+    usersService = module.get<UsersService>(UsersService);
   });
 
   it('should be defined', () => {
-    expect(userService).toBeDefined();
+    expect(usersService).toBeDefined();
   });
 
   describe('findOne', () => {
     it('should return a promise of a user', async () => {
-      await expect(userService.findOne(mockSearchFilter)).resolves.toEqual(
+      await expect(usersService.findOne(mockSearchFilter)).resolves.toEqual(
         'user',
       );
+      expect.assertions(1);
     });
     it('should be executed once', async () => {
-      const spy = jest.spyOn(userService, 'findOne');
-      await userService.findOne(mockSearchFilter);
+      const spy = jest.spyOn(usersService, 'findOne');
+      await usersService.findOne(mockSearchFilter);
       expect(spy).toBeCalledTimes(1);
+      expect.assertions(1);
     });
   });
 
   describe('create', () => {
     it('should return a promise of void', async () => {
       await expect(
-        userService.create(mockUserCredentialsDto),
+        usersService.create(mockUserCredentialsDto),
       ).resolves.toBeUndefined();
+      expect.assertions(1);
     });
     it('should be executed once', async () => {
-      const spy = jest.spyOn(userService, 'create');
-      await userService.create(mockUserCredentialsDto);
+      const spy = jest.spyOn(usersService, 'create');
+      await usersService.create(mockUserCredentialsDto);
       expect(spy).toBeCalledTimes(1);
+      expect.assertions(1);
     });
   });
 });
@@ -82,26 +86,28 @@ describe('UsersService errors', () => {
       ],
     }).compile();
 
-    userService = module.get<UsersService>(UsersService);
+    usersService = module.get<UsersService>(UsersService);
   });
 
   it('should be defined', () => {
-    expect(userService).toBeDefined();
+    expect(usersService).toBeDefined();
   });
 
   describe('findOne with error', () => {
     it('should throw an error', async () => {
       await expect(
-        userService.findOne(mockSearchFilter),
+        usersService.findOne(mockSearchFilter),
       ).rejects.toThrowError();
+      expect.assertions(1);
     });
   });
 
   describe('create with error', () => {
     it('should throw an error', async () => {
       await expect(
-        userService.create(mockUserCredentialsDto),
+        usersService.create(mockUserCredentialsDto),
       ).rejects.toThrowError();
+      expect.assertions(1);
     });
   });
 });
