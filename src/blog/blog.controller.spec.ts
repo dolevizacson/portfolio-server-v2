@@ -43,123 +43,85 @@ describe('BlogController', () => {
 
   describe('findAll', () => {
     it('should return a promise of array of blog posts', async () => {
+      expect.assertions(1);
       await expect(blogController.findAll()).resolves.toEqual(['blog post']);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(blogController, 'findAll');
-      await blogController.findAll();
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('findAllActive', () => {
     it('should return a promise of array of blog posts', async () => {
+      expect.assertions(1);
       await expect(blogController.findAllActive()).resolves.toEqual([
         'blog post',
       ]);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(blogController, 'findAllActive');
-      await blogController.findAllActive();
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('findOne', () => {
     it('should return a promise of a blog post', async () => {
-      expect(blogController.findOne(mockId)).resolves.toEqual('blog post');
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(blogController, 'findOne');
-      await blogController.findOne(mockId);
-      expect(spy).toBeCalledTimes(1);
+      expect.assertions(1);
+      await expect(blogController.findOne(mockId)).resolves.toEqual(
+        'blog post',
+      );
     });
   });
 
   describe('findOneActive', () => {
     it('should return a promise of a blog post', async () => {
+      expect.assertions(1);
       await expect(blogController.findOneActive(mockId)).resolves.toEqual(
         'blog post',
       );
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(blogController, 'findOneActive');
-      await blogController.findOneActive(mockId);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('create', () => {
     it('should return a promise of blog post', async () => {
+      expect.assertions(1);
       await expect(
         blogController.create(mockCreateBlogPostDto),
       ).resolves.toEqual('blog post');
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(blogController, 'create');
-      await blogController.create(mockCreateBlogPostDto);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('update', () => {
     it('should return a promise of a blog post', async () => {
+      expect.assertions(1);
       await expect(
         blogController.update(mockId, mockUpdateBlogPostDto),
       ).resolves.toEqual('blog post');
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(blogController, 'update');
-      await blogController.update(mockId, mockUpdateBlogPostDto);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('toggle', () => {
     it('should return a promise of a blog post', async () => {
+      expect.assertions(1);
       await expect(blogController.toggle(mockId)).resolves.toEqual('blog post');
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(blogController, 'toggle');
-      await blogController.toggle(mockId);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('remove', () => {
     it('should return a promise of void', async () => {
+      expect.assertions(1);
       await expect(blogController.remove(mockId)).resolves.toBeUndefined();
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(blogController, 'remove');
-      await blogController.remove(mockId);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('createImage', () => {
     it('should return a promise of a blog post', async () => {
+      expect.assertions(1);
       await expect(
         blogController.createImage(mockId, mockId, mockImage),
       ).resolves.toEqual('blog post');
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(blogController, 'createImage');
-      await blogController.createImage(mockId, mockId, mockImage);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('removeImage', () => {
     it('should return a promise of void', async () => {
+      expect.assertions(1);
       await expect(
         blogController.removeImage(mockId, mockId, mockId),
       ).resolves.toBeUndefined();
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(blogController, 'removeImage');
-      await blogController.removeImage(mockId, mockId, mockId);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 });
@@ -196,30 +158,35 @@ describe('ProjectsController error', () => {
 
   describe('findAll with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(blogController.findAll()).rejects.toThrowError();
     });
   });
 
   describe('findAllActive with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(blogController.findAllActive()).rejects.toThrowError();
     });
   });
 
   describe('findOne with error', () => {
     it('should throw an error', async () => {
-      expect(blogController.findOne(mockId)).rejects.toThrowError();
+      expect.assertions(1);
+      await expect(blogController.findOne(mockId)).rejects.toThrowError();
     });
   });
 
   describe('findOneActive with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(blogController.findOneActive(mockId)).rejects.toThrowError();
     });
   });
 
   describe('create with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(
         blogController.create(mockCreateBlogPostDto),
       ).rejects.toThrowError();
@@ -228,6 +195,7 @@ describe('ProjectsController error', () => {
 
   describe('update with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(
         blogController.update(mockId, mockUpdateBlogPostDto),
       ).rejects.toThrowError();
@@ -236,12 +204,14 @@ describe('ProjectsController error', () => {
 
   describe('toggle with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(blogController.toggle(mockId)).rejects.toThrowError();
     });
   });
 
   describe('createImage with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(
         blogController.createImage(mockId, mockId, mockImage),
       ).rejects.toThrowError();
@@ -250,6 +220,7 @@ describe('ProjectsController error', () => {
 
   describe('removeImage with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(
         blogController.removeImage(mockId, mockId, mockId),
       ).rejects.toThrowError();

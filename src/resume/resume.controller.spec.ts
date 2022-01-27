@@ -71,12 +71,6 @@ describe('ResumeController', () => {
       await expect(resumeController.findAll()).resolves.toEqual(['resume']);
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(resumeController, 'findAll');
-      await resumeController.findAll();
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('findAllActive', () => {
@@ -84,12 +78,6 @@ describe('ResumeController', () => {
       await expect(resumeController.findAllActive()).resolves.toEqual([
         'resume',
       ]);
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(resumeController, 'findAllActive');
-      await resumeController.findAllActive();
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -104,12 +92,6 @@ describe('ResumeController', () => {
       });
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(resumeController, 'get');
-      await resumeController.get(mockResponse, mockId);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('add', () => {
@@ -119,23 +101,11 @@ describe('ResumeController', () => {
       ).resolves.toEqual('resume');
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(resumeController, 'add');
-      await resumeController.add(mockFileObject, mockCreateResumeDto);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('remove', () => {
     it('should return a promise of void', async () => {
       await expect(resumeController.remove(mockId)).resolves.toBeUndefined();
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(resumeController, 'remove');
-      await resumeController.remove(mockId);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });

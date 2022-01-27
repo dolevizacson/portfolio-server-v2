@@ -98,12 +98,6 @@ describe('AuthService', () => {
       ).resolves.toBeNull();
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(authService, 'validateUser');
-      await authService.validateUser(mockUserName, mockPassword);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('signIn', () => {
@@ -112,22 +106,11 @@ describe('AuthService', () => {
         access_token: mockAccessToken,
       });
     });
-    it('should be executed once', () => {
-      const spy = jest.spyOn(authService, 'signIn');
-      authService.signIn(mockSafeUser);
-      expect(spy).toBeCalledTimes(1);
-    });
   });
 
   describe('signUp', () => {
     it('should return a promise of void', async () => {
       await expect(authService.signUp()).resolves.toBeUndefined();
-      expect.assertions(1);
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(authService, 'signUp');
-      await authService.signUp();
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });

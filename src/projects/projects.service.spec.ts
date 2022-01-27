@@ -234,123 +234,83 @@ describe('ProjectsService', () => {
 
   describe('findAll', () => {
     it('should return a promise of array of projects', async () => {
+      expect.assertions(1);
       await expect(projectService.findAll()).resolves.toEqual(['project']);
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(projectService, 'findAll');
-      await projectService.findAll();
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('findAllActive', () => {
     it('should return a promise of array of projects', async () => {
+      expect.assertions(1);
       await expect(projectService.findAllActive()).resolves.toEqual([
         'project',
       ]);
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(projectService, 'findAllActive');
-      await projectService.findAllActive();
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('findOne', () => {
     it('should return a promise of a project', async () => {
+      expect.assertions(1);
       await expect(projectService.findOne(mockId)).resolves.toEqual('project');
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(projectService, 'findOne');
-      await projectService.findOne(mockId);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('findOneActive', () => {
     it('should return a promise of a project', async () => {
+      expect.assertions(1);
       await expect(projectService.findOneActive(mockId)).resolves.toEqual(
         'project',
       );
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(projectService, 'findOneActive');
-      await projectService.findOneActive(mockId);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('create', () => {
     it('should return a promise of a project', async () => {
+      expect.assertions(1);
       await expect(projectService.create(mockCreatProjectDto)).resolves.toEqual(
         'project',
       );
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(projectService, 'create');
-      await projectService.create(mockCreatProjectDto);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('update', () => {
     it('should return a promise of a project', async () => {
+      expect.assertions(1);
       await expect(
         projectService.update(mockId, mockUpdateProjectDto),
       ).resolves.toHaveProperty('name', 'project');
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(projectService, 'update');
-      await projectService.update(mockId, mockUpdateProjectDto);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('toggle', () => {
     it('should return a promise of a project', async () => {
+      expect.assertions(1);
       await expect(projectService.toggle(mockId)).resolves.toEqual('project');
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(projectService, 'toggle');
-      await projectService.toggle(mockId);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('remove', () => {
     it('should return a promise of void', async () => {
+      expect.assertions(1);
       await expect(projectService.remove(mockId)).resolves.toBeUndefined();
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(projectService, 'remove');
-      await projectService.remove(mockId);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('createImage', () => {
     it('should return a promise of project', async () => {
+      expect.assertions(1);
       await expect(
         projectService.createImage(mockId, mockImage),
       ).resolves.toHaveProperty('name', 'project');
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(projectService, 'createImage');
-      await projectService.createImage(mockId, mockImage);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('removeImage', () => {
     it('should return a promise of void', async () => {
+      expect.assertions(1);
       await expect(
         projectService.removeImage(mockId, mockImageId),
       ).resolves.toBeUndefined();
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(projectService, 'removeImage');
-      await projectService.removeImage(mockId, mockImageId);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 });
@@ -449,30 +409,35 @@ describe('ProjectsService errors', () => {
 
   describe('findAll with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(projectService.findAll()).rejects.toThrowError();
     });
   });
 
   describe('findAllActive with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(projectService.findAllActive()).rejects.toThrowError();
     });
   });
 
   describe('findOne with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(projectService.findOne(mockId)).rejects.toThrowError();
     });
   });
 
   describe('findOneActive with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(projectService.findOneActive(mockId)).rejects.toThrowError();
     });
   });
 
   describe('create with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(
         projectService.create(mockCreatProjectDto),
       ).rejects.toThrowError();
@@ -481,6 +446,7 @@ describe('ProjectsService errors', () => {
 
   describe('update with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(
         projectService.update(mockId, mockUpdateProjectDto),
       ).rejects.toThrowError();
@@ -489,18 +455,21 @@ describe('ProjectsService errors', () => {
 
   describe('toggle with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(projectService.toggle(mockId)).rejects.toThrowError();
     });
   });
 
   describe('remove with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(projectService.remove(mockId)).rejects.toThrowError();
     });
   });
 
   describe('createImage with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(
         projectService.createImage(mockId, mockImage),
       ).rejects.toThrowError();
@@ -509,6 +478,7 @@ describe('ProjectsService errors', () => {
 
   describe('removeImage with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(
         projectService.removeImage(mockId, mockImageId),
       ).rejects.toThrowError();

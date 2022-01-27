@@ -37,12 +37,6 @@ describe('BcryptService', () => {
       ).resolves.toEqual(true);
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(bcryptService, 'compare');
-      await bcryptService.compare(mockPassword, mockHashedPassword);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('generateHash', () => {
@@ -50,12 +44,6 @@ describe('BcryptService', () => {
       await expect(bcryptService.generateHash(mockPassword)).resolves.toEqual(
         mockHash,
       );
-      expect.assertions(1);
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(bcryptService, 'generateHash');
-      await bcryptService.generateHash(mockPassword);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });

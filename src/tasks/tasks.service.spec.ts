@@ -52,12 +52,6 @@ describe('TaskListService', () => {
       await expect(taskListService.findAll()).resolves.toEqual(['task']);
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(taskListService, 'findAll');
-      await taskListService.findAll();
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('findAllActive', () => {
@@ -65,23 +59,11 @@ describe('TaskListService', () => {
       await expect(taskListService.findAllActive()).resolves.toEqual(['task']);
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(taskListService, 'findAllActive');
-      await taskListService.findAllActive();
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('findOne', () => {
     it('should return a promise of a task', async () => {
       await expect(taskListService.findOne(mockId)).resolves.toEqual('task');
-      expect.assertions(1);
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(taskListService, 'findOne');
-      await taskListService.findOne(mockId);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -93,12 +75,6 @@ describe('TaskListService', () => {
       );
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(taskListService, 'findOneActive');
-      await taskListService.findOneActive(mockId);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('create', () => {
@@ -106,12 +82,6 @@ describe('TaskListService', () => {
       await expect(taskListService.create(mockCreateTaskDto)).resolves.toEqual(
         'task',
       );
-      expect.assertions(1);
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(taskListService, 'create');
-      await taskListService.create(mockCreateTaskDto);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -123,12 +93,6 @@ describe('TaskListService', () => {
       ).resolves.toEqual('task');
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(taskListService, 'update');
-      await taskListService.update(mockId, mockUpdateTaskDto);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('toggle', () => {
@@ -136,23 +100,11 @@ describe('TaskListService', () => {
       await expect(taskListService.toggle(mockId)).resolves.toEqual('task');
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(taskListService, 'toggle');
-      await taskListService.toggle(mockId);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('remove', () => {
     it('should return a promise of void', async () => {
       await expect(taskListService.remove(mockId)).resolves.toBeUndefined();
-      expect.assertions(1);
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(taskListService, 'remove');
-      await taskListService.remove(mockId);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });

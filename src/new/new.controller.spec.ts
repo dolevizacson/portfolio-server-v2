@@ -54,12 +54,6 @@ describe('NewController', () => {
       await expect(newController.createNewTask()).resolves.toEqual('item');
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'createNewTask');
-      await newController.createNewTask();
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('updateNewTask', () => {
@@ -69,12 +63,6 @@ describe('NewController', () => {
       ).resolves.toEqual('item');
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'updateNewTask');
-      await newController.updateNewTask(mockNewTaskDto);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('removeNewTask', () => {
@@ -82,23 +70,11 @@ describe('NewController', () => {
       await expect(newController.removeNewTask()).resolves.toBeUndefined();
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'removeNewTask');
-      await newController.removeNewTask();
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('createNewSkill', () => {
     it('should return a promise of skill', async () => {
       await expect(newController.createNewSkill()).resolves.toEqual('item');
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'createNewSkill');
-      await newController.createNewSkill();
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -110,23 +86,11 @@ describe('NewController', () => {
       ).resolves.toEqual('item');
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'updateNewSkill');
-      await newController.updateNewSkill(mockNewSkillDto);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('removeNewSkill', () => {
     it('should return a promise of skill', async () => {
       await expect(newController.removeNewSkill()).resolves.toBeUndefined();
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'removeNewSkill');
-      await newController.removeNewSkill();
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -138,12 +102,6 @@ describe('NewController', () => {
       );
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'createNewSkillsCategory');
-      await newController.createNewSkillsCategory();
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('updateNewSkillsCategory', () => {
@@ -151,12 +109,6 @@ describe('NewController', () => {
       await expect(
         newController.updateNewSkillsCategory(mockNewSkillsCategoryDto),
       ).resolves.toEqual('item');
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'updateNewSkillsCategory');
-      await newController.updateNewSkillsCategory(mockNewSkillsCategoryDto);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -168,23 +120,11 @@ describe('NewController', () => {
       ).resolves.toBeUndefined();
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'removeNewSkillsCategory');
-      await newController.removeNewSkillsCategory();
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('createNewProject', () => {
     it('should return a promise of project', async () => {
       await expect(newController.createNewProject()).resolves.toEqual('item');
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'createNewProject');
-      await newController.createNewProject();
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -196,23 +136,11 @@ describe('NewController', () => {
       ).resolves.toEqual('item');
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'updateNewProject');
-      await newController.updateNewProject(mockNewProjectDto);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('removeNewProject', () => {
     it('should return a promise of void', async () => {
       await expect(newController.removeNewProject()).resolves.toBeUndefined();
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'removeNewProject');
-      await newController.removeNewProject();
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -224,12 +152,6 @@ describe('NewController', () => {
       ).resolves.toEqual('project');
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'addNewProjectImage');
-      await newController.addNewProjectImage(mockImage);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('removeNewProjectImage', () => {
@@ -239,23 +161,11 @@ describe('NewController', () => {
       ).resolves.toBeUndefined(),
         expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'removeNewProjectImage');
-      await newController.removeNewProjectImage(mockId);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('createNewBlogPost', () => {
     it('should return a promise of project', async () => {
       await expect(newController.createNewBlogPost()).resolves.toEqual('item');
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'createNewBlogPost');
-      await newController.createNewBlogPost();
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -267,23 +177,11 @@ describe('NewController', () => {
       ).resolves.toEqual('item');
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'updateNewBlogPost');
-      await newController.updateNewBlogPost(mockNewBlogPostDto);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('removeNewBlogPost', () => {
     it('should return a promise of void', async () => {
       await expect(newController.removeNewBlogPost()).resolves.toBeUndefined();
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'removeNewBlogPost');
-      await newController.removeNewBlogPost();
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -295,12 +193,6 @@ describe('NewController', () => {
       ).resolves.toEqual('blog post');
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'addNewBlogPostParagraphImage');
-      await newController.addNewBlogPostParagraphImage(mockId, mockImage);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('removeNewBlogPostParagraphImage', () => {
@@ -309,12 +201,6 @@ describe('NewController', () => {
         newController.removeNewBlogPostParagraphImage(mockId, mockImageId),
       ).resolves.toBeUndefined(),
         expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(newController, 'removeNewBlogPostParagraphImage');
-      await newController.removeNewBlogPostParagraphImage(mockId, mockImageId);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
     });
   });
 });

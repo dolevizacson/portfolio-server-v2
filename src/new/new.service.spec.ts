@@ -63,135 +63,93 @@ describe('NewService', () => {
 
   describe('getNewDocument', () => {
     it('should return a promise of array of new document', async () => {
+      expect.assertions(1);
       await expect(newService.getNewDocument()).resolves.toHaveProperty(
         'name',
         'new document',
       );
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(newService, 'getNewDocument');
-      await newService.getNewDocument();
-      expect(spy).toBeCalledTimes(1);
-    });
   });
 
   describe('toFirstLowerLetter', () => {
     it('should transform the first letter to lower case', async () => {
-      expect(newService.toFirstLowerLetter('SomeName')).toEqual('someName');
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(newService, 'toFirstLowerLetter');
-      newService.toFirstLowerLetter('SomeName');
-      expect(spy).toBeCalledTimes(1);
+      expect.assertions(1);
+      await expect(newService.toFirstLowerLetter('SomeName')).toEqual(
+        'someName',
+      );
     });
   });
 
   describe('createNew', () => {
     it('should return a promise a key from new document', async () => {
+      expect.assertions(1);
       await expect(newService.createNew(SomeClass)).resolves.toEqual(mockClass);
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(newService, 'createNew');
-      await newService.createNew(SomeClass);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('updateNew', () => {
     it('should return a promise a key from new document', async () => {
+      expect.assertions(1);
       await expect(newService.updateNew(SomeClass, itemDto)).resolves.toEqual(
         mockClass,
       );
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(newService, 'updateNew');
-      await newService.updateNew(SomeClass, itemDto);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('removeNew', () => {
     it('should return a promise of void', async () => {
+      expect.assertions(1);
       await expect(newService.removeNew(SomeClass)).resolves.toBeUndefined();
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(newService, 'removeNew');
-      await newService.removeNew(SomeClass);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('removeNewProject', () => {
     it('should return a promise of void', async () => {
+      expect.assertions(1);
       await expect(newService.removeNewProject()).resolves.toBeUndefined();
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(newService, 'removeNewProject');
-      await newService.removeNewProject();
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('addNewProjectImage', () => {
     it('should return a promise of a project', async () => {
+      expect.assertions(1);
       await expect(
         newService.addNewProjectImage(mockImage),
       ).resolves.toHaveProperty('name', 'project');
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(newService, 'addNewProjectImage');
-      await newService.addNewProjectImage(mockImage);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('removeNewProjectImage', () => {
     it('should return a promise of void', async () => {
+      expect.assertions(1);
       await expect(
         newService.removeNewProjectImage(mockId),
       ).resolves.toBeUndefined();
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(newService, 'removeNewProjectImage');
-      await newService.removeNewProjectImage(mockId);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('removeNewBlogPost', () => {
     it('should return a promise of void', async () => {
+      expect.assertions(1);
       await expect(newService.removeNewBlogPost()).resolves.toBeUndefined();
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(newService, 'removeNewBlogPost');
-      await newService.removeNewBlogPost();
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('addNewBlogPostParagraphImage', () => {
     it('should return a promise of a project', async () => {
+      expect.assertions(1);
       await expect(
         newService.addNewBlogPostParagraphImage(mockId, mockImage),
       ).resolves.toHaveProperty('name', 'blog post');
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(newService, 'addNewBlogPostParagraphImage');
-      await newService.addNewBlogPostParagraphImage(mockId, mockImage);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 
   describe('removeNewBlogPostParagraphImage', () => {
     it('should return a promise of void', async () => {
+      expect.assertions(1);
       await expect(
         newService.removeNewBlogPostParagraphImage(mockId, mockImageId),
       ).resolves.toBeUndefined();
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(newService, 'removeNewBlogPostParagraphImage');
-      await newService.removeNewBlogPostParagraphImage(mockId, mockImageId);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 });

@@ -46,12 +46,6 @@ describe('SkillsCategoriesController', () => {
       ]);
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(skillsCategoriesController, 'findAll');
-      await skillsCategoriesController.findAll();
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('findAllActive', () => {
@@ -61,25 +55,13 @@ describe('SkillsCategoriesController', () => {
       );
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(skillsCategoriesController, 'findAllActive');
-      await skillsCategoriesController.findAllActive();
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('findOne', () => {
     it('should return a promise of a skills category', async () => {
-      expect(skillsCategoriesController.findOne(mockId)).resolves.toEqual(
+      await expect(skillsCategoriesController.findOne(mockId)).resolves.toEqual(
         'skills category',
       );
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(skillsCategoriesController, 'findOne');
-      await skillsCategoriesController.findOne(mockId);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -91,12 +73,6 @@ describe('SkillsCategoriesController', () => {
       ).resolves.toEqual('skills category');
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(skillsCategoriesController, 'findOneActive');
-      await skillsCategoriesController.findOneActive(mockId);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('create', () => {
@@ -104,12 +80,6 @@ describe('SkillsCategoriesController', () => {
       await expect(
         skillsCategoriesController.create(mockCreateSkillsCategoryDto),
       ).resolves.toEqual('skills category');
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(skillsCategoriesController, 'create');
-      await skillsCategoriesController.create(mockCreateSkillsCategoryDto);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -121,15 +91,6 @@ describe('SkillsCategoriesController', () => {
       ).resolves.toEqual('skills category');
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(skillsCategoriesController, 'update');
-      await skillsCategoriesController.update(
-        mockId,
-        mockUpdateSkillsCategoryDto,
-      );
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('toggle', () => {
@@ -139,12 +100,6 @@ describe('SkillsCategoriesController', () => {
       );
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(skillsCategoriesController, 'toggle');
-      await skillsCategoriesController.toggle(mockId);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('remove', () => {
@@ -152,12 +107,6 @@ describe('SkillsCategoriesController', () => {
       await expect(
         skillsCategoriesController.remove(mockId),
       ).resolves.toBeUndefined();
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(skillsCategoriesController, 'remove');
-      await skillsCategoriesController.remove(mockId);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -211,7 +160,9 @@ describe('SkillsCategoriesController errors', () => {
 
   describe('findOne with error', () => {
     it('should throw an error', async () => {
-      expect(skillsCategoriesController.findOne(mockId)).rejects.toThrowError();
+      await expect(
+        skillsCategoriesController.findOne(mockId),
+      ).rejects.toThrowError();
       expect.assertions(1);
     });
   });

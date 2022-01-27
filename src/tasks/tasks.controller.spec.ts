@@ -43,12 +43,6 @@ describe('TasksController', () => {
       await expect(tasksController.findAll()).resolves.toEqual(['task']);
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(tasksController, 'findAll');
-      await tasksController.findAll();
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('findAllActive', () => {
@@ -56,23 +50,11 @@ describe('TasksController', () => {
       await expect(tasksController.findAllActive()).resolves.toEqual(['task']);
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(tasksController, 'findAllActive');
-      await tasksController.findAllActive();
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('findOne', () => {
     it('should return a promise of a task', async () => {
-      expect(tasksController.findOne(mockId)).resolves.toEqual('task');
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(tasksController, 'findOne');
-      await tasksController.findOne(mockId);
-      expect(spy).toBeCalledTimes(1);
+      await expect(tasksController.findOne(mockId)).resolves.toEqual('task');
       expect.assertions(1);
     });
   });
@@ -84,12 +66,6 @@ describe('TasksController', () => {
       );
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(tasksController, 'findOneActive');
-      await tasksController.findOneActive(mockId);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('create', () => {
@@ -97,12 +73,6 @@ describe('TasksController', () => {
       await expect(tasksController.create(mockCreateTaskDto)).resolves.toEqual(
         'task',
       );
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(tasksController, 'create');
-      await tasksController.create(mockCreateTaskDto);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -114,12 +84,6 @@ describe('TasksController', () => {
       ).resolves.toEqual('task');
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(tasksController, 'update');
-      await tasksController.update(mockId, mockUpdateTaskDto);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('toggle', () => {
@@ -127,23 +91,11 @@ describe('TasksController', () => {
       await expect(tasksController.toggle(mockId)).resolves.toEqual('task');
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(tasksController, 'toggle');
-      await tasksController.toggle(mockId);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('remove', () => {
     it('should return a promise of void', async () => {
       await expect(tasksController.remove(mockId)).resolves.toBeUndefined();
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(tasksController, 'remove');
-      await tasksController.remove(mockId);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -193,7 +145,7 @@ describe('TasksController errors', () => {
 
   describe('findOne with error', () => {
     it('should throw an error', async () => {
-      expect(tasksController.findOne(mockId)).rejects.toThrowError();
+      await expect(tasksController.findOne(mockId)).rejects.toThrowError();
       expect.assertions(1);
     });
   });

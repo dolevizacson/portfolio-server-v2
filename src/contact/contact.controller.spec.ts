@@ -30,14 +30,10 @@ describe('ContactController', () => {
 
   describe('sendMail', () => {
     it('should return a promise of void', async () => {
+      expect.assertions(1);
       await expect(
         contactController.sendMail(mockCreateMailDto),
       ).resolves.toBeUndefined();
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(contactController, 'sendMail');
-      await contactController.sendMail(mockCreateMailDto);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 });
@@ -65,6 +61,7 @@ describe('ContactController error', () => {
 
   describe('sendMail with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(
         contactController.sendMail(mockCreateMailDto),
       ).rejects.toThrowError();

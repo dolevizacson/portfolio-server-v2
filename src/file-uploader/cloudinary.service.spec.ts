@@ -45,12 +45,6 @@ describe('CloudinaryService', () => {
       );
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(cloudinaryService, 'uploadImage');
-      await cloudinaryService.uploadImage(mockFile);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('deleteImage', () => {
@@ -58,12 +52,6 @@ describe('CloudinaryService', () => {
       await expect(
         cloudinaryService.deleteImage(mockId),
       ).resolves.toBeUndefined();
-      expect.assertions(1);
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(cloudinaryService, 'deleteImage');
-      await cloudinaryService.deleteImage(mockId);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -75,12 +63,6 @@ describe('CloudinaryService', () => {
       ).resolves.toEqual('new name');
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(cloudinaryService, 'renameImage');
-      await cloudinaryService.renameImage(mockId, mockId);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('deleteFolder', () => {
@@ -90,10 +72,74 @@ describe('CloudinaryService', () => {
       ).resolves.toBeUndefined();
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(cloudinaryService, 'deleteFolder');
-      await cloudinaryService.deleteFolder(mockName);
-      expect(spy).toBeCalledTimes(1);
+  });
+});
+
+describe('CloudinaryService', () => {
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        CloudinaryService,
+        {
+          provide: Libs.cloudinary,
+          useValue: {
+            v2: {
+              uploader: {
+                upload: jest.fn(() => Promise.reject(new Error())),
+                destroy: jest.fn(() => Promise.reject(new Error())),
+                rename: jest.fn(() => Promise.reject(new Error())),
+              },
+              api: {
+                delete_resources_by_prefix: jest.fn(() =>
+                  Promise.reject(new Error()),
+                ),
+                delete_folder: jest.fn(() => Promise.reject(new Error())),
+              },
+            },
+          },
+        },
+      ],
+    }).compile();
+
+    cloudinaryService = module.get<CloudinaryService>(CloudinaryService);
+  });
+
+  it('should be defined', () => {
+    expect(cloudinaryService).toBeDefined();
+  });
+
+  describe('uploadImage with error', () => {
+    it('should throw an error', async () => {
+      await expect(
+        cloudinaryService.uploadImage(mockFile),
+      ).rejects.toThrowError();
+      expect.assertions(1);
+    });
+  });
+
+  describe('deleteImage with error', () => {
+    it('should throw an error', async () => {
+      await expect(
+        cloudinaryService.deleteImage(mockId),
+      ).rejects.toThrowError();
+      expect.assertions(1);
+    });
+  });
+
+  describe('renameImage with error', () => {
+    it('should throw an error', async () => {
+      await expect(
+        cloudinaryService.renameImage(mockFile, mockId),
+      ).rejects.toThrowError();
+      expect.assertions(1);
+    });
+  });
+
+  describe('deleteFolder with error', () => {
+    it('should throw an error', async () => {
+      await expect(
+        cloudinaryService.deleteFolder(mockName),
+      ).rejects.toThrowError();
       expect.assertions(1);
     });
   });

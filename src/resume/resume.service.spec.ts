@@ -77,12 +77,6 @@ describe('ResumeService', () => {
       await expect(resumeService.findAll()).resolves.toEqual(['resume']);
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(resumeService, 'findAll');
-      await resumeService.findAll();
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('findAllActive', () => {
@@ -90,23 +84,11 @@ describe('ResumeService', () => {
       await expect(resumeService.findAllActive()).resolves.toEqual(['resume']);
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(resumeService, 'findAllActive');
-      await resumeService.findAllActive();
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('get', () => {
     it('should return a promise of resume', async () => {
       await expect(resumeService.get(mockId)).resolves.toEqual('resume');
-      expect.assertions(1);
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(resumeService, 'get');
-      await resumeService.get(mockId);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -118,23 +100,11 @@ describe('ResumeService', () => {
       );
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(resumeService, 'add');
-      await resumeService.add(mockCreateResumeDto);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('remove', () => {
     it('should return a promise of void', async () => {
       await expect(resumeService.remove(mockId)).resolves.toBeUndefined();
-      expect.assertions(1);
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(resumeService, 'remove');
-      await resumeService.remove(mockId);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });

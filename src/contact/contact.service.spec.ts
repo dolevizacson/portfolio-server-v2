@@ -38,14 +38,10 @@ describe('ContactService', () => {
 
   describe('sendMail', () => {
     it('should return a promise void', async () => {
+      expect.assertions(1);
       await expect(
         contactService.sendMail(mockCreateMailDto),
       ).resolves.toBeUndefined();
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(contactService, 'sendMail');
-      await contactService.sendMail(mockCreateMailDto);
-      expect(spy).toBeCalledTimes(1);
     });
   });
 });
@@ -79,6 +75,7 @@ describe('ContactService errors', () => {
 
   describe('sendMail with error', () => {
     it('should throw an error', async () => {
+      expect.assertions(1);
       await expect(
         contactService.sendMail(mockCreateMailDto),
       ).rejects.toThrowError();

@@ -43,12 +43,6 @@ describe('UsersService', () => {
       );
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(usersService, 'findOne');
-      await usersService.findOne(mockSearchFilter);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('create', () => {
@@ -56,12 +50,6 @@ describe('UsersService', () => {
       await expect(
         usersService.create(mockUserCredentialsDto),
       ).resolves.toBeUndefined();
-      expect.assertions(1);
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(usersService, 'create');
-      await usersService.create(mockUserCredentialsDto);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });

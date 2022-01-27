@@ -39,11 +39,6 @@ describe('AuthController', () => {
         access_token: 'access_token',
       });
     });
-    it('should be executed once', () => {
-      const spy = jest.spyOn(authController, 'signIn');
-      authController.signIn(mockRequest);
-      expect(spy).toBeCalledTimes(1);
-    });
   });
 
   describe('signUp', () => {
@@ -51,12 +46,6 @@ describe('AuthController', () => {
       await expect(authController.signUp()).resolves.toBeUndefined();
     });
     expect.assertions(1);
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(authController, 'signUp');
-      await authController.signUp();
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 });
 

@@ -159,12 +159,6 @@ describe('SkillsCategoriesService', () => {
       ]);
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(skillsCategoriesService, 'findAll');
-      await skillsCategoriesService.findAll();
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('findAllActive', () => {
@@ -172,12 +166,6 @@ describe('SkillsCategoriesService', () => {
       await expect(skillsCategoriesService.findAllActive()).resolves.toEqual([
         'skills category',
       ]);
-      expect.assertions(1);
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(skillsCategoriesService, 'findAllActive');
-      await skillsCategoriesService.findAllActive();
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -189,12 +177,6 @@ describe('SkillsCategoriesService', () => {
       );
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(skillsCategoriesService, 'findOne');
-      await skillsCategoriesService.findOne(mockId);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('findOneActive', () => {
@@ -202,12 +184,6 @@ describe('SkillsCategoriesService', () => {
       await expect(
         skillsCategoriesService.findOneActive(mockId),
       ).resolves.toEqual('skills category');
-      expect.assertions(1);
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(skillsCategoriesService, 'findOneActive');
-      await skillsCategoriesService.findOneActive(mockId);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -219,12 +195,6 @@ describe('SkillsCategoriesService', () => {
       ).resolves.toEqual('skills category');
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(skillsCategoriesService, 'create');
-      await skillsCategoriesService.create(mockCreateSkillsCategoryDto);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('update', () => {
@@ -232,12 +202,6 @@ describe('SkillsCategoriesService', () => {
       await expect(
         skillsCategoriesService.update(mockId, mockUpdateSkillsCategoryDto),
       ).resolves.toEqual('skills category');
-      expect.assertions(1);
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(skillsCategoriesService, 'update');
-      await skillsCategoriesService.update(mockId, mockUpdateSkillsCategoryDto);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -249,12 +213,6 @@ describe('SkillsCategoriesService', () => {
       );
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(skillsCategoriesService, 'toggle');
-      await skillsCategoriesService.toggle(mockId);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('remove', () => {
@@ -262,12 +220,6 @@ describe('SkillsCategoriesService', () => {
       await expect(
         skillsCategoriesService.remove(mockId),
       ).resolves.toBeUndefined();
-      expect.assertions(1);
-    });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(skillsCategoriesService, 'remove');
-      await skillsCategoriesService.remove(mockId);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });

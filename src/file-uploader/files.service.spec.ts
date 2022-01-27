@@ -30,12 +30,6 @@ describe('FilesService', () => {
       await expect(filesService.remove(mockPath)).resolves.toBeUndefined();
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(filesService, 'remove');
-      await filesService.remove(mockPath);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 });
 

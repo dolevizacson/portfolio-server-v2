@@ -43,12 +43,6 @@ describe('SkillsController', () => {
       await expect(skillsController.findAll()).resolves.toEqual(['skill']);
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(skillsController, 'findAll');
-      await skillsController.findAll();
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('findAllActive', () => {
@@ -58,23 +52,11 @@ describe('SkillsController', () => {
       ]);
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(skillsController, 'findAllActive');
-      await skillsController.findAllActive();
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('findOne', () => {
     it('should return a promise of a skill', async () => {
-      expect(skillsController.findOne(mockId)).resolves.toEqual('skill');
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(skillsController, 'findOne');
-      await skillsController.findOne(mockId);
-      expect(spy).toBeCalledTimes(1);
+      await expect(skillsController.findOne(mockId)).resolves.toEqual('skill');
       expect.assertions(1);
     });
   });
@@ -86,12 +68,6 @@ describe('SkillsController', () => {
       );
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(skillsController, 'findOneActive');
-      await skillsController.findOneActive(mockId);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('create', () => {
@@ -99,12 +75,6 @@ describe('SkillsController', () => {
       await expect(
         skillsController.create(mockCreateSkillDto),
       ).resolves.toEqual('skill');
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(skillsController, 'create');
-      await skillsController.create(mockCreateSkillDto);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -116,12 +86,6 @@ describe('SkillsController', () => {
       ).resolves.toEqual('skill');
       expect.assertions(1);
     });
-    it('should be executed once', async () => {
-      const spy = jest.spyOn(skillsController, 'update');
-      await skillsController.update(mockId, mockUpdateSkillDto);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('toggle', () => {
@@ -129,23 +93,11 @@ describe('SkillsController', () => {
       await expect(skillsController.toggle(mockId)).resolves.toEqual('skill');
       expect.assertions(1);
     });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(skillsController, 'toggle');
-      await skillsController.toggle(mockId);
-      expect(spy).toBeCalledTimes(1);
-      expect.assertions(1);
-    });
   });
 
   describe('remove', () => {
     it('should return a promise of void', async () => {
       await expect(skillsController.remove(mockId)).resolves.toBeUndefined();
-      expect.assertions(1);
-    });
-    it('should get executed once', async () => {
-      const spy = jest.spyOn(skillsController, 'remove');
-      await skillsController.remove(mockId);
-      expect(spy).toBeCalledTimes(1);
       expect.assertions(1);
     });
   });
@@ -195,7 +147,7 @@ describe('SkillsController errors', () => {
 
   describe('findOne with error', () => {
     it('should throw an error', async () => {
-      expect(skillsController.findOne(mockId)).rejects.toThrowError();
+      await expect(skillsController.findOne(mockId)).rejects.toThrowError();
       expect.assertions(1);
     });
   });
