@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import { libs } from '../common/enums/external-libs.enum';
+import { Libs } from '../common/enums/external-libs.enum';
 
 @Injectable()
 export class BcryptService {
-  constructor(@Inject(libs.bcrypt) private readonly bcrypt) {}
+  constructor(@Inject(Libs.bcrypt) private readonly bcrypt) {}
 
   compare(password: string, hashedPassword: string): Promise<boolean> {
     return this.bcrypt.compare(password, hashedPassword);
