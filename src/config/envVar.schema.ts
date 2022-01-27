@@ -6,4 +6,11 @@ export default Joi.object({
   ADMIN_PASSWORD: Joi.string(),
   JWT_SECRET: Joi.string().required(),
   JWT_EXP: Joi.number().required(),
+  CLOUDINARY_NAME: Joi.string().required(),
+  CLOUDINARY_API_KEY: Joi.string().required(),
+  CLOUDINARY_SECRET: Joi.string().required(),
+  CONTACT_EMAIL: Joi.string().required(),
+  OAUTH_CLIENT_ID: Joi.string().required(),
+  OAUTH_CLIENT_SECRET: Joi.string().required(),
+  OAUTH_REFRESH_TOKEN: Joi.string().required(),
 });
