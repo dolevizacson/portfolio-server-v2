@@ -2,21 +2,21 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { TaskListController } from './task-list.controller';
-import { TaskListService } from './task-list.service';
+import { TasksController } from './tasks.controller';
+import { TasksService } from './tasks.service';
 
-let taskListController: TaskListController;
+let tasksController: TasksController;
 const mockCreateTaskDto = new CreateTaskDto();
 const mockUpdateTaskDto = new UpdateTaskDto();
 const mockId = 'mockId';
 
-describe('TaskListController', () => {
+describe('TasksController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [TaskListController],
+      controllers: [TasksController],
       providers: [
         {
-          provide: TaskListService,
+          provide: TasksService,
           useValue: {
             findAll: jest.fn(() => Promise.resolve(['task'])),
             findAllActive: jest.fn(() => Promise.resolve(['task'])),
@@ -31,117 +31,131 @@ describe('TaskListController', () => {
       ],
     }).compile();
 
-    taskListController = module.get<TaskListController>(TaskListController);
+    tasksController = module.get<TasksController>(TasksController);
   });
 
   it('should be defined', () => {
-    expect(taskListController).toBeDefined();
+    expect(tasksController).toBeDefined();
   });
 
   describe('findAll', () => {
     it('should return a promise of array of tasks', async () => {
-      await expect(taskListController.findAll()).resolves.toEqual(['task']);
+      await expect(tasksController.findAll()).resolves.toEqual(['task']);
+      expect.assertions(1);
     });
     it('should get executed once', async () => {
-      const spy = jest.spyOn(taskListController, 'findAll');
-      await taskListController.findAll();
+      const spy = jest.spyOn(tasksController, 'findAll');
+      await tasksController.findAll();
       expect(spy).toBeCalledTimes(1);
+      expect.assertions(1);
     });
   });
 
   describe('findAllActive', () => {
     it('should return a promise of array of tasks', async () => {
-      await expect(taskListController.findAllActive()).resolves.toEqual([
-        'task',
-      ]);
+      await expect(tasksController.findAllActive()).resolves.toEqual(['task']);
+      expect.assertions(1);
     });
     it('should get executed once', async () => {
-      const spy = jest.spyOn(taskListController, 'findAllActive');
-      await taskListController.findAllActive();
+      const spy = jest.spyOn(tasksController, 'findAllActive');
+      await tasksController.findAllActive();
       expect(spy).toBeCalledTimes(1);
+      expect.assertions(1);
     });
   });
 
   describe('findOne', () => {
     it('should return a promise of a task', async () => {
-      expect(taskListController.findOne(mockId)).resolves.toEqual('task');
+      expect(tasksController.findOne(mockId)).resolves.toEqual('task');
+      expect.assertions(1);
     });
     it('should get executed once', async () => {
-      const spy = jest.spyOn(taskListController, 'findOne');
-      await taskListController.findOne(mockId);
+      const spy = jest.spyOn(tasksController, 'findOne');
+      await tasksController.findOne(mockId);
       expect(spy).toBeCalledTimes(1);
+      expect.assertions(1);
     });
   });
 
   describe('findOneActive', () => {
     it('should return a promise of a task', async () => {
-      await expect(taskListController.findOneActive(mockId)).resolves.toEqual(
+      await expect(tasksController.findOneActive(mockId)).resolves.toEqual(
         'task',
       );
+      expect.assertions(1);
     });
     it('should get executed once', async () => {
-      const spy = jest.spyOn(taskListController, 'findOneActive');
-      await taskListController.findOneActive(mockId);
+      const spy = jest.spyOn(tasksController, 'findOneActive');
+      await tasksController.findOneActive(mockId);
       expect(spy).toBeCalledTimes(1);
+      expect.assertions(1);
     });
   });
 
   describe('create', () => {
     it('should return a promise of task', async () => {
-      await expect(
-        taskListController.create(mockCreateTaskDto),
-      ).resolves.toEqual('task');
+      await expect(tasksController.create(mockCreateTaskDto)).resolves.toEqual(
+        'task',
+      );
+      expect.assertions(1);
     });
     it('should get executed once', async () => {
-      const spy = jest.spyOn(taskListController, 'create');
-      await taskListController.create(mockCreateTaskDto);
+      const spy = jest.spyOn(tasksController, 'create');
+      await tasksController.create(mockCreateTaskDto);
       expect(spy).toBeCalledTimes(1);
+      expect.assertions(1);
     });
   });
 
   describe('update', () => {
     it('should return a promise of a task', async () => {
       await expect(
-        taskListController.update(mockId, mockUpdateTaskDto),
+        tasksController.update(mockId, mockUpdateTaskDto),
       ).resolves.toEqual('task');
+      expect.assertions(1);
     });
     it('should be executed once', async () => {
-      const spy = jest.spyOn(taskListController, 'update');
-      await taskListController.update(mockId, mockUpdateTaskDto);
+      const spy = jest.spyOn(tasksController, 'update');
+      await tasksController.update(mockId, mockUpdateTaskDto);
       expect(spy).toBeCalledTimes(1);
+      expect.assertions(1);
     });
   });
 
   describe('toggle', () => {
     it('should return a promise of a task', async () => {
-      await expect(taskListController.toggle(mockId)).resolves.toEqual('task');
+      await expect(tasksController.toggle(mockId)).resolves.toEqual('task');
+      expect.assertions(1);
     });
     it('should get executed once', async () => {
-      const spy = jest.spyOn(taskListController, 'toggle');
-      await taskListController.toggle(mockId);
+      const spy = jest.spyOn(tasksController, 'toggle');
+      await tasksController.toggle(mockId);
       expect(spy).toBeCalledTimes(1);
+      expect.assertions(1);
     });
   });
 
   describe('remove', () => {
     it('should return a promise of void', async () => {
-      await expect(taskListController.remove(mockId)).resolves.toBeUndefined();
+      await expect(tasksController.remove(mockId)).resolves.toBeUndefined();
+      expect.assertions(1);
     });
     it('should get executed once', async () => {
-      const spy = jest.spyOn(taskListController, 'remove');
-      await taskListController.remove(mockId);
+      const spy = jest.spyOn(tasksController, 'remove');
+      await tasksController.remove(mockId);
       expect(spy).toBeCalledTimes(1);
+      expect.assertions(1);
     });
   });
 });
 
-describe('TaskListController errors', () => {
+describe('TasksController errors', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [TaskListController],
+      controllers: [TasksController],
       providers: [
         {
-          provide: TaskListService,
+          provide: TasksService,
           useValue: {
             findAll: jest.fn(() => Promise.reject(new Error())),
             findAllActive: jest.fn(() => Promise.reject(new Error())),
@@ -156,64 +170,72 @@ describe('TaskListController errors', () => {
       ],
     }).compile();
 
-    taskListController = module.get<TaskListController>(TaskListController);
+    tasksController = module.get<TasksController>(TasksController);
   });
 
   it('should be defined', () => {
-    expect(taskListController).toBeDefined();
+    expect(tasksController).toBeDefined();
   });
 
   describe('findAll with error', () => {
     it('should throw an error', async () => {
-      await expect(taskListController.findAll()).rejects.toThrowError();
+      await expect(tasksController.findAll()).rejects.toThrowError();
+      expect.assertions(1);
     });
   });
 
   describe('findAllActive with error', () => {
     it('should throw an error', async () => {
-      await expect(taskListController.findAllActive()).rejects.toThrowError();
+      await expect(tasksController.findAllActive()).rejects.toThrowError();
+      expect.assertions(1);
     });
   });
 
   describe('findOne with error', () => {
     it('should throw an error', async () => {
-      expect(taskListController.findOne(mockId)).rejects.toThrowError();
+      expect(tasksController.findOne(mockId)).rejects.toThrowError();
+      expect.assertions(1);
     });
   });
 
   describe('findOneActive with error', () => {
     it('should throw an error', async () => {
       await expect(
-        taskListController.findOneActive(mockId),
+        tasksController.findOneActive(mockId),
       ).rejects.toThrowError();
+      expect.assertions(1);
     });
   });
 
   describe('create with error', () => {
     it('should throw an error', async () => {
       await expect(
-        taskListController.create(mockCreateTaskDto),
+        tasksController.create(mockCreateTaskDto),
       ).rejects.toThrowError();
+      expect.assertions(1);
     });
   });
 
   describe('update with error', () => {
     it('should throw an error', async () => {
       await expect(
-        taskListController.update(mockId, mockUpdateTaskDto),
+        tasksController.update(mockId, mockUpdateTaskDto),
       ).rejects.toThrowError();
+      expect.assertions(1);
     });
   });
 
   describe('toggle with error', () => {
     it('should throw an error', async () => {
-      await expect(taskListController.toggle(mockId)).rejects.toThrowError();
+      await expect(tasksController.toggle(mockId)).rejects.toThrowError();
+      expect.assertions(1);
     });
   });
 
   describe('remove with error', () => {
     it('should throw an error', async () => {
-      await expect(taskListController.remove(mockId)).rejects.toThrowError();
+      await expect(tasksController.remove(mockId)).rejects.toThrowError();
+      expect.assertions(1);
     });
   });
 });

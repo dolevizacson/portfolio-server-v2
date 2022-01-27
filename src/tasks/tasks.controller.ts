@@ -10,15 +10,15 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { TaskListService } from './task-list.service';
+import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './schemas/task.schema';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 
-@Controller('task-list')
-export class TaskListController {
-  constructor(private readonly taskListService: TaskListService) {}
+@Controller('tasks')
+export class TasksController {
+  constructor(private readonly taskListService: TasksService) {}
 
   @UseGuards(JwtAuthGuard)
   @Get()
