@@ -78,6 +78,7 @@ describe('AuthService', () => {
       ).resolves.toEqual({
         username: mockUserName,
       });
+      expect.assertions(1);
     });
     it('should return null because no user', async () => {
       userService.findOne = jest.fn(() => {
@@ -86,6 +87,7 @@ describe('AuthService', () => {
       await expect(
         authService.validateUser(mockUserName, mockPassword),
       ).resolves.toBeNull();
+      expect.assertions(1);
     });
     it('should return null because passwords miss match', async () => {
       bcryptService.compare = jest.fn(() => {
@@ -94,11 +96,13 @@ describe('AuthService', () => {
       await expect(
         authService.validateUser(mockUserName, mockPassword),
       ).resolves.toBeNull();
+      expect.assertions(1);
     });
     it('should be executed once', async () => {
       const spy = jest.spyOn(authService, 'validateUser');
       await authService.validateUser(mockUserName, mockPassword);
       expect(spy).toBeCalledTimes(1);
+      expect.assertions(1);
     });
   });
 
@@ -118,11 +122,13 @@ describe('AuthService', () => {
   describe('signUp', () => {
     it('should return a promise of void', async () => {
       await expect(authService.signUp()).resolves.toBeUndefined();
+      expect.assertions(1);
     });
     it('should be executed once', async () => {
       const spy = jest.spyOn(authService, 'signUp');
       await authService.signUp();
       expect(spy).toBeCalledTimes(1);
+      expect.assertions(1);
     });
   });
 });
@@ -189,6 +195,7 @@ describe('AuthService errors', () => {
       await expect(
         authService.validateUser(mockUserName, mockPassword),
       ).rejects.toThrowError();
+      expect.assertions(1);
     });
     it('should throw an error', async () => {
       bcryptService.compare = jest.fn(() => {
@@ -197,6 +204,7 @@ describe('AuthService errors', () => {
       await expect(
         authService.validateUser(mockUserName, mockPassword),
       ).rejects.toThrowError();
+      expect.assertions(1);
     });
   });
 
@@ -209,6 +217,7 @@ describe('AuthService errors', () => {
   describe('signUp with error', () => {
     it('should throw an error', async () => {
       await expect(authService.signUp()).rejects.toThrowError();
+      expect.assertions(1);
     });
   });
 });

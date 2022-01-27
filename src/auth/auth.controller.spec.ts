@@ -50,10 +50,12 @@ describe('AuthController', () => {
     it('should return a promise of void', async () => {
       await expect(authController.signUp()).resolves.toBeUndefined();
     });
+    expect.assertions(1);
     it('should be executed once', async () => {
       const spy = jest.spyOn(authController, 'signUp');
       await authController.signUp();
       expect(spy).toBeCalledTimes(1);
+      expect.assertions(1);
     });
   });
 });
@@ -93,6 +95,7 @@ describe('AuthController errors', () => {
   describe('signUp with error', () => {
     it('should throw an error', async () => {
       await expect(authController.signUp()).rejects.toThrowError();
+      expect.assertions(1);
     });
   });
 });
