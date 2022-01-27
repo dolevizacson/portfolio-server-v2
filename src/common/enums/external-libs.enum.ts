@@ -1,3 +1,5 @@
-export enum libs {
+export enum Libs {
   bcrypt = 'BCRYPT',
+  cloudinary = 'CLOUDINARY',
+  fs = 'FS',
 }
