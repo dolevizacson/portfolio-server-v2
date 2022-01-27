@@ -1,10 +1,14 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
+
+import { Image } from '../../common/classes/Image';
+import { Databases } from '../../common/enums/databases.enum';
 import { Base } from '../../common/schemas/base.schema';
+import { SkillDocument } from '../../skills/schemas/skill.schema';
 
 export type ProjectDocument = Project & Document;
 
-export class Links {
+class Link {
   @Prop({ required: true })
   name: string;
 
@@ -23,14 +27,26 @@ export class Project extends Base {
   @Prop({ required: true })
   description: string;
 
-  @Prop([Links])
-  links: Links[];
+  @Prop([Link])
+  links: Link[];
 
   @Prop({
-    type: [String],
-    validate: (val: string[]) => val.length > 0,
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: Databases.skills,
+      },
+    ],
+    validate: (val: SkillDocument[]) => val.length > 0,
   })
-  technologies: string[];
+  technologies: SkillDocument[];
+
+  @Prop([Image])
+  images: Image[];
+}
+
+export enum ProjectRefs {
+  Technologies = 'technologies',
 }
 
 export const ProjectSchema = SchemaFactory.createForClass(Project);

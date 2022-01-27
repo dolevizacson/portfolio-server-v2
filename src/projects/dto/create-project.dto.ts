@@ -1,4 +1,5 @@
-import { ArrayNotEmpty, IsDataURI, IsNotEmpty } from 'class-validator';
+import { ArrayNotEmpty, IsNotEmpty } from 'class-validator';
+import mongoose from 'mongoose';
 
 export class CreateProjectDto {
   @IsNotEmpty()
@@ -10,17 +11,16 @@ export class CreateProjectDto {
   @IsNotEmpty()
   description: string;
 
-  links: Links[];
+  links: Link[];
 
   @ArrayNotEmpty()
-  technologies: string[];
+  technologies: mongoose.Types.ObjectId[];
 }
 
-class Links {
+class Link {
   @IsNotEmpty()
   name: string;
 
   @IsNotEmpty()
-  @IsDataURI()
   url: string;
 }
