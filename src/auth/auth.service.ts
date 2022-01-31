@@ -37,8 +37,6 @@ export class AuthService {
     return { access_token };
   }
 
-  // signOut(): Promise<void> {}
-
   async signUp(): Promise<void> {
     const username = this.configService.get('adminUserName');
     const password = this.configService.get('adminPassword');

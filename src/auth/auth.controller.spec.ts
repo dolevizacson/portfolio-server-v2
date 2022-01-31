@@ -1,11 +1,17 @@
+import { getMockReq, getMockRes } from '@jest-mock/express';
+import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
+
+import { SafeUserDto } from '../users/dto/safe-user-credentials.dto';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { AuthRequest } from './interfaces/auth-request.interface';
 import { AuthToken } from './interfaces/auth-token.interface';
 
 let authController: AuthController;
-const mockRequest = {} as AuthRequest;
+const mockRequest = getMockReq<AuthRequest>({ user: new SafeUserDto() });
+const { res: mockResponse } = getMockRes();
+const mockConfigProp = 'mockConfigProp';
 
 describe('AuthController', () => {
   beforeEach(async () => {
@@ -23,6 +29,10 @@ describe('AuthController', () => {
             signUp: jest.fn(() => Promise.resolve()),
           },
         },
+        {
+          provide: ConfigService,
+          useValue: { get: jest.fn(() => mockConfigProp) },
+        },
       ],
     }).compile();
 
@@ -35,9 +45,15 @@ describe('AuthController', () => {
 
   describe('signIn', () => {
     it('should return an auth token', () => {
-      expect(authController.signIn(mockRequest)).toEqual({
+      expect(authController.signIn(mockRequest, mockResponse)).toEqual({
         access_token: 'access_token',
       });
+    });
+  });
+
+  describe('signOut', () => {
+    it('should return void', () => {
+      expect(authController.signOut(mockResponse)).toBeUndefined();
     });
   });
 
@@ -63,6 +79,10 @@ describe('AuthController errors', () => {
             signUp: jest.fn(() => Promise.reject(new Error())),
           },
         },
+        {
+          provide: ConfigService,
+          useValue: { get: jest.fn(() => new Error()) },
+        },
       ],
     }).compile();
 
@@ -76,7 +96,7 @@ describe('AuthController errors', () => {
   describe('signIn with error', () => {
     it('should throw an error', () => {
       expect(() => {
-        authController.signIn(mockRequest);
+        authController.signIn(mockRequest, mockResponse);
       }).toThrowError();
     });
   });
