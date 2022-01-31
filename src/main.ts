@@ -1,5 +1,7 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import cookieParser from 'cookie-parser';
 
 import { AppModule } from './app.module';
 import { LoggingInterceptor } from './common/Interceptors/RouteLogger.interceptor';
@@ -10,6 +12,15 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new LoggingInterceptor());
+
+  const configService = app.get(ConfigService);
+
+  app.use(
+    cookieParser(
+      configService.get<string>('cookieSecret'),
+      configService.get<cookieParser.CookieParseOptions>('cookieOptions'),
+    ),
+  );
 
   await app.listen(process.env.PORT || 8000);
 
