@@ -138,7 +138,10 @@ export function CrudService<T, TCreateDto = any, TUpdateDto = any>(
       options: QueryOptions,
       populateOptions?: PopulateOptions,
     ): Promise<T> {
-      const query = this.model.findByIdAndUpdate(id, dto, { ...options });
+      const query = this.model.findByIdAndUpdate(id, dto, {
+        new: true,
+        ...options,
+      });
 
       if (populateOptions) {
         query.populate(populateOptions);
@@ -154,7 +157,7 @@ export function CrudService<T, TCreateDto = any, TUpdateDto = any>(
           {
             $bit: { isActive: { xor: 1 } },
           } as UpdateQuery<T & Document>,
-          { ...options },
+          { new: true, ...options },
         )
         .exec();
     }
