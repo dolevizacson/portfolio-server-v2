@@ -6,6 +6,8 @@ export default Joi.object({
   ADMIN_PASSWORD: Joi.string(),
   JWT_SECRET: Joi.string().required(),
   JWT_EXP: Joi.number().required(),
+  COOKIE_SECRET: Joi.string().required(),
+  COOKIE_JWT_MAX_AGE: Joi.number().required(),
   CLOUDINARY_NAME: Joi.string().required(),
   CLOUDINARY_API_KEY: Joi.string().required(),
   CLOUDINARY_SECRET: Joi.string().required(),
