@@ -9,6 +9,7 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './passport-strategies/jwt.strategy';
 import { LocalStrategy } from './passport-strategies/local.strategy';
+import { UtilsModule } from '../utils/utils.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { LocalStrategy } from './passport-strategies/local.strategy';
       },
     }),
     BcryptModule,
+    UtilsModule,
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],
   controllers: [AuthController],

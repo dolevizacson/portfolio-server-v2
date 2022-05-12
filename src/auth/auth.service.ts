@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
 
 import { BcryptService } from '../bcrypt/bcrypt.service';
 import { SafeUserDto } from '../users/dto/safe-user-credentials.dto';
 import { UsersService } from '../users/users.service';
 import { AuthTokenPayload } from './interfaces/auth-token-payload.interface';
 import { AuthToken } from './interfaces/auth-token.interface';
+import { HelperFunctionsService } from '../utils/helper-functions.service';
 
 @Injectable()
 export class AuthService {
@@ -15,6 +17,7 @@ export class AuthService {
     private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
     private readonly bcryptService: BcryptService,
+    private readonly helperFunctionsService: HelperFunctionsService,
   ) {}
 
   async validateUser(
@@ -44,5 +47,21 @@ export class AuthService {
     const hashedPassword = await this.bcryptService.generateHash(password);
 
     return this.userService.create({ username, password: hashedPassword });
+  }
+
+  isLoggedIn(request: Request): boolean {
+    const token = this.helperFunctionsService.getTokenFromCookie(request);
+
+    if (!token) {
+      return false;
+    }
+
+    try {
+      this.jwtService.verify(token);
+    } catch (error) {
+      return false;
+    }
+
+    return true;
   }
 }
