@@ -14,9 +14,9 @@ export class NewSkill {
   attributes?: string[];
 
   @Prop({
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
   })
-  skillCategory?: mongoose.Types.ObjectId;
+  skillsCategory?: mongoose.Types.ObjectId;
 
   @Prop({
     type: [{ type: mongoose.Schema.Types.ObjectId }],

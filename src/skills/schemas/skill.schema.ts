@@ -24,7 +24,7 @@ export class Skill extends Base {
     ref: Databases.SkillsCategories,
     required: true,
   })
-  skillCategory: SkillsCategoryDocument;
+  skillsCategory: SkillsCategoryDocument;
 
   @Prop({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: Databases.projects }],
@@ -33,7 +33,7 @@ export class Skill extends Base {
 }
 
 export enum SkillRefs {
-  SkillCategory = 'skillCategory',
+  SkillsCategory = 'skillsCategory',
   Projects = 'projects',
 }
 

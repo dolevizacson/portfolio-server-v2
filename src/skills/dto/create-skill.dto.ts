@@ -9,5 +9,5 @@ export class CreateSkillDto {
   attributes: string[];
 
   @IsNotEmpty()
-  skillCategoryId: mongoose.Types.ObjectId;
+  skillsCategory: mongoose.Types.ObjectId;
 }
