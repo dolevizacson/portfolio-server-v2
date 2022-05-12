@@ -27,6 +27,7 @@ describe('AuthController', () => {
               };
             }),
             signUp: jest.fn(() => Promise.resolve()),
+            isLoggedIn: jest.fn(() => true),
           },
         },
         {
@@ -44,10 +45,8 @@ describe('AuthController', () => {
   });
 
   describe('signIn', () => {
-    it('should return an auth token', () => {
-      expect(authController.signIn(mockRequest, mockResponse)).toEqual({
-        access_token: 'access_token',
-      });
+    it('should return void', () => {
+      expect(authController.signIn(mockRequest, mockResponse)).toBeUndefined();
     });
   });
 
@@ -60,6 +59,13 @@ describe('AuthController', () => {
   describe('signUp', () => {
     it('should return a promise of void', async () => {
       await expect(authController.signUp()).resolves.toBeUndefined();
+    });
+    expect.assertions(1);
+  });
+
+  describe('isLoggedIn', () => {
+    it('should return a true', async () => {
+      expect(authController.isLoggedIn(mockRequest)).toEqual(true);
     });
     expect.assertions(1);
   });
@@ -77,11 +83,18 @@ describe('AuthController errors', () => {
               throw new Error();
             }),
             signUp: jest.fn(() => Promise.reject(new Error())),
+            isLoggedIn: jest.fn(() => {
+              throw new Error();
+            }),
           },
         },
         {
           provide: ConfigService,
-          useValue: { get: jest.fn(() => new Error()) },
+          useValue: {
+            get: jest.fn(() => {
+              throw new Error();
+            }),
+          },
         },
       ],
     }).compile();
@@ -104,6 +117,15 @@ describe('AuthController errors', () => {
   describe('signUp with error', () => {
     it('should throw an error', async () => {
       await expect(authController.signUp()).rejects.toThrowError();
+      expect.assertions(1);
+    });
+  });
+
+  describe('isLoggedIn with error', () => {
+    it('should throw an error', async () => {
+      expect(() => {
+        authController.isLoggedIn(mockRequest);
+      }).toThrowError();
       expect.assertions(1);
     });
   });

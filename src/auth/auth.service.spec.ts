@@ -1,3 +1,4 @@
+import { getMockReq } from '@jest-mock/express';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -6,6 +7,7 @@ import { BcryptService } from '../bcrypt/bcrypt.service';
 import { SafeUserDto } from '../users/dto/safe-user-credentials.dto';
 import { User } from '../users/schemas/user.schema';
 import { UsersService } from '../users/users.service';
+import { HelperFunctionsService } from '../utils/helper-functions.service';
 import { AuthService } from './auth.service';
 
 let authService: AuthService;
@@ -15,6 +17,7 @@ const mockUserName = 'mockUserName';
 const mockPassword = 'mockPassword';
 const mockSafeUser = new SafeUserDto();
 const mockAccessToken = 'mockAccessToken';
+const mockRequest = getMockReq();
 
 describe('AuthService', () => {
   beforeEach(async () => {
@@ -46,6 +49,9 @@ describe('AuthService', () => {
           provide: JwtService,
           useValue: {
             sign: jest.fn(() => 'mockAccessToken'),
+            verify: jest.fn(() => {
+              return;
+            }),
           },
         },
         {
@@ -57,6 +63,12 @@ describe('AuthService', () => {
             generateHash: jest.fn(() => {
               return Promise.resolve('mockHashedPassword');
             }),
+          },
+        },
+        {
+          provide: HelperFunctionsService,
+          useValue: {
+            getTokenFromCookie: jest.fn(() => mockAccessToken),
           },
         },
       ],
@@ -114,6 +126,13 @@ describe('AuthService', () => {
       expect.assertions(1);
     });
   });
+
+  describe('isLoggedIn', () => {
+    it('should return true', async () => {
+      expect(authService.isLoggedIn(mockRequest)).toEqual(true);
+      expect.assertions(1);
+    });
+  });
 });
 
 describe('AuthService errors', () => {
@@ -152,6 +171,14 @@ describe('AuthService errors', () => {
             }),
             generateHash: jest.fn(() => {
               return Promise.reject(new Error());
+            }),
+          },
+        },
+        {
+          provide: HelperFunctionsService,
+          useValue: {
+            getTokenFromCookie: jest.fn(() => {
+              throw new Error();
             }),
           },
         },
@@ -200,6 +227,15 @@ describe('AuthService errors', () => {
   describe('signUp with error', () => {
     it('should throw an error', async () => {
       await expect(authService.signUp()).rejects.toThrowError();
+      expect.assertions(1);
+    });
+  });
+
+  describe('isLoggedIn with error', () => {
+    it('should throw an error', async () => {
+      await expect(() => {
+        authService.isLoggedIn(mockRequest);
+      }).toThrowError();
       expect.assertions(1);
     });
   });
