@@ -1,6 +1,8 @@
 import { Type } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { Inject } from '@nestjs/common';
+import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import {
+  Connection,
   Document,
   FilterQuery,
   Model,
@@ -9,8 +11,14 @@ import {
   UpdateQuery,
 } from 'mongoose';
 
-export interface ICrudService<T> {
+import { HelperFunctionsService } from '../../utils/helper-functions.service';
+import { ServiceFunctionService } from '../../utils/service-functions.service';
+
+export interface ICrudService<T, newT> {
   readonly model: Model<T & Document>;
+  readonly helperFunctionsService: HelperFunctionsService;
+  readonly serviceFunctionsService: ServiceFunctionService;
+  readonly connection: Connection;
   findAll(
     options?: QueryOptions,
     populateOptions?: PopulateOptions,
@@ -45,18 +53,24 @@ export interface IClassProp<I> {
   new (...args: any[]): I;
 }
 
-export function CrudService<T, TCreateDto = any, TUpdateDto = any>(
+export function CrudService<T, newT, TCreateDto = any, TUpdateDto = any>(
   dbResource: IClassProp<T>,
-): Type<ICrudService<T>> {
-  class CrudServiceHost implements ICrudService<T> {
+  dbResourceNew: IClassProp<newT>,
+): Type<ICrudService<T, newT>> {
+  class CrudServiceHost implements ICrudService<T, newT> {
     @InjectModel(dbResource.name)
     readonly model: Model<T & Document>;
+    @Inject(HelperFunctionsService)
+    readonly helperFunctionsService: HelperFunctionsService;
+    @Inject(ServiceFunctionService)
+    readonly serviceFunctionsService: ServiceFunctionService;
+    @InjectConnection() readonly connection: Connection;
 
     findAll(
       options?: QueryOptions,
       populateOptions?: PopulateOptions,
     ): Promise<T[]> {
-      const query = this.model.find({}, {}, { ...options });
+      const query = this.model.find({}, {}, { lean: true, ...options });
 
       if (populateOptions) {
         query.populate(populateOptions);
@@ -94,7 +108,7 @@ export function CrudService<T, TCreateDto = any, TUpdateDto = any>(
       options?: QueryOptions,
       populateOptions?: PopulateOptions,
     ): Promise<T> {
-      const query = this.model.findById(id, {}, { ...options });
+      const query = this.model.findById(id, {}, { lean: true, ...options });
 
       if (populateOptions) {
         query.populate(populateOptions);
@@ -111,7 +125,7 @@ export function CrudService<T, TCreateDto = any, TUpdateDto = any>(
       const query = this.model.findOne(
         { _id: id, isActive: 1 } as FilterQuery<T & Document>,
         {},
-        { ...options },
+        { lean: true, ...options },
       );
 
       if (populateOptions) {
@@ -129,7 +143,23 @@ export function CrudService<T, TCreateDto = any, TUpdateDto = any>(
     }
 
     create(dto: TCreateDto): Promise<T> {
-      return this.model.create(dto);
+      return this.helperFunctionsService.mongooseTransaction(
+        this.connection,
+        async (session) => {
+          const newDocument = await this.serviceFunctionsService.getNewDocument(
+            session,
+          );
+
+          const key = this.helperFunctionsService.toFirstLowerLetter(
+            dbResourceNew.name,
+          );
+
+          newDocument[key] = undefined;
+          await newDocument.save();
+
+          return this.model.create(dto);
+        },
+      );
     }
 
     update(
@@ -140,6 +170,7 @@ export function CrudService<T, TCreateDto = any, TUpdateDto = any>(
     ): Promise<T> {
       const query = this.model.findByIdAndUpdate(id, dto, {
         new: true,
+        lean: true,
         ...options,
       });
 
@@ -157,7 +188,7 @@ export function CrudService<T, TCreateDto = any, TUpdateDto = any>(
           {
             $bit: { isActive: { xor: 1 } },
           } as UpdateQuery<T & Document>,
-          { new: true, ...options },
+          { new: true, lean: true, ...options },
         )
         .exec();
     }

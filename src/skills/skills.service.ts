@@ -1,11 +1,9 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { InjectConnection, InjectModel } from '@nestjs/mongoose';
-import { Connection, Model } from 'mongoose';
-import { CommonFiles } from '../common/enums/common-files.enum';
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
-import { Helpers } from '../common/functions/helpers/helpers.functions';
-import { ServiceFunctions } from '../common/functions/services/services.functions';
 import { CrudService } from '../common/mixins/crud-service.mixin';
+import { NewSkill } from '../new/schemas/new-skill.schema';
 import { Project, ProjectDocument } from '../projects/schemas/project.schema';
 import {
   SkillsCategory,
@@ -19,30 +17,28 @@ import { Skill } from './schemas/skill.schema';
 @Injectable()
 export class SkillsService extends CrudService<
   Skill,
+  NewSkill,
   CreateSkillDto,
   UpdateSkillDto
->(Skill) {
+>(Skill, NewSkill) {
   constructor(
     @InjectModel(SkillsCategory.name)
     private readonly skillCategoryModel: Model<SkillsCategoryDocument>,
     @InjectModel(Project.name)
     private readonly projectModel: Model<ProjectDocument>,
-    @InjectConnection() private readonly connection: Connection,
-    @Inject(CommonFiles.helpers) private readonly helpers: Helpers,
-    @Inject(CommonFiles.services)
-    private readonly serviceFunctions: ServiceFunctions,
   ) {
     super();
   }
 
   create(createSkillDto: CreateSkillDto): Promise<Skill> {
-    const { skillCategoryId, ...skillProperties } = createSkillDto;
+    const { skillsCategory: skillsCategoryId, ...skillProperties } =
+      createSkillDto;
 
-    return this.helpers.mongooseTransaction(
+    return this.helperFunctionsService.mongooseTransaction(
       this.connection,
       async (session) => {
-        const skillCategory = await this.skillCategoryModel
-          .findById(skillCategoryId)
+        const skillsCategory = await this.skillCategoryModel
+          .findById(skillsCategoryId)
           .session(session)
           .exec();
 
@@ -50,14 +46,25 @@ export class SkillsService extends CrudService<
           [
             {
               ...skillProperties,
-              skillCategory,
+              skillsCategory,
             },
           ],
           { session },
         );
 
-        skillCategory[SkillsCategoryRefs.Skills].push(newSkill._id);
-        await skillCategory.save();
+        skillsCategory[SkillsCategoryRefs.Skills].push(newSkill._id);
+        await skillsCategory.save();
+
+        const newDocument = await this.serviceFunctionsService.getNewDocument(
+          session,
+        );
+
+        const key = this.helperFunctionsService.toFirstLowerLetter(
+          NewSkill.name,
+        );
+
+        newDocument[key] = undefined;
+        await newDocument.save();
 
         return newSkill;
       },
@@ -65,13 +72,13 @@ export class SkillsService extends CrudService<
   }
 
   update(skillId: string, updateSkillDto: UpdateSkillDto): Promise<Skill> {
-    const { skillCategoryId: newSkillCategoryId, ...updatedSkillProperties } =
+    const { skillsCategory: newSkillsCategoryId, ...updatedSkillProperties } =
       updateSkillDto;
 
-    return this.helpers.mongooseTransaction(
+    return this.helperFunctionsService.mongooseTransaction(
       this.connection,
       async (session) => {
-        const { skillCategory: oldSkillCategory } = await this.model
+        const { skillsCategory: oldSkillCategory } = await this.model
           .findById(skillId)
           .session(session)
           .exec();
@@ -83,8 +90,8 @@ export class SkillsService extends CrudService<
           .session(session)
           .exec();
 
-        const skillCategory = await this.skillCategoryModel
-          .findById(newSkillCategoryId)
+        const skillsCategory = await this.skillCategoryModel
+          .findById(newSkillsCategoryId)
           .session(session)
           .exec();
 
@@ -93,15 +100,15 @@ export class SkillsService extends CrudService<
             skillId,
             {
               ...updatedSkillProperties,
-              skillCategory,
+              skillsCategory,
             },
             { new: true },
           )
           .session(session)
           .exec();
 
-        skillCategory.skills.push(updatedSkill._id);
-        await skillCategory.save();
+        skillsCategory.skills.push(updatedSkill._id);
+        await skillsCategory.save();
 
         return updatedSkill;
       },
@@ -109,10 +116,10 @@ export class SkillsService extends CrudService<
   }
 
   remove(skillId: string): Promise<void> {
-    return this.helpers.mongooseTransaction(
+    return this.helperFunctionsService.mongooseTransaction(
       this.connection,
       async (session) => {
-        await this.serviceFunctions.removeSkill(
+        await this.serviceFunctionsService.removeSkill(
           skillId,
           session,
           this.model,

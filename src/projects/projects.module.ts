@@ -6,23 +6,17 @@ import { ProjectsController } from './projects.controller';
 import { Project, ProjectSchema } from './schemas/project.schema';
 import { FileUploaderModule } from '../file-uploader/file-uploader.module';
 import { SkillsModule } from '../skills/skills.module';
-import * as helpers from '../common/functions/helpers/helpers.functions';
-import { CommonFiles } from '../common/enums/common-files.enum';
+import { UtilsModule } from '../utils/utils.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Project.name, schema: ProjectSchema }]),
     FileUploaderModule,
     forwardRef(() => SkillsModule),
+    UtilsModule,
   ],
   controllers: [ProjectsController],
-  providers: [
-    ProjectsService,
-    {
-      provide: CommonFiles.helpers,
-      useValue: helpers,
-    },
-  ],
+  providers: [ProjectsService],
   exports: [MongooseModule],
 })
 export class ProjectsModule {}

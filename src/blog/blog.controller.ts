@@ -75,10 +75,10 @@ export class BlogController {
 
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(AnyFilesInterceptor())
-  @Post(':id/image/:paragraph-id')
+  @Post(':id/image/:paragraphid')
   createImage(
     @Param('id') id: string,
-    @Param('paragraph-id') paragraphId: string,
+    @Param('paragraphid') paragraphId: string,
     @BodyWithImage(new ValidationPipe({ validateCustomDecorators: true }))
     image: Image,
   ): Promise<BlogPost> {
@@ -86,11 +86,11 @@ export class BlogController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(':id/image/:paragraph-id/:image-id')
+  @Delete(':id/image/:paragraphid/:imageid')
   removeImage(
     @Param('id') id: string,
-    @Param('paragraph-id') paragraphId: string,
-    @Param('image-id') imageId: string,
+    @Param('paragraphid') paragraphId: string,
+    @Param('imageid') imageId: string,
   ): Promise<void> {
     return this.blogService.removeParagraphImage(id, paragraphId, imageId);
   }

@@ -1,4 +1,5 @@
 import { ClientSession, Connection } from 'mongoose';
+import { Request } from 'express';
 
 export interface Helpers {
   hasOwnProperty: <X extends unknown, Y extends PropertyKey>(
@@ -12,6 +13,8 @@ export interface Helpers {
   ) => Promise<T>;
 
   getFileExtensionFromMimeType: (mimeType: string) => string;
+
+  getTokenFromCookie: (req: Request) => string;
 }
 
 export const hasOwnProperty = <X extends unknown, Y extends PropertyKey>(
@@ -44,4 +47,12 @@ const mimeTypeToExtension = {
 
 export const getFileExtensionFromMimeType = (mimeType: string): string => {
   return mimeTypeToExtension[mimeType];
+};
+
+export const getTokenFromCookie = (request: Request): string | null => {
+  let token = null;
+  if (request?.cookies) {
+    token = request.cookies['jwt'];
+  }
+  return token;
 };

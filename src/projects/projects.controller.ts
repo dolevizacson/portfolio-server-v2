@@ -101,10 +101,10 @@ export class ProjectsController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete(':id/image/:image-id')
-  removeIgame(
+  @Delete(':id/image/:imageid')
+  removeImage(
     @Param('id') id: string,
-    @Param('image-id') imageId: string,
+    @Param('imageid') imageId: string,
   ): Promise<void> {
     return this.projectsService.removeImage(id, imageId);
   }

@@ -27,15 +27,15 @@ export const removeSkill = async (
   skillCategoryModel: Model<SkillsCategoryDocument>,
   projectModel: Model<ProjectDocument>,
 ): Promise<void> => {
-  const { skillCategory, projects } = await skillModel
+  const { skillsCategory, projects } = await skillModel
     .findById(skillId)
-    .populate({ path: SkillRefs.SkillCategory })
+    .populate({ path: SkillRefs.SkillsCategory })
     .populate({ path: SkillRefs.Projects })
     .session(session)
     .exec();
 
   await skillCategoryModel
-    .findByIdAndUpdate(skillCategory._id, {
+    .findByIdAndUpdate(skillsCategory._id, {
       $pull: { [SkillsCategoryRefs.Skills]: skillId },
     })
     .session(session)

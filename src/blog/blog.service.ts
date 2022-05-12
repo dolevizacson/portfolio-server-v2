@@ -1,12 +1,9 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { InjectConnection } from '@nestjs/mongoose';
-import { Connection } from 'mongoose';
+import { Injectable } from '@nestjs/common';
 import { Image } from '../common/classes/Image';
 
-import { CommonFiles } from '../common/enums/common-files.enum';
-import { Helpers } from '../common/functions/helpers/helpers.functions';
 import { CrudService } from '../common/mixins/crud-service.mixin';
 import { CloudinaryService } from '../file-uploader/cloudinary.service';
+import { NewBlogPost } from '../new/schemas/new-blog-post.schema';
 import { CreateBlogPostDto } from './dto/create-blog-post.dto';
 import { UpdateBlogPostDto } from './dto/update-blog-post.dto';
 import { BlogPost } from './schemas/blog-post.schema';
@@ -14,19 +11,26 @@ import { BlogPost } from './schemas/blog-post.schema';
 @Injectable()
 export class BlogService extends CrudService<
   BlogPost,
+  NewBlogPost,
   CreateBlogPostDto,
   UpdateBlogPostDto
->(BlogPost) {
-  constructor(
-    private readonly cloudinaryService: CloudinaryService,
-    @InjectConnection() private readonly connection: Connection,
-    @Inject(CommonFiles.helpers) private readonly helpers: Helpers,
-  ) {
+>(BlogPost, NewBlogPost) {
+  constructor(private readonly cloudinaryService: CloudinaryService) {
     super();
   }
 
+  async create(createBlogPostDto: CreateBlogPostDto): Promise<BlogPost> {
+    return this.helperFunctionsService.mongooseTransaction(
+      this.connection,
+      async (session) => {
+        await this.serviceFunctionsService.removeNewBlogPost(session);
+        return this.model.create(createBlogPostDto);
+      },
+    );
+  }
+
   update(id: string, updateBlogPostDto: UpdateBlogPostDto): Promise<BlogPost> {
-    return this.helpers.mongooseTransaction(
+    return this.helperFunctionsService.mongooseTransaction(
       this.connection,
       async (session) => {
         const { paragraphs: oldParagraphs } = await this.model
@@ -61,7 +65,7 @@ export class BlogService extends CrudService<
   }
 
   remove(id: string): Promise<void> {
-    return this.helpers.mongooseTransaction(
+    return this.helperFunctionsService.mongooseTransaction(
       this.connection,
       async (session) => {
         const { paragraphs } = await this.model
@@ -85,14 +89,14 @@ export class BlogService extends CrudService<
     paragraphId: string,
     image: Image,
   ): Promise<BlogPost> {
-    return this.helpers.mongooseTransaction(
+    return this.helperFunctionsService.mongooseTransaction(
       this.connection,
       async (session) => {
         const blogPost = await this.model.findById(id).session(session).exec();
         const response = await this.cloudinaryService.uploadImage(image.url);
 
         blogPost.paragraphs = blogPost.paragraphs.map((paragraph) => {
-          if (paragraph._id === paragraphId) {
+          if (paragraph._id.toString() === paragraphId) {
             paragraph.gallery.push({
               ...image,
               url: response.url,
@@ -113,13 +117,13 @@ export class BlogService extends CrudService<
     paragraphId: string,
     imageId: string,
   ): Promise<void> {
-    return this.helpers.mongooseTransaction(
+    return this.helperFunctionsService.mongooseTransaction(
       this.connection,
       async (session) => {
         const blogPost = await this.model.findById(id).session(session).exec();
 
         blogPost.paragraphs = blogPost.paragraphs.map((paragraph) => {
-          if (paragraph._id === paragraphId) {
+          if (paragraph._id.toString() === paragraphId) {
             paragraph.gallery = paragraph.gallery.filter((image) => {
               return image.id !== imageId;
             });

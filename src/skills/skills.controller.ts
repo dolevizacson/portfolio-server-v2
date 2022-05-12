@@ -37,7 +37,7 @@ export class SkillsController {
     return this.skillsService.findOne(
       id,
       {},
-      { path: SkillRefs.SkillCategory },
+      { path: SkillRefs.SkillsCategory },
     );
   }
 

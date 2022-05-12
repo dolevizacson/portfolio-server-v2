@@ -9,9 +9,7 @@ import {
 } from './schemas/skills-category.schema';
 import { SkillsModule } from '../skills/skills.module';
 import { ProjectsModule } from '../projects/projects.module';
-import * as helpers from '../common/functions/helpers/helpers.functions';
-import * as serviceFunctions from '../common/functions/services/services.functions';
-import { CommonFiles } from '../common/enums/common-files.enum';
+import { UtilsModule } from '../utils/utils.module';
 
 @Module({
   imports: [
@@ -20,13 +18,10 @@ import { CommonFiles } from '../common/enums/common-files.enum';
     ]),
     forwardRef(() => SkillsModule),
     forwardRef(() => ProjectsModule),
+    UtilsModule,
   ],
   controllers: [SkillsCategoriesController],
-  providers: [
-    SkillsCategoriesService,
-    { provide: CommonFiles.helpers, useValue: helpers },
-    { provide: CommonFiles.services, useValue: serviceFunctions },
-  ],
+  providers: [SkillsCategoriesService],
   exports: [MongooseModule],
 })
 export class SkillsCategoriesModule {}

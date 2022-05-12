@@ -147,10 +147,10 @@ export class NewController {
     return this.newService.addNewBlogPostParagraphImage(id, image);
   }
 
-  @Delete('blog-post/:id/image/:image-id')
+  @Delete('blog-post/:id/image/:imageid')
   removeNewBlogPostParagraphImage(
     @Param('id') id: string,
-    @Param('image-id') imageId: string,
+    @Param('imageid') imageId: string,
   ): Promise<void> {
     return this.newService.removeNewBlogPostParagraphImage(id, imageId);
   }

@@ -1,12 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { InjectConnection, InjectModel } from '@nestjs/mongoose';
-import { Connection, Document, Model } from 'mongoose';
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Document, Model } from 'mongoose';
 
 import { Image } from '../common/classes/Image';
-import { CommonFiles } from '../common/enums/common-files.enum';
-import { Helpers } from '../common/functions/helpers/helpers.functions';
 import { CrudService } from '../common/mixins/crud-service.mixin';
 import { CloudinaryService } from '../file-uploader/cloudinary.service';
+import { NewProject } from '../new/schemas/new-project.schema';
 import { Skill, SkillRefs } from '../skills/schemas/skill.schema';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
@@ -15,21 +14,20 @@ import { Project, ProjectRefs } from './schemas/project.schema';
 @Injectable()
 export class ProjectsService extends CrudService<
   Project,
+  NewProject,
   CreateProjectDto,
   UpdateProjectDto
->(Project) {
+>(Project, NewProject) {
   constructor(
     private readonly cloudinaryService: CloudinaryService,
     @InjectModel(Skill.name)
     private readonly skillsModel: Model<Skill & Document>,
-    @InjectConnection() private readonly connection: Connection,
-    @Inject(CommonFiles.helpers) private readonly helpers: Helpers,
   ) {
     super();
   }
 
   create(createProjectDto: CreateProjectDto): Promise<Project> {
-    return this.helpers.mongooseTransaction(
+    return this.helperFunctionsService.mongooseTransaction(
       this.connection,
       async (session) => {
         const { technologies: skillsIds, ...projectProperties } =
@@ -53,6 +51,8 @@ export class ProjectsService extends CrudService<
           await skill.save();
         }
 
+        await this.serviceFunctionsService.removeNewProject(session);
+
         return newProject;
       },
     );
@@ -64,7 +64,7 @@ export class ProjectsService extends CrudService<
   ): Promise<Project> {
     const { technologies: skillsIds, ...projectProperties } = updateProjectDto;
 
-    return this.helpers.mongooseTransaction(
+    return this.helperFunctionsService.mongooseTransaction(
       this.connection,
       async (session) => {
         const { technologies: oldTechnologies } = await this.model
@@ -115,7 +115,7 @@ export class ProjectsService extends CrudService<
   }
 
   async remove(projectId: string): Promise<void> {
-    return this.helpers.mongooseTransaction(
+    return this.helperFunctionsService.mongooseTransaction(
       this.connection,
       async (session) => {
         const { technologies, images } = await this.model
@@ -144,7 +144,7 @@ export class ProjectsService extends CrudService<
   }
 
   createImage(id: string, image: Image): Promise<Project> {
-    return this.helpers.mongooseTransaction(
+    return this.helperFunctionsService.mongooseTransaction(
       this.connection,
       async (session) => {
         const project = await this.model.findById(id).session(session).exec();
@@ -162,7 +162,7 @@ export class ProjectsService extends CrudService<
   }
 
   removeImage(id: string, imageId: string): Promise<void> {
-    return this.helpers.mongooseTransaction(
+    return this.helperFunctionsService.mongooseTransaction(
       this.connection,
       async (session) => {
         await this.model
