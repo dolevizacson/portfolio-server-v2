@@ -1,9 +1,10 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { CommonFiles } from '../common/enums/common-files.enum';
 import { Project } from '../projects/schemas/project.schema';
 import { SkillsCategory } from '../skills-categories/schemas/skills-category.schema';
+import { HelperFunctionsService } from '../utils/helper-functions.service';
+import { ServiceFunctionService } from '../utils/service-functions.service';
 import { CreateSkillDto } from './dto/create-skill.dto';
 import { UpdateSkillDto } from './dto/update-skill.dto';
 import { Skill } from './schemas/skill.schema';
@@ -33,7 +34,7 @@ describe('SkillsService', () => {
                   return {
                     exec: jest.fn(() =>
                       Promise.resolve({
-                        skillCategory: { _id: mockId },
+                        skillsCategory: { _id: mockId },
                       }),
                     ),
                   };
@@ -50,7 +51,12 @@ describe('SkillsService', () => {
               return {
                 session: jest.fn(() => {
                   return {
-                    exec: jest.fn(() => Promise.resolve('skill')),
+                    exec: jest.fn(() =>
+                      Promise.resolve({
+                        _id: mockId,
+                        name: 'skill',
+                      }),
+                    ),
                   };
                 }),
                 exec: jest.fn(() => Promise.resolve('skill')),
@@ -143,16 +149,24 @@ describe('SkillsService', () => {
         },
         { provide: 'DatabaseConnection', useValue: {} },
         {
-          provide: CommonFiles.helpers,
+          provide: HelperFunctionsService,
           useValue: {
             mongooseTransaction: jest.fn(
               async (connection, callback) => await callback(),
             ),
+            toFirstLowerLetter: jest.fn(() => 'key'),
           },
         },
         {
-          provide: CommonFiles.services,
-          useValue: { removeSkill: jest.fn(() => Promise.resolve) },
+          provide: ServiceFunctionService,
+          useValue: {
+            removeSkill: jest.fn(() => Promise.resolve),
+            getNewDocument: jest.fn(() =>
+              Promise.resolve({
+                save: jest.fn(() => Promise.resolve()),
+              }),
+            ),
+          },
         },
       ],
     }).compile();
@@ -207,7 +221,7 @@ describe('SkillsService', () => {
     it('should return a promise of a skill', async () => {
       await expect(
         skillsService.update(mockId, mockUpdatSkillDto),
-      ).resolves.toEqual('skill');
+      ).resolves.toHaveProperty('name', 'skill');
       expect.assertions(1);
     });
   });
@@ -297,12 +311,22 @@ describe('SkillsService errors', () => {
         },
         { provide: 'DatabaseConnection', useValue: {} },
         {
-          provide: CommonFiles.helpers,
+          provide: HelperFunctionsService,
           useValue: {
             mongooseTransaction: jest.fn(() => Promise.reject(new Error())),
+            toFirstLowerLetter: jest.fn(() => 'key'),
           },
         },
-        { provide: CommonFiles.services, useValue: {} },
+        {
+          provide: ServiceFunctionService,
+          useValue: {
+            getNewDocument: jest.fn(() =>
+              Promise.resolve({
+                save: jest.fn(() => Promise.reject(new Error())),
+              }),
+            ),
+          },
+        },
       ],
     }).compile();
 

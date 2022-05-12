@@ -1,9 +1,8 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import mongoose from 'mongoose';
-import { Image } from '../common/classes/Image';
 
-import { CommonFiles } from '../common/enums/common-files.enum';
+import { Image } from '../common/classes/Image';
 import { CloudinaryService } from '../file-uploader/cloudinary.service';
 import { SkillsCategory } from '../skills-categories/schemas/skills-category.schema';
 import { Skill } from '../skills/schemas/skill.schema';
@@ -11,6 +10,8 @@ import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { ProjectsService } from './projects.service';
 import { Project } from './schemas/project.schema';
+import { HelperFunctionsService } from '../utils/helper-functions.service';
+import { ServiceFunctionService } from '../utils/service-functions.service';
 
 let projectService: ProjectsService;
 const mockCreatProjectDto = new CreateProjectDto();
@@ -215,11 +216,23 @@ describe('ProjectsService', () => {
         },
         { provide: 'DatabaseConnection', useValue: {} },
         {
-          provide: CommonFiles.helpers,
+          provide: HelperFunctionsService,
           useValue: {
             mongooseTransaction: jest.fn(
               async (connection, callback) => await callback(),
             ),
+            toFirstLowerLetter: jest.fn(() => 'key'),
+          },
+        },
+        {
+          provide: ServiceFunctionService,
+          useValue: {
+            getNewDocument: jest.fn(() =>
+              Promise.resolve({
+                save: jest.fn(() => Promise.resolve()),
+              }),
+            ),
+            removeNewProject: jest.fn(() => Promise.resolve()),
           },
         },
       ],
@@ -392,9 +405,21 @@ describe('ProjectsService errors', () => {
         },
         { provide: 'DatabaseConnection', useValue: {} },
         {
-          provide: CommonFiles.helpers,
+          provide: HelperFunctionsService,
           useValue: {
             mongooseTransaction: jest.fn(() => Promise.reject(new Error())),
+            toFirstLowerLetter: jest.fn(() => 'key'),
+          },
+        },
+        {
+          provide: ServiceFunctionService,
+          useValue: {
+            getNewDocument: jest.fn(() =>
+              Promise.resolve({
+                save: jest.fn(() => Promise.reject(new Error())),
+              }),
+            ),
+            removeNewProject: jest.fn(() => Promise.reject(new Error())),
           },
         },
       ],

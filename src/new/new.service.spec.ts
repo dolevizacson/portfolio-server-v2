@@ -1,7 +1,9 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
-import { Image } from '../common/classes/Image';
 
+import { HelperFunctionsService } from '../utils/helper-functions.service';
+import { ServiceFunctionService } from '../utils/service-functions.service';
+import { Image } from '../common/classes/Image';
 import { CloudinaryService } from '../file-uploader/cloudinary.service';
 import { NewService } from './new.service';
 import { New } from './schemas/new.schema';
@@ -51,6 +53,36 @@ describe('NewService', () => {
             ),
           },
         },
+        { provide: 'DatabaseConnection', useValue: {} },
+        {
+          provide: HelperFunctionsService,
+          useValue: {
+            mongooseTransaction: jest.fn(
+              async (connection, callback) => await callback(),
+            ),
+            toFirstLowerLetter: jest.fn(() => 'key'),
+          },
+        },
+        {
+          provide: ServiceFunctionService,
+          useValue: {
+            getNewDocument: jest.fn(() =>
+              Promise.resolve({
+                save: jest.fn(() => Promise.resolve()),
+                newProject: {
+                  images: [{ id: mockId }],
+                  name: 'project',
+                },
+                newBlogPost: {
+                  paragraphs: [{ _id: mockId, gallery: [{ id: mockId }] }],
+                  name: 'blog post',
+                },
+              }),
+            ),
+            removeNewProject: jest.fn(() => Promise.resolve()),
+            removeNewBlogPost: jest.fn(() => Promise.resolve()),
+          },
+        },
       ],
     }).compile();
 
@@ -59,25 +91,6 @@ describe('NewService', () => {
 
   it('should be defined', () => {
     expect(newService).toBeDefined();
-  });
-
-  describe('getNewDocument', () => {
-    it('should return a promise of array of new document', async () => {
-      expect.assertions(1);
-      await expect(newService.getNewDocument()).resolves.toHaveProperty(
-        'name',
-        'new document',
-      );
-    });
-  });
-
-  describe('toFirstLowerLetter', () => {
-    it('should transform the first letter to lower case', async () => {
-      expect.assertions(1);
-      await expect(newService.toFirstLowerLetter('SomeName')).toEqual(
-        'someName',
-      );
-    });
   });
 
   describe('createNew', () => {
@@ -172,6 +185,26 @@ describe('NewService errors', () => {
             uploadImage: jest.fn(() => Promise.reject(new Error())),
           },
         },
+        { provide: 'DatabaseConnection', useValue: {} },
+        {
+          provide: HelperFunctionsService,
+          useValue: {
+            mongooseTransaction: jest.fn(
+              async (connection, callback) => await callback(),
+            ),
+            toFirstLowerLetter: jest.fn(() => 'key'),
+          },
+        },
+        {
+          provide: ServiceFunctionService,
+          useValue: {
+            getNewDocument: jest.fn(() =>
+              Promise.resolve({
+                save: jest.fn(() => Promise.reject(new Error())),
+              }),
+            ),
+          },
+        },
       ],
     }).compile();
 
@@ -180,13 +213,6 @@ describe('NewService errors', () => {
 
   it('should be defined', () => {
     expect(newService).toBeDefined();
-  });
-
-  describe('getNewDocument with error', () => {
-    it('should throw an error', async () => {
-      await expect(newService.getNewDocument()).rejects.toThrowError();
-      expect.assertions(1);
-    });
   });
 
   describe('createNew with error', () => {

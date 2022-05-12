@@ -1,9 +1,10 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
-import { CommonFiles } from '../common/enums/common-files.enum';
 
 import { Project } from '../projects/schemas/project.schema';
 import { Skill } from '../skills/schemas/skill.schema';
+import { HelperFunctionsService } from '../utils/helper-functions.service';
+import { ServiceFunctionService } from '../utils/service-functions.service';
 import { CreateSkillsCategoryDto } from './dto/create-skills-category.dto';
 import { UpdateSkillsCategoryDto } from './dto/update-skills-category.dto';
 import { SkillsCategory } from './schemas/skills-category.schema';
@@ -129,16 +130,24 @@ describe('SkillsCategoriesService', () => {
         },
         { provide: 'DatabaseConnection', useValue: {} },
         {
-          provide: CommonFiles.helpers,
+          provide: HelperFunctionsService,
           useValue: {
             mongooseTransaction: jest.fn(
               async (connection, callback) => await callback(),
             ),
+            toFirstLowerLetter: jest.fn(() => 'key'),
           },
         },
         {
-          provide: CommonFiles.services,
-          useValue: { removeSkill: jest.fn(() => Promise.resolve) },
+          provide: ServiceFunctionService,
+          useValue: {
+            removeSkill: jest.fn(() => Promise.resolve),
+            getNewDocument: jest.fn(() =>
+              Promise.resolve({
+                save: jest.fn(() => Promise.resolve()),
+              }),
+            ),
+          },
         },
       ],
     }).compile();
@@ -295,12 +304,22 @@ describe('SkillsCategoriesService errors', () => {
         },
         { provide: 'DatabaseConnection', useValue: {} },
         {
-          provide: CommonFiles.helpers,
+          provide: HelperFunctionsService,
           useValue: {
             mongooseTransaction: jest.fn(() => Promise.reject(new Error())),
+            toFirstLowerLetter: jest.fn(() => 'key'),
           },
         },
-        { provide: CommonFiles.services, useValue: {} },
+        {
+          provide: ServiceFunctionService,
+          useValue: {
+            getNewDocument: jest.fn(() =>
+              Promise.resolve({
+                save: jest.fn(() => Promise.reject(new Error())),
+              }),
+            ),
+          },
+        },
       ],
     }).compile();
 

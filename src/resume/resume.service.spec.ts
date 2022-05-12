@@ -1,8 +1,8 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { CommonFiles } from '../common/enums/common-files.enum';
 import { FilesService } from '../file-uploader/files.service';
+import { HelperFunctionsService } from '../utils/helper-functions.service';
 import { CreateResumeDto } from './dto/create-resume.dto';
 import { ResumeService } from './resume.service';
 import { Resume } from './schemas/resume.schema';
@@ -55,7 +55,7 @@ describe('ResumeService', () => {
         },
         { provide: 'DatabaseConnection', useValue: {} },
         {
-          provide: CommonFiles.helpers,
+          provide: HelperFunctionsService,
           useValue: {
             mongooseTransaction: jest.fn(
               async (connection, callback) => await callback(),
@@ -151,7 +151,7 @@ describe('ResumeService error', () => {
         },
         { provide: 'DatabaseConnection', useValue: {} },
         {
-          provide: CommonFiles.helpers,
+          provide: HelperFunctionsService,
           useValue: {
             mongooseTransaction: jest.fn(
               async (connection, callback) => await callback(),

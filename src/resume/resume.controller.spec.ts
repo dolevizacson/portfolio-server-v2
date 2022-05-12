@@ -3,11 +3,11 @@ import { ReadStream } from 'fs';
 import { getMockRes } from '@jest-mock/express';
 import { mock } from 'jest-mock-extended';
 
-import { CommonFiles } from '../common/enums/common-files.enum';
 import { Libs } from '../common/enums/external-libs.enum';
 import { ResumeController } from './resume.controller';
 import { ResumeService } from './resume.service';
 import { CreateResumeDto } from './dto/create-resume.dto';
+import { HelperFunctionsService } from '../utils/helper-functions.service';
 
 let resumeController: ResumeController;
 const { res: mockResponse } = getMockRes();
@@ -47,7 +47,7 @@ describe('ResumeController', () => {
           },
         },
         {
-          provide: CommonFiles.helpers,
+          provide: HelperFunctionsService,
           useValue: {
             getFileExtensionFromMimeType: jest.fn(() => mockExtension),
           },
@@ -127,7 +127,7 @@ describe('ResumeController errors', () => {
           },
         },
         {
-          provide: CommonFiles.helpers,
+          provide: HelperFunctionsService,
           useValue: {
             getFileExtensionFromMimeType: jest.fn(() => mockExtension),
           },

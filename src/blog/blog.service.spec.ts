@@ -1,9 +1,10 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
-import { Image } from '../common/classes/Image';
 
-import { CommonFiles } from '../common/enums/common-files.enum';
+import { Image } from '../common/classes/Image';
 import { CloudinaryService } from '../file-uploader/cloudinary.service';
+import { HelperFunctionsService } from '../utils/helper-functions.service';
+import { ServiceFunctionService } from '../utils/service-functions.service';
 import { BlogService } from './blog.service';
 import { CreateBlogPostDto } from './dto/create-blog-post.dto';
 import { UpdateBlogPostDto } from './dto/update-blog-post.dto';
@@ -94,11 +95,22 @@ describe('BlogService', () => {
         },
         { provide: 'DatabaseConnection', useValue: {} },
         {
-          provide: CommonFiles.helpers,
+          provide: HelperFunctionsService,
           useValue: {
             mongooseTransaction: jest.fn(
               async (connection, callback) => await callback(),
             ),
+          },
+        },
+        {
+          provide: ServiceFunctionService,
+          useValue: {
+            getNewDocument: jest.fn(() =>
+              Promise.resolve({
+                save: jest.fn(() => Promise.resolve()),
+              }),
+            ),
+            removeNewBlogPost: jest.fn(() => Promise.resolve()),
           },
         },
       ],
@@ -227,9 +239,20 @@ describe('ProjectsService errors', () => {
         },
         { provide: 'DatabaseConnection', useValue: {} },
         {
-          provide: CommonFiles.helpers,
+          provide: HelperFunctionsService,
           useValue: {
             mongooseTransaction: jest.fn(() => Promise.reject(new Error())),
+          },
+        },
+        {
+          provide: ServiceFunctionService,
+          useValue: {
+            getNewDocument: jest.fn(() =>
+              Promise.resolve({
+                save: jest.fn(() => Promise.reject(new Error())),
+              }),
+            ),
+            removeNewBlogPost: jest.fn(() => Promise.reject(new Error())),
           },
         },
       ],
