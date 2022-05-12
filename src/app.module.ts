@@ -12,14 +12,17 @@ import { SkillsCategoriesModule } from './skills-categories/skills-categories.mo
 import { SkillsModule } from './skills/skills.module';
 import { NewModule } from './new/new.module';
 import { BlogModule } from './blog/blog.module';
+import { ContactModule } from './contact/contact.module';
+import { ResumeModule } from './resume/resume.module';
+
 import envVarValidationSchema from './config/envVar.schema';
 import mongodbConfig from './config/mongodb.config';
 import adminCredentialsConfig from './config/admin-credentials.config';
 import jwtOptionsConfig from './config/jwt-options.config';
 import cloudinaryConfig from './config/cloudinary.config';
 import oauth2Config, { OAuth2Config } from './config/oauth2.config';
-import { ContactModule } from './contact/contact.module';
-import { ResumeModule } from './resume/resume.module';
+import { UtilsModule } from './utils/utils.module';
+import cookieConfig from './config/cookie.config';
 
 @Module({
   imports: [
@@ -32,6 +35,7 @@ import { ResumeModule } from './resume/resume.module';
         jwtOptionsConfig,
         cloudinaryConfig,
         oauth2Config,
+        cookieConfig,
       ],
     }),
     MongooseModule.forRootAsync({
@@ -84,6 +88,7 @@ import { ResumeModule } from './resume/resume.module';
     BlogModule,
     ContactModule,
     ResumeModule,
+    UtilsModule,
   ],
   providers: [],
   controllers: [],
