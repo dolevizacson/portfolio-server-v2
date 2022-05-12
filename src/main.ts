@@ -12,6 +12,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new LoggingInterceptor());
+  app.enableCors({ credentials: true, origin: true });
 
   const configService = app.get(ConfigService);
 
