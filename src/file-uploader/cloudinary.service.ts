@@ -13,7 +13,56 @@ export class CloudinaryService {
     file: string,
     collection?: string,
   ): Promise<Cloudinary.UploadApiResponse> {
-    const options: Cloudinary.UploadApiOptions = {};
+    const options: Cloudinary.UploadApiOptions = {
+      eager: [
+        {
+          width: 200,
+          height: 200,
+          crop: 'fill',
+        },
+        {
+          width: 400,
+          height: 400,
+          crop: 'fill',
+        },
+        {
+          width: 800,
+          height: 800,
+          crop: 'fill',
+        },
+        {
+          width: 1200,
+          height: 1200,
+          crop: 'fill',
+        },
+        {
+          width: 1600,
+          height: 1600,
+          crop: 'fill',
+        },
+        {
+          width: 200,
+          crop: 'scale',
+        },
+        {
+          width: 400,
+          crop: 'scale',
+        },
+        {
+          width: 800,
+          crop: 'scale',
+        },
+        {
+          width: 1200,
+          crop: 'scale',
+        },
+        {
+          width: 1600,
+          crop: 'scale',
+        },
+      ],
+      eager_async: true,
+    };
 
     if (collection) {
       options.folder = collection;
