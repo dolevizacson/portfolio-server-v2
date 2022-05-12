@@ -21,6 +21,15 @@ export class Paragraph extends mongoose.Types.Subdocument {
 export const ParagraphSchema = SchemaFactory.createForClass(Paragraph);
 
 @Schema()
+export class Conclusion extends mongoose.Types.Subdocument {
+  @Prop()
+  header: string;
+
+  @Prop()
+  body: string;
+}
+
+@Schema()
 export class BlogPost extends Base {
   @Prop({ required: true })
   header: string;
@@ -33,6 +42,9 @@ export class BlogPost extends Base {
     validate: (val: Paragraph[]) => val.length > 0,
   })
   paragraphs: Paragraph[];
+
+  @Prop()
+  conclusion: Conclusion;
 }
 
 export const BlogPostSchema = SchemaFactory.createForClass(BlogPost);

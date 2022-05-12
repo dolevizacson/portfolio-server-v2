@@ -21,5 +21,8 @@ export class CreateBlogPostDto {
   @ArrayNotEmpty()
   paragraphs: Paragraph[];
 
-  conclusion: Paragraph;
+  conclusion: {
+    header: string;
+    Body: string;
+  };
 }
