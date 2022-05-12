@@ -1,5 +1,19 @@
-import { PartialType } from '@nestjs/mapped-types';
+import { Image } from '../../common/classes/Image';
 
-import { CreateBlogPostDto } from '../../blog/dto/create-blog-post.dto';
+export class NewBlgPostDto {
+  header?: string;
 
-export class NewBlgPostDto extends PartialType(CreateBlogPostDto) {}
+  summery?: string;
+
+  paragraphs?: Paragraph[];
+
+  conclusion?: Paragraph;
+}
+
+class Paragraph {
+  header?: string;
+
+  body?: string;
+
+  gallery?: Image[];
+}

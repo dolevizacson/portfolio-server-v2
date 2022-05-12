@@ -1,5 +1,18 @@
-import { PartialType } from '@nestjs/mapped-types';
+import mongoose from 'mongoose';
 
-import { CreateProjectDto } from '../../projects/dto/create-project.dto';
+export class NewProjectDto {
+  header?: string;
 
-export class NewProjectDto extends PartialType(CreateProjectDto) {}
+  summery?: string;
+
+  description?: string;
+
+  links?: Link[];
+
+  technologies?: mongoose.Types.ObjectId[];
+}
+class Link {
+  name?: string;
+
+  url?: string;
+}

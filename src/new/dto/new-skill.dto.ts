@@ -1,5 +1,8 @@
-import { PartialType } from '@nestjs/mapped-types';
+import mongoose from 'mongoose';
+export class NewSkillDto {
+  name?: string;
 
-import { CreateSkillDto } from '../../skills/dto/create-skill.dto';
+  attributes?: string[];
 
-export class NewSkillDto extends PartialType(CreateSkillDto) {}
+  skillsCategory?: mongoose.Types.ObjectId;
+}
