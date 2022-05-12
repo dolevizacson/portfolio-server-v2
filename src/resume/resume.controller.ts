@@ -5,7 +5,9 @@ import {
   Get,
   Inject,
   Param,
+  Patch,
   Post,
+  Put,
   Res,
   StreamableFile,
   UploadedFile,
@@ -17,11 +19,11 @@ import { Response } from 'express';
 import * as Fs from 'fs';
 import { join } from 'path';
 
-import { CommonFiles } from '../common/enums/common-files.enum';
 import { Libs } from '../common/enums/external-libs.enum';
-import { Helpers } from '../common/functions/helpers/helpers.functions';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { HelperFunctionsService } from '../utils/helper-functions.service';
 import { CreateResumeDto } from './dto/create-resume.dto';
+import { UpdateResumeDto } from './dto/update-resume.dto';
 import { ResumeService } from './resume.service';
 import { Resume } from './schemas/resume.schema';
 
@@ -29,7 +31,7 @@ import { Resume } from './schemas/resume.schema';
 export class ResumeController {
   constructor(
     private readonly resumeService: ResumeService,
-    @Inject(CommonFiles.helpers) private readonly helpers: Helpers,
+    private readonly helperFunctionsService: HelperFunctionsService,
     @Inject(Libs.fs) private readonly fs: typeof Fs,
   ) {}
 
@@ -82,9 +84,26 @@ export class ResumeController {
       nameOnDisk: file.filename,
       fileType: {
         mimeType: file.mimetype,
-        extension: this.helpers.getFileExtensionFromMimeType(file.mimetype),
+        extension: this.helperFunctionsService.getFileExtensionFromMimeType(
+          file.mimetype,
+        ),
       },
     });
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateResumeDto: UpdateResumeDto,
+  ): Promise<Resume> {
+    return this.resumeService.update(id, updateResumeDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id')
+  toggle(@Param('id') id: string): Promise<Resume> {
+    return this.resumeService.toggle(id);
   }
 
   @UseGuards(JwtAuthGuard)

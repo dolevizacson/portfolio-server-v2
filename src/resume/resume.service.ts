@@ -1,11 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Connection, FilterQuery, Model } from 'mongoose';
 
-import { CommonFiles } from '../common/enums/common-files.enum';
-import { Helpers } from '../common/functions/helpers/helpers.functions';
 import { FilesService } from '../file-uploader/files.service';
+import { HelperFunctionsService } from '../utils/helper-functions.service';
 import { CreateResumeDto } from './dto/create-resume.dto';
+import { UpdateResumeDto } from './dto/update-resume.dto';
 import { Resume, ResumeDocument } from './schemas/resume.schema';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class ResumeService {
     private readonly resumeModel: Model<ResumeDocument>,
     private readonly fileService: FilesService,
     @InjectConnection() private readonly connection: Connection,
-    @Inject(CommonFiles.helpers) private readonly helpers: Helpers,
+    private readonly helperFunctionsService: HelperFunctionsService,
   ) {}
   findAll(): Promise<Resume[]> {
     return this.resumeModel.find().exec();
@@ -35,8 +35,26 @@ export class ResumeService {
     return this.resumeModel.create(createResumeDto);
   }
 
+  update(id: string, updateResumeDto: UpdateResumeDto): Promise<Resume> {
+    return this.resumeModel
+      .findByIdAndUpdate(id, updateResumeDto, { new: true })
+      .exec();
+  }
+
+  toggle(id: string): Promise<Resume> {
+    return this.resumeModel
+      .findByIdAndUpdate(
+        id,
+        {
+          $bit: { isActive: { xor: 1 } },
+        },
+        { new: true },
+      )
+      .exec();
+  }
+
   remove(id: string): Promise<void> {
-    return this.helpers.mongooseTransaction(
+    return this.helperFunctionsService.mongooseTransaction(
       this.connection,
       async (session) => {
         const { nameOnDisk } = await this.resumeModel
