@@ -5,7 +5,7 @@ import { Base } from '../../common/schemas/base.schema';
 
 export type TaskDocument = Task & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Task extends Base {
   @Prop({ required: true })
   header: string;
