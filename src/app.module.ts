@@ -3,6 +3,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { google } from 'googleapis';
+import { RouterModule } from '@nestjs/core';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 import { TasksModule } from './tasks/tasks.module';
 import { UsersModule } from './users/users.module';
@@ -78,6 +81,9 @@ import cookieConfig from './config/cookie.config';
         };
       },
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client', 'build'),
+    }),
     TasksModule,
     UsersModule,
     AuthModule,
@@ -89,6 +95,44 @@ import cookieConfig from './config/cookie.config';
     ContactModule,
     ResumeModule,
     UtilsModule,
+    RouterModule.register([
+      {
+        path: 'api',
+        module: TasksModule,
+      },
+      {
+        path: 'api',
+        module: AuthModule,
+      },
+      {
+        path: 'api',
+        module: ProjectsModule,
+      },
+      {
+        path: 'api',
+        module: SkillsCategoriesModule,
+      },
+      {
+        path: 'api',
+        module: SkillsModule,
+      },
+      {
+        path: 'api',
+        module: NewModule,
+      },
+      {
+        path: 'api',
+        module: BlogModule,
+      },
+      {
+        path: 'api',
+        module: ContactModule,
+      },
+      {
+        path: 'api',
+        module: ResumeModule,
+      },
+    ]),
   ],
   providers: [],
   controllers: [],
