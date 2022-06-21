@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpCode,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Response, Request } from 'express';
 
@@ -15,6 +23,7 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('signin')
+  @HttpCode(200)
   signIn(
     @Req() request: AuthRequest,
     @Res({ passthrough: true }) response: Response,
