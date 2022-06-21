@@ -3,16 +3,10 @@ import { Document } from 'mongoose';
 
 export type BaseDocument = Base & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Base {
   @Prop({ default: 1, required: true })
   isActive: number;
-
-  @Prop({ default: Date.now() })
-  date: Date;
-
-  @Prop({ default: Date.now() })
-  update: Date;
 
   @Prop({ select: false })
   __v: number;

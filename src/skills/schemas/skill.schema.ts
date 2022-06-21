@@ -8,14 +8,13 @@ import { SkillsCategoryDocument } from '../../skills-categories/schemas/skills-c
 
 export type SkillDocument = Skill & mongoose.Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Skill extends Base {
   @Prop({ required: true })
   name: string;
 
   @Prop({
     type: [String],
-    validate: (val: string[]) => val.length > 0,
   })
   attributes: string[];
 

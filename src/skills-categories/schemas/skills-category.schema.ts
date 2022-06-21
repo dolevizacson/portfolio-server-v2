@@ -7,7 +7,7 @@ import { SkillDocument } from '../../skills/schemas/skill.schema';
 
 export type SkillsCategoryDocument = SkillsCategory & mongoose.Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class SkillsCategory extends Base {
   @Prop({ required: true })
   name: string;

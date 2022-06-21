@@ -29,7 +29,7 @@ export class Conclusion extends mongoose.Types.Subdocument {
   body: string;
 }
 
-@Schema()
+@Schema({ timestamps: true })
 export class BlogPost extends Base {
   @Prop({ required: true })
   header: string;

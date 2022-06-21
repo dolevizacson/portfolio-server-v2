@@ -188,7 +188,7 @@ export function CrudService<T, newT, TCreateDto = any, TUpdateDto = any>(
           {
             $bit: { isActive: { xor: 1 } },
           } as UpdateQuery<T & Document>,
-          { new: true, lean: true, ...options },
+          { new: true, lean: true, timestamps: false, ...options },
         )
         .exec();
     }

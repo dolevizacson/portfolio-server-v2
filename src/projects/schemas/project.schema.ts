@@ -16,7 +16,7 @@ class Link {
   url: string;
 }
 
-@Schema()
+@Schema({ timestamps: true })
 export class Project extends Base {
   @Prop({ required: true })
   header: string;

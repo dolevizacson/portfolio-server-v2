@@ -13,7 +13,7 @@ export class FileType {
   extension: string;
 }
 
-@Schema()
+@Schema({ timestamps: true })
 export class Resume extends Base {
   @Prop({ required: true })
   name: string;
