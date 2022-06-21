@@ -1,11 +1,11 @@
-import { ArrayNotEmpty, IsNotEmpty } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 import mongoose from 'mongoose';
 
 export class CreateSkillDto {
   @IsNotEmpty()
   name: string;
 
-  @ArrayNotEmpty()
+  @IsNotEmpty()
   attributes: string[];
 
   @IsNotEmpty()
