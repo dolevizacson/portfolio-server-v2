@@ -8,7 +8,7 @@
   "scripts": {
     "client:build": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "prebuild": "rimraf dist",
-    "build": " npm run client:build && nest build",
+    "build": "nest build && npm run client:build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
