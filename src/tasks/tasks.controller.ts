@@ -28,6 +28,7 @@ export class TasksController {
 
   @Get('active')
   findAllActive(): Promise<Task[]> {
+    console.log('in task controller');
     return this.taskListService.findAllActive();
   }
 
