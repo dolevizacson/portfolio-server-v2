@@ -6,9 +6,9 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "react:build": "npm install --prefix client && npm run build --prefix client",
+    "client:build": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "prebuild": "rimraf dist",
-    "build": "npm run react:build && nest build",
+    "build": " npm run client:build && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
