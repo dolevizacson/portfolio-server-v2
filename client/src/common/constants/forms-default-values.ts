@@ -52,12 +52,14 @@ export const blogPostFormDefaultValue: CreateBlogPost = {
 
 export const imageFormDefaultValue: Image = {
   url: '',
+  secure_url: '',
   description: '',
   id: '',
 };
 
 export const blogPostImageFormDefaultValue: BlogPostImage = {
   url: '',
+  secure_url: '',
   description: '',
   id: '',
   paragraphId: '',
