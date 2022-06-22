@@ -83,7 +83,6 @@ export function CrudService<T, newT, TCreateDto = any, TUpdateDto = any>(
       options: QueryOptions,
       populateOptions: PopulateOptions,
     ): Promise<T[]> {
-      console.log('in tasks service');
       const query = this.model.find(
         { isActive: 1 } as FilterQuery<T & Document>,
         {},

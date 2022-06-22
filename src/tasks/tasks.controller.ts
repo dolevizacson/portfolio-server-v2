@@ -27,11 +27,8 @@ export class TasksController {
   }
 
   @Get('active')
-  async findAllActive(): Promise<Task[]> {
-    console.log('in task controller');
-    const tasks = await this.taskListService.findAllActive();
-    console.log(tasks);
-    return tasks;
+  findAllActive(): Promise<Task[]> {
+    return this.taskListService.findAllActive();
   }
 
   @UseGuards(JwtAuthGuard)
