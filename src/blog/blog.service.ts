@@ -99,7 +99,7 @@ export class BlogService extends CrudService<
           if (paragraph._id.toString() === paragraphId) {
             paragraph.gallery.push({
               ...image,
-              url: response.url,
+              url: response.secure_url,
               id: response.public_id,
             });
           }

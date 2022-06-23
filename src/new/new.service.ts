@@ -93,7 +93,7 @@ export class NewService {
 
         newDocument.newProject.images.push({
           ...image,
-          url: response.url,
+          url: response.secure_url,
           id: response.public_id,
         });
 
@@ -159,7 +159,7 @@ export class NewService {
             if (paragraph._id.toString() === id) {
               paragraph.gallery.push({
                 ...image,
-                url: response.url,
+                url: response.secure_url,
                 id: response.public_id,
               });
             }

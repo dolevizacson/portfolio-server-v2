@@ -152,7 +152,7 @@ export class ProjectsService extends CrudService<
 
         project.images.push({
           ...image,
-          url: response.url,
+          url: response.secure_url,
           id: response.public_id,
         });
         await project.save();
