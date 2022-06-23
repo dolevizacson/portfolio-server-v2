@@ -69,11 +69,7 @@ const ImageGallery = <T, R>({
           }}
         >
           <ImageContainer
-            src={
-              process.env.NODE_ENV === 'production'
-                ? image.secure_url
-                : image.url
-            }
+            src={image.url}
             alt={image.description}
             sizes={`${imageGallerySizing.imageSize}px`}
             imageFit={ImageFit.Fill}
@@ -112,11 +108,7 @@ const ImageGallery = <T, R>({
             custom={bigGalleryDirection}
           >
             <ImageContainer
-              src={
-                process.env.NODE_ENV === 'production'
-                  ? image.secure_url
-                  : image.url
-              }
+              src={image.url}
               alt={image.description}
               sizes={'100vw'}
               imageFit={ImageFit.Scale}
