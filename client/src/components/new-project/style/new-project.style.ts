@@ -31,7 +31,7 @@ export const NewProjectAddImageContainerHeader = styled.h2``;
 
 export const NewProjectImageFormContainer = styled.div`
   display: grid;
-  ${(props) => props.theme.media(ScreenSizes.phone, true)`
+  ${(props) => props.theme.media(ScreenSizes.bigPhone, true)`
     padding: 0 5rem;
   `}
 `;

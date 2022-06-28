@@ -41,7 +41,7 @@ export const UpdateProjectImagesListContainer = styled.div`
 
 export const UpdateProjectImageFormContainer = styled.div`
   display: grid;
-  ${(props) => props.theme.media(ScreenSizes.phone, true)`
+  ${(props) => props.theme.media(ScreenSizes.bigPhone, true)`
     padding: 0 5rem;
   `}
 `;

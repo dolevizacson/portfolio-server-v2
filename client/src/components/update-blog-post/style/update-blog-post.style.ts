@@ -41,7 +41,7 @@ export const UpdateBlogPostAddImageFormContainer = styled.div`
   display: grid;
   grid-auto-rows: max-content;
   grid-gap: 0.5rem;
-  ${(props) => props.theme.media(ScreenSizes.phone, true)`
+  ${(props) => props.theme.media(ScreenSizes.bigPhone, true)`
     padding: 0 5rem;
   `}
 `;

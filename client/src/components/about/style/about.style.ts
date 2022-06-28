@@ -10,6 +10,7 @@ export const About = styled(motion.div).attrs((props) => ({
 export const AboutContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 47rem), 1fr));
+  justify-items: center;
 `;
 
 export const Info = styled.header`
@@ -76,4 +77,22 @@ export const BackQuoteMark = styled(QuoteMarks)`
 
 export const ImageContainer = styled.div`
   grid-column: 1/2;
+
+  margin: 1rem;
+
+  height: 40rem;
+  
+  overflow: hidden;
+
+  position: relative;
+
+  &::after {
+    position: absolute;
+    content: '';
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    box-shadow: inset 0 0 8px 15px var(--color-main-1);
+  }
 `;

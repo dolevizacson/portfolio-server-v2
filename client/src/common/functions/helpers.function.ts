@@ -41,14 +41,12 @@ export const addWidthToImageUrl = (
   }
 
   const tempUrl = imageUrl.split('/');
-  const imageName = tempUrl.pop();
-  tempUrl.pop();
 
-  tempUrl.push(sizesArray.join(''));
-
-  if (imageName) {
-    tempUrl.push(imageName);
-  }
+  tempUrl.splice(
+    tempUrl.findIndex((urlPart) => urlPart === 'upload') + 1,
+    0,
+    sizesArray.join('')
+  );
   return tempUrl.join('/');
 };
 

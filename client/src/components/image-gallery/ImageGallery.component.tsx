@@ -36,7 +36,7 @@ const ImageGallery = <T, R>({
 
   const gap = React.useMemo(
     () => imageGallerySizing.gapSize || 0,
-    [imageGallerySizing],
+    [imageGallerySizing]
   );
 
   const imagesToShow = React.useMemo(() => {
@@ -81,7 +81,7 @@ const ImageGallery = <T, R>({
                 e.stopPropagation();
                 if (deleteButtonObject) {
                   deleteButtonObject.deleteFunction(
-                    deleteButtonObject.deleteData[imageIndex],
+                    deleteButtonObject.deleteData[imageIndex]
                   );
                 }
               }}
@@ -143,7 +143,7 @@ const ImageGallery = <T, R>({
           showButtons={showButtons}
           onClick={() =>
             setSmallGalleryIndex(
-              (smallGalleryIndex - 1 + images.length) % images.length,
+              (smallGalleryIndex - 1 + images.length) % images.length
             )
           }
         >
@@ -163,7 +163,7 @@ const ImageGallery = <T, R>({
                 showButtons={true}
                 onClick={() => {
                   setBigGalleryIndex(
-                    (bigGalleryIndex - 1 + images.length) % images.length,
+                    (bigGalleryIndex - 1 + images.length) % images.length
                   );
                   setBigGalleryDirection(-1);
                 }}

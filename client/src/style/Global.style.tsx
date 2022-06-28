@@ -1,5 +1,35 @@
 import { createGlobalStyle } from 'styled-components';
 
+// fonts
+import RubikMonoOne from '../assets/fonts/RubikMonoOne-Regular.ttf';
+
+import NotoSansDisplayBlack from '../assets/fonts/NotoSansDisplay-Black.ttf';
+import NotoSansDisplayExtraBold from '../assets/fonts/NotoSansDisplay-ExtraBold.ttf';
+import NotoSansDisplayBold from '../assets/fonts/NotoSansDisplay-Bold.ttf';
+import NotoSansDisplaySemiBold from '../assets/fonts/NotoSansDisplay-SemiBold.ttf';
+import NotoSansDisplayMedium from '../assets/fonts/NotoSansDisplay-Medium.ttf';
+import NotoSansDisplayRegular from '../assets/fonts/NotoSansDisplay-Regular.ttf';
+import NotoSansDisplayLight from '../assets/fonts/NotoSansDisplay-Light.ttf';
+import NotoSansDisplayExtraLight from '../assets/fonts/NotoSansDisplay-ExtraLight.ttf';
+import NotoSansDisplayThin from '../assets/fonts/NotoSansDisplay-Thin.ttf';
+
+import SairaBlack from '../assets/fonts/Saira-Black.ttf';
+import SairaExtraBold from '../assets/fonts/Saira-ExtraBold.ttf';
+import SairaBold from '../assets/fonts/Saira-Bold.ttf';
+import SairaSemiBold from '../assets/fonts/Saira-SemiBold.ttf';
+import SairaMedium from '../assets/fonts/Saira-Medium.ttf';
+import SairaRegular from '../assets/fonts/Saira-Regular.ttf';
+import SairaLight from '../assets/fonts/Saira-Light.ttf';
+import SairaExtraLight from '../assets/fonts/Saira-ExtraLight.ttf';
+import SairaThin from '../assets/fonts/Saira-Thin.ttf';
+
+import ZCOOLQingKeHuangYouRegular from '../assets/fonts/ZCOOLQingKeHuangYou-Regular.ttf';
+
+import CaveatBold from '../assets/fonts/Caveat-Bold.ttf';
+import CaveatSemiBold from '../assets/fonts/Caveat-SemiBold.ttf';
+import CaveatMedium from '../assets/fonts/Caveat-Medium.ttf';
+import CaveatRegular from '../assets/fonts/Caveat-Regular.ttf';
+
 const GlobalStyle = createGlobalStyle`
 
   :root {
@@ -9,8 +39,8 @@ const GlobalStyle = createGlobalStyle`
     --color-main-1: rgba(17,17,17,1);
     --color-main-2: rgba(255,255,255,1);
     --color-main-3: rgba(5, 5, 5, 1);
-    --color-main-4: rgba(30, 30, 30, 1);
-    --color-main-5: rgba(17,17,17,1);
+    --color-main-4: rgba(45, 45, 45, 1);
+    --color-main-5: rgba(25,25,25,1);
     --color-main-6: rgb(55, 55, 55);
     --color-main-7: rgba(92, 92, 92, 1);
     --color-main-8: rgba(42, 42, 42, 1);
@@ -52,11 +82,134 @@ const GlobalStyle = createGlobalStyle`
     /* 56.25em 900px tab port 50%  8px*/
     ${(props) => props.theme.media('tabPort')`font-size: 50%`}
     /* 37.5em 600px phone 43.75% 7px */
-    ${(props) => props.theme.media('phone')`font-size: 43.75%`}
+    ${(props) => props.theme.media('bigPhone')`font-size: 43.75%`}
     /* 18.75em 300px phone 37.5% 6px */
-    ${(props) => props.theme.media('smallPhone')`font-size: 37.5%`}
+    ${(props) => props.theme.media('phone')`font-size: 37.5%`}
+    /* 15.625em 250px phone 31.25% 5px */
+    ${(props) => props.theme.media('smallPhone')`font-size: 31.25%`}
     /* 112.5em 1800px big desktop (min-width) 75% 12px*/
     ${(props) => props.theme.media('bigDesktop')`font-size:  75%`}
+  }
+
+   /* fonts imports */
+  @font-face {
+    font-family: 'Rubik Mono One';
+    src: url(${RubikMonoOne});
+  }
+  @font-face {
+    font-family: 'Noto Sans Display';
+    font-weight: 900;
+    src: url(${NotoSansDisplayBlack});
+  }
+  @font-face {
+    font-family: 'Noto Sans Display';
+    font-weight: 800;
+    src: url(${NotoSansDisplayExtraBold});
+  }
+  @font-face {
+    font-family: 'Noto Sans Display';
+    font-weight: 700;
+    src: url(${NotoSansDisplayBold});
+  }
+  @font-face {
+    font-family: 'Noto Sans Display';
+    font-weight: 600;
+    src: url(${NotoSansDisplaySemiBold});
+  }
+  @font-face {
+    font-family: 'Noto Sans Display';
+    font-weight: 500;
+    src: url(${NotoSansDisplayMedium});
+  }
+  @font-face {
+    font-family: 'Noto Sans Display';
+    font-weight: 400;
+    src: url(${NotoSansDisplayRegular});
+  }
+  @font-face {
+    font-family: 'Noto Sans Display';
+    font-weight: 300;
+    src: url(${NotoSansDisplayLight});
+  }
+  @font-face {
+    font-family: 'Noto Sans Display';
+    font-weight: 200;
+    src: url(${NotoSansDisplayExtraLight});
+  }
+  @font-face {
+    font-family: 'Noto Sans Display';
+    font-weight: 100;
+    src: url(${NotoSansDisplayThin});
+  }
+  @font-face {
+    font-family: 'Saira';
+    font-weight: 900;
+    src: url(${SairaBlack});
+  }
+  @font-face {
+    font-family: 'Saira';
+    font-weight: 800;
+    src: url(${SairaExtraBold});
+  }
+  @font-face {
+    font-family: 'Saira';
+    font-weight: 700;
+    src: url(${SairaBold});
+  }
+  @font-face {
+    font-family: 'Saira';
+    font-weight: 600;
+    src: url(${SairaSemiBold});
+  }
+  @font-face {
+    font-family: 'Saira';
+    font-weight: 500;
+    src: url(${SairaMedium});
+  }
+  @font-face {
+    font-family: 'Saira';
+    font-weight: 400;
+    src: url(${SairaRegular});
+  }
+  @font-face {
+    font-family: 'Saira';
+    font-weight: 300;
+    src: url(${SairaLight});
+  }
+  @font-face {
+    font-family: 'Saira';
+    font-weight: 200;
+    src: url(${SairaExtraLight});
+  }
+  @font-face {
+    font-family: 'Saira';
+    font-weight: 100;
+    src: url(${SairaThin});
+  }
+  @font-face {
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: 400;
+    src: url(${ZCOOLQingKeHuangYouRegular});
+  }
+    @font-face {
+    font-family: 'Caveat';
+    font-weight: 700;
+    src: url(${CaveatBold});
+  }
+    @font-face {
+    font-family: 'Caveat';
+    font-weight: 600;
+    src: url(${CaveatSemiBold});
+  }
+    @font-face {
+    font-family: 'Caveat';
+    font-weight: 500;
+    src: url(${CaveatMedium});
+  }
+    @font-face {
+    font-family: 'Caveat';
+    font-weight: 400;
+    src: url(${CaveatRegular});
   }
 
   body {

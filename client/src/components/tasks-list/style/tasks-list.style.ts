@@ -23,7 +23,7 @@ export const TaskContainer = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 1.5rem;
-  ${(props) => props.theme.media(ScreenSizes.phone, true)`
+  ${(props) => props.theme.media(ScreenSizes.bigPhone, true)`
     padding: 0 2rem;
   `}
 `;

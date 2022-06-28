@@ -11,7 +11,7 @@ export const LeftSide = styled.div`
   padding-left: 1rem;
 
   position: fixed;
-  z-index: 11;
+  z-index: 15;
   top: 0;
   left: 0;
 `;
@@ -26,8 +26,10 @@ export const rightSide = styled.div`
 
   padding-right: 1rem;
 
+  background-color: var(--color-main-1);
+
   position: fixed;
-  z-index: 10;
+  z-index: 13;
   top: 0;
   right: 0;
 `;
@@ -144,32 +146,15 @@ export const LinkSelect = styled(motion.div).attrs((props) => ({
 
 const variants = {
   open: {
-    scaleY: '1',
+    y: '0',
     opacity: 1,
-    padding: '1.4rem 0',
-    paddingBottom: 0,
     transition: {
-      when: 'beforeChildren',
-      type: 'spring',
       bounce: 0,
-    },
-    transitionEnd: {
-      display: 'flex',
     },
   },
   close: {
-    scaleY: '0',
+    y: '-100%',
     opacity: 0,
-    padding: 0,
-    paddingBottom: 0,
-    transition: {
-      when: 'afterChildren',
-      type: 'spring',
-      bounce: 0,
-    },
-    transitionEnd: {
-      display: 'none',
-    },
   },
 };
 

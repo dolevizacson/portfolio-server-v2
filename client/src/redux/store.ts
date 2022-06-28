@@ -15,7 +15,6 @@ import { contactApi } from '../services/contact/contact.service';
 import { resumeApi } from '../services/resume/resume.service';
 import { contactSlice } from '../slices/contact.slice';
 import { isDirtyReducer } from '../reducers/isDirty.reducer';
-import { appColorSlice } from '../slices/app-color.slice';
 
 const store = configureStore({
   reducer: {
@@ -34,7 +33,6 @@ const store = configureStore({
     [contactSlice.name]: contactSlice.reducer,
     [resumeApi.reducerPath]: resumeApi.reducer,
     isDirty: isDirtyReducer,
-    [appColorSlice.name]: appColorSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -46,6 +44,8 @@ const store = configureStore({
       .concat(blogApi.middleware)
       .concat(contactApi.middleware)
       .concat(resumeApi.middleware),
+
+  devTools: !(process.env.NODE_ENV === 'production'),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

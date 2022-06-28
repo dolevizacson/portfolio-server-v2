@@ -15,6 +15,7 @@ export interface MainThemeProps {
 export enum ScreenSizes {
   smallPhone = 'smallPhone',
   phone = 'phone',
+  bigPhone = 'bigPhone',
   tabPort = 'tabPort',
   tabLand = 'tabLand',
   bigDesktop = 'bigDesktop',
@@ -32,8 +33,9 @@ const createMediaQuery = (
   ...placeholders: any[]
 ) => FlattenSimpleInterpolation) => {
   const constSizes: ConstSizes = {
-    smallPhone: { size: '21.875em', isMin: false },
-    phone: { size: '37.5em', isMin: false },
+    smallPhone: { size: '15.625em', isMin: false },
+    phone: { size: '21.875em', isMin: false },
+    bigPhone: { size: '37.5em', isMin: false },
     tabPort: { size: '56.25em', isMin: false },
     tabLand: { size: '75em', isMin: false },
     bigDesktop: { size: '112.5em', isMin: true },

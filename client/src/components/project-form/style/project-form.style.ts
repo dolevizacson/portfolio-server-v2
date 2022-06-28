@@ -36,7 +36,7 @@ export const ProjectFormLinkContainer = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
-  ${(props) => props.theme.media(ScreenSizes.phone, true)`
+  ${(props) => props.theme.media(ScreenSizes.bigPhone, true)`
     padding: 0 5rem;
   `}
 `;

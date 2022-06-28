@@ -33,7 +33,7 @@ export const BlogPost = styled.section`
     ${(props) => props.theme.mixins.listSeparatorBottom}
   }
 
-  ${(props) => props.theme.media(ScreenSizes.phone, true)`
+  ${(props) => props.theme.media(ScreenSizes.bigPhone, true)`
     padding: 0 3rem;
   `}
 `;
@@ -46,7 +46,7 @@ export const BlogPostDateContainer = styled.div`
 
   padding-bottom: 1rem;
 
-  ${(props) => props.theme.mixins.listSeparator1}
+  ${(props) => props.theme.mixins.listSeparator}
 `;
 
 export const BlogPostDate = styled.div`

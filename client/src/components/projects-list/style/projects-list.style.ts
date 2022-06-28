@@ -71,7 +71,7 @@ export const ProjectSummery = styled.p`
 
   padding-bottom: 1.5rem;
 
-  ${(props) => props.theme.mixins.listSeparator1}
+  ${(props) => props.theme.mixins.listSeparator}
 `;
 
 export const ProjectSkillsList = styled.div`

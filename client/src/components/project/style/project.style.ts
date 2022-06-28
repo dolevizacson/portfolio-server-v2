@@ -44,7 +44,7 @@ export const ProjectCenterSubContainer = styled.div`
 `;
 
 export const ProjectDescription = styled.p`
-  ${(props) => props.theme.media(ScreenSizes.phone, true)`
+  ${(props) => props.theme.media(ScreenSizes.bigPhone, true)`
     padding: 0 3rem;
   `}
 `;

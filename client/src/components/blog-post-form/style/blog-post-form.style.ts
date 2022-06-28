@@ -54,7 +54,7 @@ export const BlogPostFormParagraphContainerAndSeparatorContainer = styled.div`
   &:not(:last-of-type) {
     margin-bottom: 2rem;
     padding-bottom: 2rem;
-    ${(props) => props.theme.mixins.listSeparator1}
+    ${(props) => props.theme.mixins.listSeparator}
   }
 `;
 
@@ -63,7 +63,7 @@ export const BlogPostFormParagraphContainer = styled.div`
   grid-gap: 0.5rem;
   flex-direction: column;
 
-  ${(props) => props.theme.media(ScreenSizes.phone, true)`
+  ${(props) => props.theme.media(ScreenSizes.bigPhone, true)`
     padding: 0 5rem;
   `}
 `;

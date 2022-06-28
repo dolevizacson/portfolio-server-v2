@@ -41,7 +41,7 @@ export const BlogPostHeader = styled.h1`
 export const BlogPostParagraphsList = styled.div``;
 
 export const BlogPostParagraph = styled.section`
-  ${(props) => props.theme.media(ScreenSizes.phone, true)`
+  ${(props) => props.theme.media(ScreenSizes.bigPhone, true)`
     padding: 0 3rem;
     padding-top: 4rem;
   `}

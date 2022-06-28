@@ -9,22 +9,6 @@ export const centerContent = (): FlattenSimpleInterpolation => {
   `;
 };
 
-export const listSeparator = (): FlattenSimpleInterpolation => {
-  return css`
-    position: relative;
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0px;
-      height: 0.3rem;
-      width: 100%;
-      background-color: var(--color-main-2);
-      border-radius: 25px;
-    }
-  `;
-};
-
 export const listSeparatorTop = (): FlattenSimpleInterpolation => {
   return css`
     position: relative;
@@ -57,7 +41,7 @@ export const listSeparatorBottom = (): FlattenSimpleInterpolation => {
   `;
 };
 
-export const listSeparator1 = (): FlattenSimpleInterpolation => {
+export const listSeparator = (): FlattenSimpleInterpolation => {
   return css`
     position: relative;
 
@@ -84,8 +68,10 @@ export const showMoreButton = (): FlattenSimpleInterpolation => {
   return css`
     justify-self: flex-end;
 
+    margin-top: 3rem;
+
     font-family: 'Noto Sans Display', sans-serif;
-    font-size: 1.8rem;
+    font-size: 2rem;
     text-transform: capitalize;
     color: var(--color-font-1);
     text-decoration: none;
