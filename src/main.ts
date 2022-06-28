@@ -13,7 +13,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new LoggingInterceptor());
 
-  if (process.env.NODE_ENV === 'production') {
+  if (!(process.env.NODE_ENV === 'production')) {
     app.enableCors({ credentials: true, origin: true });
   }
 
