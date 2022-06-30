@@ -7,7 +7,7 @@ export const ContactForm = styled.article`
 `;
 
 export const ContactFormHeader = styled.h1`
-  padding-bottom: 3rem;
+  padding-bottom: var(--size-header-padding-down);
 `;
 
 export const ContactFormContainer = styled.form`

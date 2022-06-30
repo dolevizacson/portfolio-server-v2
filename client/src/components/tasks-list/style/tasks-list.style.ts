@@ -10,7 +10,7 @@ export const TasksList = styled(motion.article).attrs((props) => ({
 `;
 
 export const TasksListHeader = styled.h1`
-  padding-bottom: 3rem;
+  padding-bottom: var(--size-header-padding-down);
 `;
 
 export const TasksListContainer = styled.div`
@@ -24,7 +24,7 @@ export const TaskContainer = styled.div`
   flex-direction: column;
   row-gap: 1.5rem;
   ${(props) => props.theme.media(ScreenSizes.bigPhone, true)`
-    padding: 0 2rem;
+    padding: 0 3rem;
   `}
 `;
 
@@ -43,7 +43,9 @@ export const Task = styled.section`
 
 export const TaskHeader = styled.h2``;
 
-export const TaskDescription = styled.p``;
+export const TaskDescription = styled.p`
+  /* padding: 0 3rem; */
+`;
 
 export const TaskDoneIconFrame = styled.div`
   align-self: flex-end;

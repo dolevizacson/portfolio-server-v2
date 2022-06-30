@@ -16,7 +16,7 @@ export const ProjectListContainer = styled.div`
 `;
 
 export const ProjectListHeader = styled.h1`
-  padding-bottom: 3rem;
+  padding-bottom: var(--size-header-padding-down);
 `;
 
 export const ProjectContainer = styled.article`

@@ -11,13 +11,13 @@ export const SkillsCategoriesList = styled(motion.div).attrs((props) => ({
 `;
 
 export const SkillsCategoriesListHeader = styled.h1`
-  padding-bottom: 3rem;
+  padding-bottom: var(--size-header-padding-down);
 `;
 
 export const SkillsCategoriesListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(37rem, 100%), 1fr));
-  grid-gap: 5rem;
+  grid-gap: 6.5rem;
 `;
 
 export const SkillCategory = styled.article`
@@ -26,7 +26,7 @@ export const SkillCategory = styled.article`
 
   position: relative;
 
-  padding: 1rem;
+  padding: 1.8rem;
 
   background-color: var(--color-main-1);
 

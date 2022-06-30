@@ -33,7 +33,7 @@ export const NoLineBreak = styled.span`
 
 export const Description = styled.p`
   font-size: 2.7rem;
-  font-family: 'ZCOOL QingKe HuangYou', cursive;
+  font-family: 'ZCOOL QingKe HuangYou', sans-serif;
   text-transform: uppercase;
   font-weight: 400;
   text-align: center;
@@ -50,7 +50,7 @@ export const Quote = styled.blockquote`
   font-size: 1.9rem;
   text-transform: uppercase;
   text-align: center;
-  font-family: 'ZCOOL QingKe HuangYou', cursive;
+  font-family: 'ZCOOL QingKe HuangYou', sans-serif;
   font-weight: 400;
   letter-spacing: 0.07rem;
 
@@ -81,7 +81,7 @@ export const ImageContainer = styled.div`
   margin: 1rem;
 
   height: 40rem;
-  
+
   overflow: hidden;
 
   position: relative;

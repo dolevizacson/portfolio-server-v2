@@ -13,7 +13,7 @@ export const BlogPostList = styled(motion.article).attrs((props) => ({
 `;
 
 export const BlogPostListHeader = styled.h1`
-  padding-bottom: 3rem;
+  padding-bottom: var(--size-header-padding-down);
 `;
 
 export const BlogPostListContainer = styled.div`

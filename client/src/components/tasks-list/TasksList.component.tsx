@@ -98,7 +98,7 @@ const TasksList = (): JSX.Element => {
           ]}
         />
         <style.TasksListHeader>task list</style.TasksListHeader>
-        <CenterContent size={75}>
+        <CenterContent size={65}>
           <style.TasksListContainer>
             {tasks && Object.values(tasks).length === 0 && (
               <TextBlock>no tasks found</TextBlock>

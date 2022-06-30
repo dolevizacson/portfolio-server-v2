@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import AdminNavbar from '../../components/admin-navbar/AdminNavbar.component';
 import { useLogOutMutation } from '../../services/auth/auth.service';
@@ -7,15 +7,7 @@ import { useLogOutMutation } from '../../services/auth/auth.service';
 import * as style from './style/admin-page.style';
 
 const Admin = (): JSX.Element => {
-  const [logOut, logoutResponse] = useLogOutMutation();
-
-  const navigate = useNavigate();
-
-  React.useEffect(() => {
-    if (logoutResponse.isSuccess) {
-      navigate('/');
-    }
-  }, [navigate, logoutResponse]);
+  const [logOut] = useLogOutMutation();
 
   return (
     <style.Admin>
