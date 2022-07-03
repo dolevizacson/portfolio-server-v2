@@ -76,6 +76,7 @@ const GlobalStyle = createGlobalStyle`
     --color-main-9: rgba(38, 38, 38, 1);
     --color-main-10: rgba(255, 255, 255, 0.3);
     --color-main-11: rgba(115, 115, 115, 0.2);
+    --color-main-12: rgba(17,17,17,0.8);
 
     /* fonts colors */
     --color-font-1:rgba(255,255,255,1); /* main font color */
@@ -308,6 +309,11 @@ const GlobalStyle = createGlobalStyle`
     border:none;
 
     padding: var(--size-input-padding-1);
+  }
+
+  ::selection {
+    color: var(--color-main-1);
+    background-color: var(--color-main-2);
   }
 `;
 

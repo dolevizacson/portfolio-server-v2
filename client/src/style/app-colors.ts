@@ -24,6 +24,7 @@ export const appColorAnimation1 = {
   '--color-font-1': 'rgba(255,255,255,1)',
   '--color-font-2': 'rgba(17,17,17,1)',
   '--color-main-11': 'rgba(115, 115, 115, 0.2)',
+  '--color-main-12': 'rgba(17,17,17,0.8)',
   transition: { duration: 0.2 },
 };
 
@@ -36,5 +37,6 @@ export const appColorAnimation2 = {
   '--color-font-1': 'rgba(17,17,17,1)',
   '--color-font-2': 'rgba(255,255,255,1)',
   '--color-main-11': 'rgba(170,170,170,0.3)',
+  '--color-main-12': 'rgba(232,232,232,0.8)',
   transition: { duration: 0.2 },
 };

@@ -27,7 +27,10 @@ const FormMultiSelect = ({
     getValues,
     register,
     formState: { errors, isSubmitted },
+    watch,
   } = useFormContext();
+
+  watch();
 
   const errorMessage = error || errors[fieldName]?.message;
 
@@ -68,7 +71,10 @@ const FormMultiSelect = ({
                         (value: string) => value !== option.value
                       ),
                     ],
-                    { shouldValidate: isSubmitted, shouldDirty: true }
+                    {
+                      shouldValidate: isSubmitted,
+                      shouldDirty: true,
+                    }
                   );
                 } else {
                   setValue(fieldName, [...getValues(fieldName), option.value], {

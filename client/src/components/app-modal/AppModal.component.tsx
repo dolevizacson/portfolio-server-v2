@@ -3,8 +3,6 @@ import { createPortal } from 'react-dom';
 
 import * as style from './style/app-modal.style';
 
-const modalRoot = document.getElementById('modal');
-
 type AppModalProps = {
   children: React.ReactNode;
   showModal: boolean;
@@ -13,15 +11,18 @@ type AppModalProps = {
 
 const AppModal = ({ children, showModal, onClose }: AppModalProps) => {
   const el = React.useRef(document.createElement('div'));
+  const modalRoot = document.getElementById('app');
 
   const [isOpen, setIsOpen] = React.useState(showModal);
 
   React.useEffect(() => {
     const current = el.current;
 
-    modalRoot!.appendChild(current);
+    if (modalRoot) {
+      modalRoot!.appendChild(current);
+    }
     return () => void modalRoot!.removeChild(current);
-  }, []);
+  }, [modalRoot]);
 
   return isOpen || showModal
     ? createPortal(

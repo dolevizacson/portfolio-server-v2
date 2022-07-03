@@ -15,6 +15,7 @@ import Loading from '../loading/Loading.component';
 import LoadingError from '../loading-error/LoadingError.component';
 import OnScreenNotification from '../on-screen-notification/OnScreenNotification.component';
 import CenterContent from '../center-content/CenterContent.component';
+import AppModal from '../app-modal/AppModal.component';
 
 import * as style from './style/resume-list.style';
 
@@ -42,6 +43,8 @@ const ResumeList = (): JSX.Element => {
     skip: !!isLoggedIn,
   });
 
+  const [showDeleteModal, setShowDeleteModal] = React.useState(false);
+
   const resumeList = React.useMemo(
     () => resumeData || activeResumeData,
     [resumeData, activeResumeData]
@@ -51,6 +54,12 @@ const ResumeList = (): JSX.Element => {
     () => (!!isLoggedIn ? resumeRefetch : activeResumeRefetch),
     [isLoggedIn, resumeRefetch, activeResumeRefetch]
   );
+
+  React.useEffect(() => {
+    if (deleteResumeResponse.isSuccess || deleteResumeResponse.isError) {
+      setShowDeleteModal(false);
+    }
+  }, [deleteResumeResponse]);
 
   return (
     <LoadingErrorContainer
@@ -87,64 +96,77 @@ const ResumeList = (): JSX.Element => {
           ]}
         />
         {resumeList && resumeList.length > 0 && (
-          <>
+          <style.ResumeListContainer>
             <style.ResumeListHeader>get my resume</style.ResumeListHeader>
             <CenterContent size={75}>
-              <style.ResumeListAndFormContainer>
-                <style.ResumeListContainer>
-                  <style.ResumeContainer>
-                    {resumeList?.map((resume) => {
-                      return (
-                        <style.Resume key={resume._id}>
-                          <style.ResumeDownLoad
-                            href={`${endPoints.baseUrl}/${endPoints.resume}/${resume._id}`}
-                            download
+              <style.ResumeContainer>
+                {resumeList?.map((resume) => {
+                  return (
+                    <style.Resume key={resume._id}>
+                      <style.ResumeDownLoad
+                        href={`${endPoints.baseUrl}/${endPoints.resume}/${resume._id}`}
+                        download
+                      >
+                        <style.ResumeDownLoadIcon />
+                        <style.ResumeFileName>
+                          {resume.name}
+                        </style.ResumeFileName>
+                      </style.ResumeDownLoad>
+                      {isLoggedIn && (
+                        <>
+                          <style.ResumeButton
+                            type="button"
+                            onClick={() => toggleResume(resume._id)}
                           >
-                            <style.ResumeDownLoadIcon />
-                            <style.ResumeFileName>
-                              {resume.name}
-                            </style.ResumeFileName>
-                          </style.ResumeDownLoad>
-                          {isLoggedIn && (
-                            <>
-                              <style.ResumeButton
-                                type="button"
-                                onClick={() => toggleResume(resume._id)}
-                              >
-                                toggle{' '}
-                                <AnimatePresence
-                                  initial={false}
-                                  exitBeforeEnter
+                            toggle{' '}
+                            <AnimatePresence initial={false} exitBeforeEnter>
+                              {resume?.isActive ? (
+                                <style.ButtonText key="off">
+                                  off
+                                </style.ButtonText>
+                              ) : (
+                                <style.ButtonText key="on">on</style.ButtonText>
+                              )}
+                            </AnimatePresence>
+                          </style.ResumeButton>
+                          <style.ResumeButton
+                            type="button"
+                            onClick={() => setShowDeleteModal(true)}
+                          >
+                            delete
+                          </style.ResumeButton>
+                          <AppModal
+                            showModal={showDeleteModal}
+                            onClose={() => setShowDeleteModal(false)}
+                          >
+                            <style.DeleteModalContainer>
+                              <style.DeleteModalText>
+                                are you sure ?
+                              </style.DeleteModalText>
+                              <style.DeleteModalButtonContainer>
+                                <style.ModalButton
+                                  onClick={() => setShowDeleteModal(false)}
                                 >
-                                  {resume?.isActive ? (
-                                    <style.ButtonText key="off">
-                                      off
-                                    </style.ButtonText>
-                                  ) : (
-                                    <style.ButtonText key="on">
-                                      on
-                                    </style.ButtonText>
-                                  )}
-                                </AnimatePresence>
-                              </style.ResumeButton>
-                              <style.ResumeButton
-                                type="button"
-                                onClick={() => deleteResume(resume._id)}
-                              >
-                                delete
-                              </style.ResumeButton>
-                            </>
-                          )}
-                        </style.Resume>
-                      );
-                    })}
-                  </style.ResumeContainer>
-                </style.ResumeListContainer>
-                {isLoggedIn && <NewResumeForm />}
-              </style.ResumeListAndFormContainer>
+                                  cancel
+                                </style.ModalButton>
+                                <style.ModalButton
+                                  onClick={() => deleteResume(resume._id)}
+                                >
+                                  delete
+                                </style.ModalButton>
+                              </style.DeleteModalButtonContainer>
+                            </style.DeleteModalContainer>
+                          </AppModal>
+                        </>
+                      )}
+                    </style.Resume>
+                  );
+                })}
+              </style.ResumeContainer>
             </CenterContent>
-          </>
+          </style.ResumeListContainer>
         )}
+        {isLoggedIn && <NewResumeForm />}
       </style.ResumeList>
     </LoadingErrorContainer>
   );

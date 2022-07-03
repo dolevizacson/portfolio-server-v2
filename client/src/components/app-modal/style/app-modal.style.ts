@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 export const AppModal = styled.article`
   position: fixed;
@@ -9,19 +10,41 @@ export const AppModal = styled.article`
   z-index: 1000;
 `;
 
-export const AppModalBackGroundStyle = styled.div`
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3,
+    },
+  },
+};
+
+export const AppModalBackGroundStyle = styled(motion.div).attrs((props) => ({
+  variants: container,
+  initial: 'hidden',
+  animate: 'show',
+}))`
   ${(props) => props.theme.mixins.centerContent}
 
-  background-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(4px);
 
   height: 100%;
   width: 100%;
 `;
 
-export const AppModalContainerStyle = styled.div`
+const child = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
+};
+
+export const AppModalContainerStyle = styled(motion.div).attrs((props) => ({
+  variants: child,
+  initial: 'hidden',
+  animate: 'show',
+}))`
   ${(props) => props.theme.mixins.centerContent}
 
-  height: 100%;
-  width: 100%;
+  height: max-content;
+  width: max-content;
 `;

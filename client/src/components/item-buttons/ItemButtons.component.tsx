@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { AnimatePresence } from 'framer-motion';
 
+import AppModal from '../app-modal/AppModal.component';
+
 import * as style from './style/item-buttons.style';
 
 type ItemButtonsProps = {
@@ -18,9 +20,11 @@ const ItemButtons = ({
   updateRoute,
   name,
 }: ItemButtonsProps): JSX.Element => {
+  const [showDeleteModal, setShowDeleteModal] = React.useState(false);
+
   return (
     <style.ItemButtons>
-      <style.Button onClick={() => item && deleteFunction(item._id)}>
+      <style.Button onClick={() => setShowDeleteModal(true)}>
         {name ? `delete ${name}` : 'delete'}
       </style.Button>
       <style.Button onClick={() => item && toggleFunction(item._id)}>
@@ -34,6 +38,22 @@ const ItemButtons = ({
         </AnimatePresence>
       </style.Button>
       <style.LinkButton to={updateRoute}>update</style.LinkButton>
+      <AppModal
+        showModal={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+      >
+        <style.DeleteModalContainer>
+          <style.DeleteModalText>are you sure ?</style.DeleteModalText>
+          <style.DeleteModalButtonContainer>
+            <style.Button onClick={() => setShowDeleteModal(false)}>
+              cancel
+            </style.Button>
+            <style.Button onClick={() => item && deleteFunction(item._id)}>
+              {name ? `delete ${name}` : 'delete'}
+            </style.Button>
+          </style.DeleteModalButtonContainer>
+        </style.DeleteModalContainer>
+      </AppModal>
     </style.ItemButtons>
   );
 };

@@ -32,7 +32,7 @@ const App = (): JSX.Element => {
     <ColorContext.Provider value={controls}>
       <MainTheme>
         <GlobalStyle />
-        <style.App animate={controls}>
+        <style.App animate={controls} id="app">
           <Navbar />
           <Main>
             <AppRoutes />

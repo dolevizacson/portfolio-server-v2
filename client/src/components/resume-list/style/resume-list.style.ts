@@ -7,6 +7,10 @@ export const ResumeList = styled(motion.article).attrs((props) => ({
   ...props.theme.animations.afterChangeColorComponentAnimation,
 }))`
   flex: 1;
+
+  display: grid;
+  grid-auto-rows: max-content;
+  gap: 3rem;
 `;
 
 export const ResumeListHeader = styled.h2`
@@ -15,22 +19,15 @@ export const ResumeListHeader = styled.h2`
   padding-bottom: 3rem;
 `;
 
-export const ResumeListAndFormContainer = styled.div`
-  flex: 1;
-  display: grid;
-  grid-auto-rows: max-content;
-  grid-gap: 8rem;
-`;
-
 export const ResumeListContainer = styled.div`
-  display: grid;
-  grid-auto-rows: max-content;
-  grid-gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ResumeContainer = styled.div`
+  flex: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
 `;
 
@@ -80,3 +77,34 @@ export const ButtonText = styled(motion.span).attrs((props) => ({
   animate: 'show',
   exit: 'hide',
 }))``;
+
+export const DeleteModalContainer = styled.div`
+  ${(props) => props.theme.mixins.centerContent}
+  flex-direction: column;
+  row-gap: 1.5rem;
+
+  margin: 3rem;
+  padding: 3rem;
+  border-radius: 10px;
+
+  background-color: var(--color-main-12);
+  box-shadow: 0 0 7px 0px var(--color-main-2);
+  backdrop-filter: blur(10px);
+`;
+
+export const DeleteModalButtonContainer = styled.div`
+  ${(props) => props.theme.mixins.centerContent}
+  flex-wrap: wrap;
+`;
+
+export const DeleteModalText = styled.div`
+  color: var(--color-main-2);
+  font-size: 2.4rem;
+`;
+
+export const ModalButton = styled(motion.button).attrs((props) => ({
+  ...props.theme.animations.button2TapAnimation,
+}))`
+  ${(props) => props.theme.mixins.button}
+  width: var(--size-button-width-1);
+`;

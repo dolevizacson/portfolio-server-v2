@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { ScreenSizes } from '../../../style/MainTheme.style';
+
 export const Main = styled.main`
   display: grid;
   grid-template-columns:
@@ -8,6 +10,11 @@ export const Main = styled.main`
 
   min-height: calc(100vh - var(--size-navbar-height));
   padding-top: var(--size-navbar-height);
+
+  ${(props) => props.theme.media(ScreenSizes.bigPhone, true)`
+    padding-left: 6.5rem;
+    padding-right: 6.5rem;
+  `}
 `;
 
 export const MainContainer = styled.section`

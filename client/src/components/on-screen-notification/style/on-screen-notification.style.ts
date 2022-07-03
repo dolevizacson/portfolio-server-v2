@@ -5,7 +5,7 @@ export const OnScreenNotification = styled.article`
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1001;
 `;
 
 const variants = {

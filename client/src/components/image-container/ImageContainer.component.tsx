@@ -49,8 +49,6 @@ const ImageContainer = ({
     })} ${1600}w`;
   }, [imageFit, src]);
 
-  console.log(src);
-
   return (
     <>
       <style.ImageContainerLoading show={isLoaded}>
