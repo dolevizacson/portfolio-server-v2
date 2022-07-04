@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import * as style from './style/app.style';
-
 import Main from '../components/main/Main.component';
 import AppRoutes from '../components/app-routes/AppRoutes.component';
 import Navbar from '../components/navbar/Navbar.component';
@@ -10,8 +8,11 @@ import Footer from '../components/footer/Footer.component';
 import MainTheme from '../style/MainTheme.style';
 import GlobalStyle from '../style/Global.style';
 import { ColorContext } from '../common/contexts/app-color.context';
-
 import { useAnimation } from 'framer-motion';
+
+import '../style/fonts.css';
+
+import * as style from './style/app.style';
 
 const App = (): JSX.Element => {
   const appDirtyState = useAppSelector((state) => state.isDirty);
