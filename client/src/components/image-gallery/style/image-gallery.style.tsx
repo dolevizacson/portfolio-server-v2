@@ -57,6 +57,7 @@ interface ImageGalleryContainerProps {
 }
 
 export const ImageGalleryContainer = styled.div<ImageGalleryContainerProps>`
+  flex: 1;
   grid-column: 2/3;
   ${(props) => props.theme.mixins.centerContent}
   gap: var(--gap-size);
