@@ -7,6 +7,7 @@ import { useComponentSize } from '../../hooks/useComponentSize.hook';
 import ImageContainer from '../image-container/ImageContainer.component';
 import { ImageFit } from '../../common/enums/image-fit.enum';
 import { AnimatePresence } from 'framer-motion';
+import DeleteButton from '../delete-button/DeleteButton.component';
 
 import * as style from './style/image-gallery.style';
 
@@ -75,17 +76,13 @@ const ImageGallery = <T, R>({
             imageFit={ImageFit.Fill}
           />
           {deleteButtonObject && (
-            <style.ImageGalleryImageContainerDeleteButton
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                if (deleteButtonObject) {
-                  deleteButtonObject.deleteFunction(
-                    deleteButtonObject.deleteData[imageIndex]
-                  );
-                }
-              }}
-            />
+            <DeleteButton
+              deleteFunction={deleteButtonObject.deleteFunction}
+              deleteItem={deleteButtonObject.deleteData[imageIndex]}
+              modalButtonText="delete image"
+            >
+              <style.ImageGalleryImageContainerDeleteButton type="button" />
+            </DeleteButton>
           )}
         </style.ImageGalleryImageContainer>
       );
@@ -112,6 +109,7 @@ const ImageGallery = <T, R>({
               alt={image.description}
               sizes={'100vw'}
               imageFit={ImageFit.Scale}
+              showDescription
             />
           </style.ImageGalleryBigGalleryImageContainer>
         );
@@ -156,7 +154,7 @@ const ImageGallery = <T, R>({
           <style.ImageGalleryBigGalleryCloseButton
             onClick={() => setShowBigGallery(false)}
           />
-          <style.ImageGalleryBigGalleryContainer>
+          <style.ImageGalleryBigGalleryWithCloseButtonContainer>
             {images.length > 1 && (
               <style.ImageGalleryButton
                 type="button"
@@ -171,13 +169,15 @@ const ImageGallery = <T, R>({
                 <ArrowIosBack />
               </style.ImageGalleryButton>
             )}
-            <AnimatePresence
-              exitBeforeEnter
-              initial={false}
-              custom={bigGalleryDirection}
-            >
-              {renderedGigGalleryImages}
-            </AnimatePresence>
+            <style.ImageGalleryBigGalleryContainer>
+              <AnimatePresence
+                exitBeforeEnter
+                initial={false}
+                custom={bigGalleryDirection}
+              >
+                {renderedGigGalleryImages}
+              </AnimatePresence>
+            </style.ImageGalleryBigGalleryContainer>
             {images.length > 1 && (
               <style.ImageGalleryButton
                 type="button"
@@ -190,7 +190,7 @@ const ImageGallery = <T, R>({
                 <ArrowIosForward />
               </style.ImageGalleryButton>
             )}
-          </style.ImageGalleryBigGalleryContainer>
+          </style.ImageGalleryBigGalleryWithCloseButtonContainer>
         </style.ImageGalleryBigGallery>
       )}
     </AnimatePresence>

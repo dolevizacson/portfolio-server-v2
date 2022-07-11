@@ -35,9 +35,10 @@ import OnScreenNotification from '../on-screen-notification/OnScreenNotification
 import LoadingErrorContainer from '../loading-error-container/LoadingErrorContainer.component';
 import Loading from '../loading/Loading.component';
 import LoadingError from '../loading-error/LoadingError.component';
+import FormItemButtons from '../form-item-buttons/FormItemButtons.component';
+import { DisableForm } from '../disable-form/style/disable-form.style';
 
 import * as style from './style/new-skill.style';
-import { DisableForm } from '../disable-form/style/disable-form.style';
 
 const NewSkill = (): JSX.Element => {
   const {
@@ -243,7 +244,7 @@ const NewSkill = (): JSX.Element => {
           ]}
         />
         <style.NewSkillHeader>new skill</style.NewSkillHeader>
-        <style.NewSkillContainer>
+        <style.NewSkillContainer onSubmit={handleSubmit(onSubmit)}>
           <DisableForm
             disabled={
               updateNewSkillResponse.isLoading ||
@@ -260,46 +261,28 @@ const NewSkill = (): JSX.Element => {
             </FormProvider>
           </DisableForm>
 
-          <style.buttonsContainer>
+          <FormItemButtons
+            deleteFunction={deleteNewSkill}
+            deleteItem={undefined}
+            successErrorObject={{
+              success: deleteNewSkillResponse.isSuccess,
+              error: deleteNewSkillResponse.isError,
+            }}
+            resetFunction={reset}
+            updateFunction={updateNewSkill}
+            updateItem={{
+              ...watch(),
+              attributes: stringObjectToStringArray(watch().attributes),
+            }}
+            itemName="skill"
+          >
             <style.NewSkillButton
               type="button"
               onClick={() => appendAttribute({ name: '' })}
             >
               add attribute
             </style.NewSkillButton>
-            <style.NewSkillButton
-              type="button"
-              onClick={() => {
-                reset();
-              }}
-            >
-              undo changes
-            </style.NewSkillButton>
-            <style.NewSkillButton
-              type="button"
-              onClick={() => deleteNewSkill()}
-            >
-              delete skill
-            </style.NewSkillButton>
-            <style.NewSkillButton
-              type="button"
-              onClick={() => {
-                const updateNewSkillData: CreateSkill = {
-                  ...watch(),
-                  attributes: stringObjectToStringArray(watch().attributes),
-                };
-                updateNewSkill(updateNewSkillData);
-              }}
-            >
-              save progress
-            </style.NewSkillButton>
-            <style.NewSkillButton
-              type="button"
-              onClick={handleSubmit(onSubmit)}
-            >
-              add skill
-            </style.NewSkillButton>
-          </style.buttonsContainer>
+          </FormItemButtons>
         </style.NewSkillContainer>
       </style.NewSkill>
     </LoadingErrorContainer>

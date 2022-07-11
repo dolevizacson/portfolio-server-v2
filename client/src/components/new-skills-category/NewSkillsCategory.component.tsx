@@ -21,9 +21,11 @@ import OnScreenNotification from '../on-screen-notification/OnScreenNotification
 import LoadingErrorContainer from '../loading-error-container/LoadingErrorContainer.component';
 import Loading from '../loading/Loading.component';
 import LoadingError from '../loading-error/LoadingError.component';
+import DisableForm from '../disable-form/DisableForm.component';
+import DeleteButton from '../delete-button/DeleteButton.component';
+import FormItemButtons from '../form-item-buttons/FormItemButtons.component';
 
 import * as style from './style/new-skills-category.style';
-import DisableForm from '../disable-form/DisableForm.component';
 
 const NewSkillsCategory = (): JSX.Element => {
   const {
@@ -163,7 +165,7 @@ const NewSkillsCategory = (): JSX.Element => {
         <style.NewSkillsCategoryHeader>
           new skills category
         </style.NewSkillsCategoryHeader>
-        <style.NewSkillsCategoryContainer>
+        <style.NewSkillsCategoryContainer onSubmit={handleSubmit(onSubmit)}>
           <DisableForm
             disabled={
               updateSkillsCategoryResponse.isLoading ||
@@ -176,7 +178,20 @@ const NewSkillsCategory = (): JSX.Element => {
             </FormProvider>
           </DisableForm>
 
-          <style.buttonsContainer>
+          <FormItemButtons
+            deleteFunction={deleteNewSkillsCategory}
+            deleteItem={undefined}
+            successErrorObject={{
+              success: deleteSkillsCategoryResponse.isSuccess,
+              error: deleteSkillsCategoryResponse.isError,
+            }}
+            resetFunction={reset}
+            updateFunction={updateSkillsCategory}
+            updateItem={watch()}
+            itemName="skills category"
+          />
+
+          {/* <style.buttonsContainer>
             <style.NewSkillsCategoryButton
               type="button"
               onClick={() => {
@@ -185,12 +200,21 @@ const NewSkillsCategory = (): JSX.Element => {
             >
               undo changes
             </style.NewSkillsCategoryButton>
-            <style.NewSkillsCategoryButton
-              type="button"
-              onClick={() => deleteNewSkillsCategory()}
+            <DeleteButton
+              deleteFunction={deleteNewSkillsCategory}
+              deleteItem={undefined}
+              successErrorObject={{
+                success: deleteSkillsCategoryResponse.isSuccess,
+                error: deleteSkillsCategoryResponse.isError,
+              }}
             >
-              delete skills category
-            </style.NewSkillsCategoryButton>
+              <style.NewSkillsCategoryButton
+                type="button"
+                // onClick={() => deleteNewSkillsCategory()}
+              >
+                delete skills category
+              </style.NewSkillsCategoryButton>
+            </DeleteButton>
             <style.NewSkillsCategoryButton
               type="button"
               onClick={() => updateSkillsCategory(watch())}
@@ -203,7 +227,7 @@ const NewSkillsCategory = (): JSX.Element => {
             >
               add skills category
             </style.NewSkillsCategoryButton>
-          </style.buttonsContainer>
+          </style.buttonsContainer> */}
         </style.NewSkillsCategoryContainer>
       </style.NewSkillsCategory>
     </LoadingErrorContainer>

@@ -14,6 +14,7 @@ type ImageContainerProps = {
   srcset?: string;
   sizes?: string;
   imageFit?: CropOptions;
+  showDescription?: boolean;
 };
 
 const ImageContainer = ({
@@ -22,8 +23,10 @@ const ImageContainer = ({
   srcset,
   sizes,
   imageFit = 'scale',
+  showDescription,
 }: ImageContainerProps): JSX.Element => {
   const [isLoaded, setIsLoaded] = React.useState(false);
+  const [localShowDescription, setLocalShowDescription] = React.useState(true);
 
   const defaultSrcset = React.useMemo(() => {
     return `${addWidthToImageUrl(src, {
@@ -62,7 +65,15 @@ const ImageContainer = ({
           srcSet={srcset ?? defaultSrcset}
           onLoad={() => setIsLoaded(true)}
           title={alt}
+          onClick={() => setLocalShowDescription(!localShowDescription)}
         />
+        {showDescription && (
+          <style.ImageContainerDescription
+            animate={localShowDescription ? 'open' : 'close'}
+          >
+            {alt}
+          </style.ImageContainerDescription>
+        )}
       </style.ImageContainer>
     </>
   );

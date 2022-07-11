@@ -36,6 +36,7 @@ import LoadingErrorContainer from '../loading-error-container/LoadingErrorContai
 import LoadingError from '../loading-error/LoadingError.component';
 import OnScreenNotification from '../on-screen-notification/OnScreenNotification.component';
 import DisableForm from '../disable-form/DisableForm.component';
+import FormItemButtons from '../form-item-buttons/FormItemButtons.component';
 
 import * as style from './style/new-blog-post.style';
 
@@ -255,7 +256,7 @@ const NewBlogPost = (): JSX.Element => {
           ]}
         />
         <style.NewBlogPostHeader>new blog post</style.NewBlogPostHeader>
-        <style.NewBlogPostContainer>
+        <style.NewBlogPostContainer onSubmit={handleSubmit(onSubmit)}>
           <DisableForm
             disabled={
               createBlogPostResponse.isLoading ||
@@ -333,7 +334,18 @@ const NewBlogPost = (): JSX.Element => {
               </style.NewBlogPostAddImageButton>
             </style.NewBlogPostAddImageContainer>
 
-            <style.buttonsContainer>
+            <FormItemButtons
+              deleteFunction={deleteNewBlogPost}
+              deleteItem={undefined}
+              successErrorObject={{
+                success: deleteNewBlogPostResponse.isSuccess,
+                error: deleteNewBlogPostResponse.isError,
+              }}
+              resetFunction={reset}
+              updateFunction={updateNewBlogPost}
+              updateItem={watch()}
+              itemName="blog post"
+            >
               <style.NewBlogPostButton
                 type="button"
                 onClick={() => {
@@ -346,30 +358,7 @@ const NewBlogPost = (): JSX.Element => {
               >
                 add paragraph
               </style.NewBlogPostButton>
-              <style.NewBlogPostButton
-                type="button"
-                onClick={() => {
-                  reset();
-                }}
-              >
-                undo changes
-              </style.NewBlogPostButton>
-              <style.NewBlogPostButton
-                type="button"
-                onClick={() => deleteNewBlogPost()}
-              >
-                delete blog post
-              </style.NewBlogPostButton>
-              <style.NewBlogPostButton
-                type="button"
-                onClick={() => updateNewBlogPost(watch())}
-              >
-                save progress
-              </style.NewBlogPostButton>
-              <style.NewBlogPostButton onClick={handleSubmit(onSubmit)}>
-                add blog post
-              </style.NewBlogPostButton>
-            </style.buttonsContainer>
+            </FormItemButtons>
           </DisableForm>
         </style.NewBlogPostContainer>
       </style.NewBlogPost>

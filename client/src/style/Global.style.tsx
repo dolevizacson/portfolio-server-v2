@@ -57,7 +57,7 @@ const GlobalStyle = createGlobalStyle`
     ${(props) => props.theme.media('bigPhone')`font-size: 43.75%`}
     /* 18.75em 300px phone 37.5% 6px */
     ${(props) => props.theme.media('phone')`font-size: 37.5%`}
-    /* 15.625em 250px phone 31.25% 5px */
+    /* 16.875em 270px phone 31.25% 5px */
     ${(props) => props.theme.media('smallPhone')`font-size: 31.25%`}
     /* 112.5em 1800px big desktop (min-width) 75% 12px*/
     ${(props) => props.theme.media('bigDesktop')`font-size:  75%`}
@@ -74,14 +74,14 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     letter-spacing: -0.2rem;
     font-size: 4.3rem;
-    ${(props) => props.theme.media('smallPhone')`hyphens: auto;`}
+    ${(props) => props.theme.media('phone')`hyphens: auto;`}
   }
 
   h2 {
     font-family: 'Rubik Mono One', sans-serif;
     font-weight: 400;
     font-size: 2.4rem;
-    ${(props) => props.theme.media('smallPhone')`hyphens: auto;`}
+    ${(props) => props.theme.media('phone')`hyphens: auto;`}
   }
 
   p {

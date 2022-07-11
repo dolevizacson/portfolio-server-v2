@@ -3,7 +3,31 @@ import { StyledIconBase } from '@styled-icons/styled-icon';
 import { CloseCircle } from '@styled-icons/remix-fill';
 import { Delete } from '@styled-icons/typicons';
 import { motion } from 'framer-motion';
+import { ScreenSizes } from '../../../style/MainTheme.style';
 
+interface ImageGalleryButtonProps {
+  showButtons: boolean;
+}
+
+export const ImageGalleryButton = styled.button<ImageGalleryButtonProps>`
+  ${(props) => props.theme.mixins.centerContent}
+  ${(props) => !props.showButtons && `display:none;`}
+
+
+  ${StyledIconBase} {
+    height: min(100%, 6rem);
+    width: min(100%, 6rem);
+    color: var(--color-main-2);
+  }
+
+  height: 100%;
+  width: 100%;
+
+  border: none;
+  background-color: transparent;
+
+  cursor: pointer;
+`;
 interface ImageGalleryProps {
   imageSize: number;
   gapSize: number;
@@ -14,9 +38,18 @@ export const ImageGallery = styled.article<ImageGalleryProps>`
   --gap-size: ${(props) => `${props.gapSize}px;`}
   
   flex: 1;
-  display: flex;
-  align-items: center;
   margin: var(--gap-size);
+
+  display:flex ;
+  align-items:center;
+  justify-content:space-between ;
+  & ${ImageGalleryButton} {
+    width: 9%;
+  }
+
+  ${(props) => props.theme.media(ScreenSizes.phone, false)`
+    margin: var(--gap-size) 0;
+  `}
 `;
 
 interface ImageGalleryContainerProps {
@@ -24,7 +57,7 @@ interface ImageGalleryContainerProps {
 }
 
 export const ImageGalleryContainer = styled.div<ImageGalleryContainerProps>`
-  flex: 1;
+  grid-column: 2/3;
   ${(props) => props.theme.mixins.centerContent}
   gap: var(--gap-size);
   max-height: var(--image-size);
@@ -79,30 +112,6 @@ export const ImageGalleryImageContainerDeleteButton = styled(Delete)`
   margin: 0.5rem;
 `;
 
-interface ImageGalleryButtonProps {
-  showButtons: boolean;
-}
-
-export const ImageGalleryButton = styled.button<ImageGalleryButtonProps>`
-  ${(props) => !props.showButtons && `display:none;`}
-
-  ${StyledIconBase} {
-    height: 6rem;
-    width: 6rem;
-    color: var(--color-main-2);
-  }
-
-  height: 100%;
-  width: min(15%, 6rem);
-
-  margin: 0 1rem;
-
-  border: none;
-  background-color: transparent;
-
-  cursor: pointer;
-`;
-
 export const ImageGalleryBigGallery = styled(motion.div).attrs((props) => ({
   initial: { scale: 0 },
   animate: { scale: 1 },
@@ -123,10 +132,18 @@ export const ImageGalleryBigGallery = styled(motion.div).attrs((props) => ({
   backdrop-filter: blur(10px);
 `;
 
-export const ImageGalleryBigGalleryContainer = styled.div`
+export const ImageGalleryBigGalleryWithCloseButtonContainer = styled.div`
   flex: 1;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 74% 1fr;
+  grid-template-rows: min-content;
+  align-content: center;
   align-items: center;
+  justify-items: center;
+`;
+
+export const ImageGalleryBigGalleryContainer = styled.div`
+  grid-column: 2/3;
 `;
 
 const bigGalleryVariants = {
@@ -168,7 +185,6 @@ export const ImageGalleryBigGalleryImageContainer = styled(motion.div).attrs(
   })
 )`
   width: 100%;
-  height: 100%;
 `;
 
 export const ImageGalleryBigGalleryCloseButton = styled(CloseCircle)`

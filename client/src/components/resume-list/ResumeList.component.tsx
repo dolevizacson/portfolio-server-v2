@@ -15,7 +15,7 @@ import Loading from '../loading/Loading.component';
 import LoadingError from '../loading-error/LoadingError.component';
 import OnScreenNotification from '../on-screen-notification/OnScreenNotification.component';
 import CenterContent from '../center-content/CenterContent.component';
-import AppModal from '../app-modal/AppModal.component';
+import DeleteButton from '../delete-button/DeleteButton.component';
 
 import * as style from './style/resume-list.style';
 
@@ -43,8 +43,6 @@ const ResumeList = (): JSX.Element => {
     skip: !!isLoggedIn,
   });
 
-  const [showDeleteModal, setShowDeleteModal] = React.useState(false);
-
   const resumeList = React.useMemo(
     () => resumeData || activeResumeData,
     [resumeData, activeResumeData]
@@ -54,12 +52,6 @@ const ResumeList = (): JSX.Element => {
     () => (!!isLoggedIn ? resumeRefetch : activeResumeRefetch),
     [isLoggedIn, resumeRefetch, activeResumeRefetch]
   );
-
-  React.useEffect(() => {
-    if (deleteResumeResponse.isSuccess || deleteResumeResponse.isError) {
-      setShowDeleteModal(false);
-    }
-  }, [deleteResumeResponse]);
 
   return (
     <LoadingErrorContainer
@@ -129,34 +121,19 @@ const ResumeList = (): JSX.Element => {
                               )}
                             </AnimatePresence>
                           </style.ResumeButton>
-                          <style.ResumeButton
-                            type="button"
-                            onClick={() => setShowDeleteModal(true)}
+                          <DeleteButton
+                            deleteFunction={deleteResume}
+                            deleteItem={resume._id}
+                            modalButtonText="delete resume"
+                            successErrorObject={{
+                              error: deleteResumeResponse.isError,
+                              success: deleteResumeResponse.isSuccess,
+                            }}
                           >
-                            delete
-                          </style.ResumeButton>
-                          <AppModal
-                            showModal={showDeleteModal}
-                            onClose={() => setShowDeleteModal(false)}
-                          >
-                            <style.DeleteModalContainer>
-                              <style.DeleteModalText>
-                                are you sure ?
-                              </style.DeleteModalText>
-                              <style.DeleteModalButtonContainer>
-                                <style.ModalButton
-                                  onClick={() => setShowDeleteModal(false)}
-                                >
-                                  cancel
-                                </style.ModalButton>
-                                <style.ModalButton
-                                  onClick={() => deleteResume(resume._id)}
-                                >
-                                  delete
-                                </style.ModalButton>
-                              </style.DeleteModalButtonContainer>
-                            </style.DeleteModalContainer>
-                          </AppModal>
+                            <style.ResumeButton type="button">
+                              delete
+                            </style.ResumeButton>
+                          </DeleteButton>
                         </>
                       )}
                     </style.Resume>

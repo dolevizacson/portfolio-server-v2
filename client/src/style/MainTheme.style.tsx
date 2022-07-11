@@ -33,7 +33,7 @@ const createMediaQuery = (
   ...placeholders: any[]
 ) => FlattenSimpleInterpolation) => {
   const constSizes: ConstSizes = {
-    smallPhone: { size: '15.625em', isMin: false },
+    smallPhone: { size: '16.875em', isMin: false },
     phone: { size: '21.875em', isMin: false },
     bigPhone: { size: '37.5em', isMin: false },
     tabPort: { size: '56.25em', isMin: false },

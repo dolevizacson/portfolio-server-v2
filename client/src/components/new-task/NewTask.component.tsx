@@ -22,6 +22,7 @@ import LoadingError from '../loading-error/LoadingError.component';
 import OnScreenNotification from '../on-screen-notification/OnScreenNotification.component';
 import Loading from '../loading/Loading.component';
 import DisableForm from '../disable-form/DisableForm.component';
+import FormItemButtons from '../form-item-buttons/FormItemButtons.component';
 
 import * as style from './style/new-task.style';
 
@@ -145,7 +146,7 @@ const NewTask = (): JSX.Element => {
           ]}
         />
         <style.NewTaskHeader>new task</style.NewTaskHeader>
-        <style.NewTaskContainer>
+        <style.NewTaskContainer onSubmit={handleSubmit(onSubmit)}>
           <DisableForm
             disabled={
               createTaskResponse.isLoading ||
@@ -158,28 +159,18 @@ const NewTask = (): JSX.Element => {
             </FormProvider>
           </DisableForm>
 
-          <style.buttonsContainer>
-            <style.NewTaskButton
-              type="button"
-              onClick={() => {
-                reset();
-              }}
-            >
-              undo changes
-            </style.NewTaskButton>
-            <style.NewTaskButton type="button" onClick={() => deleteNewTask()}>
-              delete task
-            </style.NewTaskButton>
-            <style.NewTaskButton
-              type="button"
-              onClick={() => updateNewTask(watch())}
-            >
-              save progress
-            </style.NewTaskButton>
-            <style.NewTaskButton onClick={handleSubmit(onSubmit)}>
-              add task
-            </style.NewTaskButton>
-          </style.buttonsContainer>
+          <FormItemButtons
+            deleteFunction={deleteNewTask}
+            deleteItem={undefined}
+            successErrorObject={{
+              success: deleteNewTaskResponse.isSuccess,
+              error: deleteNewTaskResponse.isError,
+            }}
+            resetFunction={reset}
+            updateFunction={updateNewTask}
+            updateItem={watch()}
+            itemName="task"
+          />
         </style.NewTaskContainer>
       </style.NewTask>
     </LoadingErrorContainer>

@@ -37,6 +37,7 @@ import LoadingErrorContainer from '../loading-error-container/LoadingErrorContai
 import LoadingError from '../loading-error/LoadingError.component';
 import OnScreenNotification from '../on-screen-notification/OnScreenNotification.component';
 import DisableForm from '../disable-form/DisableForm.component';
+import FormItemButtons from '../form-item-buttons/FormItemButtons.component';
 
 import * as style from './style/new-project.style';
 
@@ -275,7 +276,7 @@ const NewProject = (): JSX.Element => {
           ]}
         />
         <style.NewProjectHeader>new project</style.NewProjectHeader>
-        <style.NewProjectContainer>
+        <style.NewProjectContainer onSubmit={handleSubmit(onSubmit)}>
           <DisableForm
             disabled={
               createProjectResponse.isLoading ||
@@ -330,42 +331,25 @@ const NewProject = (): JSX.Element => {
             </style.NewProjectAddImageContainer>
           </DisableForm>
 
-          <style.buttonsContainer>
+          <FormItemButtons
+            deleteFunction={deleteNewProject}
+            deleteItem={undefined}
+            successErrorObject={{
+              success: deleteNewProjectResponse.isSuccess,
+              error: deleteNewProjectResponse.isError,
+            }}
+            resetFunction={reset}
+            updateFunction={updateNewProject}
+            updateItem={watch()}
+            itemName="project"
+          >
             <style.NewProjectButton
               type="button"
               onClick={() => appendLink({ name: '', url: '' })}
             >
               add link
             </style.NewProjectButton>
-            <style.NewProjectButton
-              type="button"
-              onClick={() => {
-                reset();
-              }}
-            >
-              undo changes
-            </style.NewProjectButton>
-            <style.NewProjectButton
-              type="button"
-              onClick={() => deleteNewProject()}
-            >
-              delete project
-            </style.NewProjectButton>
-            <style.NewProjectButton
-              type="button"
-              onClick={() => {
-                updateNewProject(watch());
-              }}
-            >
-              save progress
-            </style.NewProjectButton>
-            <style.NewProjectButton
-              type="button"
-              onClick={handleSubmit(onSubmit)}
-            >
-              add project
-            </style.NewProjectButton>
-          </style.buttonsContainer>
+          </FormItemButtons>
         </style.NewProjectContainer>
       </style.NewProject>
     </LoadingErrorContainer>
