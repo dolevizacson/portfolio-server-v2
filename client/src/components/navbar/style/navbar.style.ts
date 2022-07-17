@@ -42,7 +42,6 @@ export const MenuIconContainer = styled(motion.div).attrs((props) => ({
   initial: { x: '120%' },
   animate: { x: 0 },
   exit: { x: '120%' },
-  key: 'menuIcon',
 }))<MenuIconContainerProps>`
   ${(props) => props.$showBackground && 'width:100vw;'}
   display: flex;

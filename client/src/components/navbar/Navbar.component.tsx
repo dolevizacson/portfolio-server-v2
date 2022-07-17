@@ -107,7 +107,10 @@ const Navbar = (): JSX.Element => {
       <style.rightSide>
         <AnimatePresence exitBeforeEnter initial={false}>
           {isSmallScreen || showMenuIcon ? (
-            <style.MenuIconContainer $showBackground={isSmallScreen}>
+            <style.MenuIconContainer
+              $showBackground={isSmallScreen}
+              key="menuIcon"
+            >
               <MenuIcon
                 onClick={() => {
                   isSmallScreen

@@ -124,11 +124,11 @@
     url(../assets/fonts/Saira-Thin.ttf) format('ttf');
 }
 @font-face {
-  font-family: 'ZCOOL QingKe HuangYou';
+  font-family: 'Aldrich';
   font-weight: 400;
-  src: local('ZCOOL QingKe HuangYou'),
-    url(../assets/fonts/ZCOOLQingKeHuangYou-Regular.woff2) format('woff2'),
-    url(../assets/fonts/ZCOOLQingKeHuangYou-Regular.ttf) format('ttf');
+  src: local('Aldrich'),
+    url(../assets/fonts/Aldrich-Regular.woff2) format('woff2'),
+    url(../assets/fonts/Aldrich-Regular.ttf) format('ttf');
 }
 @font-face {
   font-family: 'Caveat';

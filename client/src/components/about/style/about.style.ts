@@ -14,15 +14,17 @@ export const AboutContainer = styled.div`
 `;
 
 export const Info = styled.header`
-  display: grid;
-  grid-gap: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  row-gap: 1.8rem;
+  justify-content: space-evenly;
+  align-items: center;
 `;
 
 export const Header = styled.h1`
   font-size: 4.5rem;
   text-align: center;
-
-  padding: 1rem;
 
   hyphens: none;
 `;
@@ -32,29 +34,25 @@ export const NoLineBreak = styled.span`
 `;
 
 export const Description = styled.p`
-  font-size: 2.7rem;
-  font-family: 'ZCOOL QingKe HuangYou', sans-serif;
+  font-size: 2rem;
+  font-family: 'Aldrich', sans-serif;
   text-transform: uppercase;
   font-weight: 400;
   text-align: center;
   line-height: 1.3;
   letter-spacing: 0.07rem;
-
-  padding: 1rem;
 `;
 
 export const Quote = styled.blockquote`
   display: flex;
   justify-content: center;
 
-  font-size: 1.9rem;
+  font-size: 1.4rem;
   text-transform: uppercase;
   text-align: center;
-  font-family: 'ZCOOL QingKe HuangYou', sans-serif;
+  font-family: 'Aldrich', sans-serif;
   font-weight: 400;
   letter-spacing: 0.07rem;
-
-  padding: 1rem;
 `;
 
 export const QuoteMarks = styled.div`

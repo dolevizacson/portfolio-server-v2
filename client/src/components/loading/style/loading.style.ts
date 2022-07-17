@@ -19,7 +19,6 @@ export const Loading = styled(motion.div).attrs((props) => ({
   variants: container,
   initial: 'hidden',
   animate: 'show',
-  exit: 'hidden',
 }))`
   ${(props) => props.theme.mixins.centerContent}
   flex:1;
