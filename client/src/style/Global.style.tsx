@@ -96,6 +96,11 @@ const GlobalStyle = createGlobalStyle`
     border:none;
 
     padding: var(--size-input-padding-1);
+
+    &::selection {
+      color: var(--color-main-2);
+      background-color: var(--color-main-1);
+    }
   }
 
   textarea {
@@ -108,6 +113,11 @@ const GlobalStyle = createGlobalStyle`
     padding: var(--size-input-padding-1);
 
     resize: none;
+
+    &::selection {
+      color: var(--color-main-2);
+      background-color: var(--color-main-1);
+    }
   }
 
   a {
@@ -122,6 +132,11 @@ const GlobalStyle = createGlobalStyle`
     border:none;
 
     padding: var(--size-input-padding-1);
+
+    &::selection {
+      color: var(--color-main-2);
+      background-color: var(--color-main-1);
+    }
   }
 
   option {
@@ -129,6 +144,11 @@ const GlobalStyle = createGlobalStyle`
     border:none;
 
     padding: var(--size-input-padding-1);
+
+    &::selection {
+      color: var(--color-main-2);
+      background-color: var(--color-main-1);
+    }
   }
 
   ::selection {

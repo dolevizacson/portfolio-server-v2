@@ -25,9 +25,9 @@ export const Loading = styled(motion.div).attrs((props) => ({
 `;
 
 const item = {
-  hidden: { opacity: 0 },
+  hidden: { y: 0 },
   show: {
-    opacity: [1, 0, 1],
+    y: ['0.8rem', '-0.8rem'],
     transition: {
       repeat: Infinity,
     },
