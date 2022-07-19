@@ -9,15 +9,10 @@ type CloseButtonProps = {
 
 const CloseButton = ({ defaultRoute }: CloseButtonProps): JSX.Element => {
   const navigate = useNavigate();
-  const navigationType = useNavigationType();
 
   return (
     <style.CloseButton>
-      <style.CloseButtonIcon
-        onClick={() =>
-          navigationType !== 'POP' ? navigate(-1) : navigate(defaultRoute)
-        }
-      />
+      <style.CloseButtonIcon onClick={() => navigate(defaultRoute)} />
     </style.CloseButton>
   );
 };

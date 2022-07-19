@@ -63,36 +63,44 @@ const ProjectsList = (): JSX.Element => {
             <TextBlock>no projects found</TextBlock>
           )}
           {projects &&
-            Object.values(projects).map((project) => {
-              return (
-                <style.ProjectContainer key={project._id}>
-                  <style.ProjectContainerRow>
-                    <style.ProjectHeader>{project.header}</style.ProjectHeader>
-                    <style.ProjectSummery>
-                      {project.summery}
-                    </style.ProjectSummery>
-                  </style.ProjectContainerRow>
-                  <style.ProjectContainerRow>
-                    <style.ProjectTechnologiesHeader>
-                      technologies
-                    </style.ProjectTechnologiesHeader>
+            Object.values(projects)
+              .sort(
+                (project1, project2) =>
+                  Date.parse(project2.createdAt) -
+                  Date.parse(project1.createdAt)
+              )
+              .map((project) => {
+                return (
+                  <style.ProjectContainer key={project._id}>
+                    <style.ProjectContainerRow>
+                      <style.ProjectHeader>
+                        {project.header}
+                      </style.ProjectHeader>
+                      <style.ProjectSummery>
+                        {project.summery}
+                      </style.ProjectSummery>
+                    </style.ProjectContainerRow>
+                    <style.ProjectContainerRow>
+                      <style.ProjectTechnologiesHeader>
+                        technologies
+                      </style.ProjectTechnologiesHeader>
 
-                    <style.ProjectSkillsList>
-                      {project.technologies.map((technology) => {
-                        return (
-                          <style.ProjectSkill key={technology._id}>
-                            {technology.name}
-                          </style.ProjectSkill>
-                        );
-                      })}
-                    </style.ProjectSkillsList>
-                  </style.ProjectContainerRow>
-                  <style.ProjectButton to={`${project._id}`}>
-                    show more
-                  </style.ProjectButton>
-                </style.ProjectContainer>
-              );
-            })}
+                      <style.ProjectSkillsList>
+                        {project.technologies.map((technology) => {
+                          return (
+                            <style.ProjectSkill key={technology._id}>
+                              {technology.name}
+                            </style.ProjectSkill>
+                          );
+                        })}
+                      </style.ProjectSkillsList>
+                    </style.ProjectContainerRow>
+                    <style.ProjectButton to={`${project._id}`}>
+                      show more
+                    </style.ProjectButton>
+                  </style.ProjectContainer>
+                );
+              })}
         </style.ProjectListContainer>
       </style.ProjectsList>
     </LoadingErrorContainer>

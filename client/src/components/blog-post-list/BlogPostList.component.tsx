@@ -66,29 +66,37 @@ const BlogPostList = (): JSX.Element => {
             <TextBlock>no blog posts found</TextBlock>
           )}
           {blogPosts &&
-            Object.values(blogPosts).map((blogPost) => {
-              return (
-                <style.BlogPost key={blogPost._id}>
-                  <style.BlogPostHeader>{blogPost.header}</style.BlogPostHeader>
-                  <style.BlogPostDateContainer>
-                    <style.BlogPostDate>
-                      {`posted - ${formatDate(blogPost.createdAt)}`}
-                    </style.BlogPostDate>
-                    <style.BlogPostDate>
-                      {Date.parse(blogPost.createdAt) !==
-                        Date.parse(blogPost.updatedAt) &&
-                        `updated - ${formatDate(blogPost.updatedAt)}`}
-                    </style.BlogPostDate>
-                  </style.BlogPostDateContainer>
-                  <style.BlogPostSummery>
-                    {blogPost.summery}
-                  </style.BlogPostSummery>
-                  <style.BlogPostButton to={`${blogPost._id}`}>
-                    show more
-                  </style.BlogPostButton>
-                </style.BlogPost>
-              );
-            })}
+            Object.values(blogPosts)
+              .sort(
+                (blogPost1, blogPost2) =>
+                  Date.parse(blogPost2.createdAt) -
+                  Date.parse(blogPost1.createdAt)
+              )
+              .map((blogPost) => {
+                return (
+                  <style.BlogPost key={blogPost._id}>
+                    <style.BlogPostHeader>
+                      {blogPost.header}
+                    </style.BlogPostHeader>
+                    <style.BlogPostDateContainer>
+                      <style.BlogPostDate>
+                        {`posted - ${formatDate(blogPost.createdAt)}`}
+                      </style.BlogPostDate>
+                      <style.BlogPostDate>
+                        {Date.parse(blogPost.createdAt) !==
+                          Date.parse(blogPost.updatedAt) &&
+                          `updated - ${formatDate(blogPost.updatedAt)}`}
+                      </style.BlogPostDate>
+                    </style.BlogPostDateContainer>
+                    <style.BlogPostSummery>
+                      {blogPost.summery}
+                    </style.BlogPostSummery>
+                    <style.BlogPostButton to={`${blogPost._id}`}>
+                      show more
+                    </style.BlogPostButton>
+                  </style.BlogPost>
+                );
+              })}
         </style.BlogPostListContainer>
       </style.BlogPostList>
     </LoadingErrorContainer>
